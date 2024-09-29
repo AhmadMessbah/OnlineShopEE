@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -26,18 +23,15 @@ public class InventoryTransaction {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name=("inventory"), foreignKey = @ForeignKey(name="fk-inventoryTransaction_inventory"))
+    @JoinColumn(name=("inventory"), foreignKey = @ForeignKey(name="fk-inventoryTrans_inventory"))
     private Inventory inventory;
 
-    @OneToMany
-    private List<Product> productList = new ArrayList<>();
-
-    public void addProduct(Product product){
-        productList.add(product);
-    }
+    @OneToOne
+    @JoinColumn(name=("product"), foreignKey = @ForeignKey(name="fk-inventoryTrans_product"))
+    private Product product;
 
     @OneToOne
-    @JoinColumn(name = ("order"), foreignKey= @ForeignKey(name ="fk-inventoryTransaction-order"))
+    @JoinColumn(name = ("order"), foreignKey= @ForeignKey(name ="fk-inventoryTrans-order"))
     private Order order;
 
     @Column(name = "count", length = 10)
