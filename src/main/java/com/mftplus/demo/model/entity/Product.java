@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "product_tbl")
 @SuperBuilder
 
-public class product {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
