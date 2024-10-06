@@ -5,6 +5,8 @@ import com.mftplus.demo.model.utils.JpaProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.List;
+
 public class PersonRepository implements AutoCloseable{
 
     private EntityManager entityManager;
@@ -34,10 +36,11 @@ public class PersonRepository implements AutoCloseable{
     }
 
     public Person findById(Long id) {
-        entityManager= JpaProvider.getJpa().getEntityManager();
+        entityManager = JpaProvider.getJpa().getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         return entityManager.find(Person.class, id);
     }
+//    public List<Person> findAll() {}
 
     @Override
     public void close() throws Exception {

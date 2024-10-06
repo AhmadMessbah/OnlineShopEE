@@ -1,9 +1,12 @@
 package com.mftplus.demo.model.repository;
 
+import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.entity.User;
 import com.mftplus.demo.model.utils.JpaProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+
+import java.util.List;
 
 public class UserRepository implements AutoCloseable {
 
@@ -38,6 +41,7 @@ public class UserRepository implements AutoCloseable {
         EntityTransaction transaction = entityManager.getTransaction();
         return entityManager.find(User.class, id);
     }
+//    public List<User> findAll() {}
 
 
     @Override

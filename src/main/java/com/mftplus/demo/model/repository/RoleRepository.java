@@ -1,9 +1,12 @@
 package com.mftplus.demo.model.repository;
 
+import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.entity.Role;
 import com.mftplus.demo.model.utils.JpaProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+
+import java.util.List;
 
 public class RoleRepository implements AutoCloseable {
 
@@ -38,6 +41,7 @@ public class RoleRepository implements AutoCloseable {
         EntityTransaction transaction = entityManager.getTransaction();
         return entityManager.find(Role.class, id);
     }
+ //   public List<Role> findAll() {}
 
 
     @Override
