@@ -26,27 +26,28 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personSeq")
     private Long id;
 
-    @Column(name = "person_firstName", length = 20)
+    @Column(name = "person_firstName", length = 30, nullable = false)
     private String name;
 
-    @Column(name = "person_lastName", length = 20)
+    @Column(name = "person_lastName", length = 40, nullable = false)
     private String family;
 
-    @Column(name = "person_national_id", length = 10)
+    @Column(name = "person_national_id", length = 10, nullable = false)
     private String nationalId;
-    @Column(name = "person_birth_date")
+
+    @Column(name = "person_birth_date", nullable = false)
     private LocalDate birthDate;
 
-    @Column(name = "person_phone_number", length = 13)
+    @Column(name = "person_phone_number", length = 13, nullable = false)
     private String phoneNumber;
 
-    @Column(name = "person_address", length = 200)
+    @Column(name = "person_address", length = 200, nullable = false)
     private String address;
 
     @Column(name = "person_postal_code")
     private String postalCode;
 
-    @Column(name = "person_gender")
+    @Column(name = "person_gender", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
 

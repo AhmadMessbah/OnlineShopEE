@@ -18,21 +18,21 @@ import java.util.List;
 
 @Entity(name = "UserEntity")
 @Table(name = "user_tbl")
+
 public class User {
     @Id
     @SequenceGenerator(name = "userSeq", sequenceName = "user_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
     private long id;
 
-    @Column(name = "user_username", length = 30,unique = true, nullable = false)
+    @Column(name = "user_username", length = 30, unique = true, nullable = false)
     private String username;
 
-    @Column(name = "user_password", length = 30)
+    @Column(name = "user_password", length = 30, nullable = false)
     private String password;
 
-    @Column(name = "user_email", length = 30)
+    @Column(name = "user_email", length = 30, nullable = false)
     private String email;
-
 
 
     @OneToMany

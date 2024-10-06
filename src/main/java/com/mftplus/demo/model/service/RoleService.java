@@ -10,6 +10,7 @@ public class RoleService {
             roleRepository.save(role);
         }
     }
+
     public static void edit(Role role) throws Exception {
 
         try (RoleRepository roleRepository = new RoleRepository()) {

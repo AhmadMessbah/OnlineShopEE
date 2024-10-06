@@ -5,14 +5,13 @@ import com.mftplus.demo.model.utils.JpaProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-import java.util.List;
 
-public class PersonRepository implements AutoCloseable{
+public class PersonRepository implements AutoCloseable {
 
     private EntityManager entityManager;
 
     public void save(Person person) {
-        entityManager= JpaProvider.getJpa().getEntityManager();
+        entityManager = JpaProvider.getJpa().getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(person);
@@ -20,7 +19,7 @@ public class PersonRepository implements AutoCloseable{
     }
 
     public void edit(Person person) {
-        entityManager= JpaProvider.getJpa().getEntityManager();
+        entityManager = JpaProvider.getJpa().getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.merge(person);
@@ -40,6 +39,7 @@ public class PersonRepository implements AutoCloseable{
         EntityTransaction transaction = entityManager.getTransaction();
         return entityManager.find(Person.class, id);
     }
+
 //    public List<Person> findAll() {}
 
     @Override

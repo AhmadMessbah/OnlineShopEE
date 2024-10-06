@@ -23,7 +23,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleSeq")
     private Long id;
 
-    @Column(name = "role_name", length = 15)
+    @Column(name = "role_name", length = 15, nullable = false)
     private String roleName;
 
     @Override
