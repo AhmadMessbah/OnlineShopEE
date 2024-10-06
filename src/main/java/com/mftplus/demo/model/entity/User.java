@@ -34,6 +34,7 @@ public class User {
     private String email;
 
 
+
     @OneToMany
     @JoinTable(name = "my_user_role")
     private List<Role> roleList = new ArrayList<>();
