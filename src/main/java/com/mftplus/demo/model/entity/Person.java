@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Setter
 @SuperBuilder
 
-@Entity(name = "personEntity")
+@Entity(name = "PersonEntity")
 @Table(name = "person_tbl")
 
 public class Person {
@@ -51,7 +51,7 @@ public class Person {
     private Gender gender;
 
     @OneToOne
-    @JoinColumn(name = "person_my_users")
+    @JoinColumn(name = "person_users")
     private User user;
 
     @Override

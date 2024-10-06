@@ -8,7 +8,7 @@ import lombok.Getter;
 public class JpaProvider {
     @Getter
     private static JpaProvider jpa = new JpaProvider();
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("mft03");//This Is Instead Of Connection connection=DriverManager.getConnection :
+    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("mft");
 
     private JpaProvider() {}
 

@@ -8,9 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -18,7 +16,7 @@ import java.util.Set;
 @SuperBuilder
 
 
-@Entity(name = "userEntity")
+@Entity(name = "UserEntity")
 @Table(name = "user_tbl")
 public class User {
     @Id
