@@ -15,7 +15,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @SuperBuilder
-@Entity
+
+@Entity(name = "FinancialTransactionEntity")
 public class FinancialTransaction {
     @Id
     long id;
@@ -23,6 +24,7 @@ public class FinancialTransaction {
     LocalDate date;
     @Column(name = "FinancialTransaction_tracingCode")
     long tracingCode;
+
     //User user ;
 
     @Override

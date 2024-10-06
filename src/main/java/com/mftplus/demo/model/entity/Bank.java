@@ -13,8 +13,8 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-@Entity
 
+@Entity(name = "BankEntity")
 public class Bank {
     @Id
     long id;
