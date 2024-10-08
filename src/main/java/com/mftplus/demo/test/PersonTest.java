@@ -37,7 +37,8 @@ public class PersonTest {
       //  PersonService.save(person);
   //     personRepository.save(person);
       personRepository.findById(1L); //todo (worked this)
-      personRepository.remove(1L);
+ //     personRepository.remove(1L);
+
      //   System.out.println(person);
    //     System.out.println("removed"+person.getId());
     }
