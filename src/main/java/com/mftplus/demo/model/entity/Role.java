@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 
-@Entity(name = "RoleEntity")
+@Entity(name = "roleEntity")
 @Table(name = "role_tbl")
 
 

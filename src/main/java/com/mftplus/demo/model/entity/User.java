@@ -16,7 +16,7 @@ import java.util.List;
 @SuperBuilder
 
 
-@Entity(name = "UserEntity")
+@Entity(name = "userEntity")
 @Table(name = "user_tbl")
 
 public class User {

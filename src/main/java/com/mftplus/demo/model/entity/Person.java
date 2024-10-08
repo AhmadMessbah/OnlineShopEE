@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Setter
 @SuperBuilder
 
-@Entity(name = "PersonEntity")
+@Entity(name = "personEntity")
 @Table(name = "person_tbl")
 
 public class Person {
