@@ -7,6 +7,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.util.List;
+
 public class UserTest2 {
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("mft");
@@ -25,8 +27,10 @@ public class UserTest2 {
 
         entityManager.persist(role);
         entityManager.persist(user);
-
+        user.setRoleList(List.of(role));
         entityTransaction.commit();
+        entityManager.find(User.class, 1L);
+        System.out.println(user);
         entityManager.close();
     }
 }

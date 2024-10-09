@@ -30,13 +30,15 @@ public class PersonTest {
                 .postalCode("123456")
                 .gender(Gender.Male)
                 .build();
-  //      UserRepository userRepository = new UserRepository();
+        UserRepository userRepository = new UserRepository();
         PersonRepository personRepository=new PersonRepository();
-//        userRepository.save(user);
+        userRepository.save(user);
 //        person.setUser(user);
       //  PersonService.save(person);
-  //     personRepository.save(person);
-      personRepository.findById(1L); //todo (worked this)
+       personRepository.save(person);
+       person.setUser(user);
+        System.out.println(person);
+ //     personRepository.findById(1L); //todo (worked this)
  //     personRepository.remove(1L);
 
      //   System.out.println(person);

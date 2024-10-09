@@ -52,7 +52,7 @@ public class Person {
     private Gender gender;
 
     @OneToOne
-    @JoinColumn(name = "person_users")
+    @JoinColumn(name = "person_users",foreignKey = @ForeignKey(name = "my_fk"))
     private User user;
 
     @Override
