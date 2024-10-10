@@ -20,6 +20,7 @@ public class product {
     private int id;
     private String name;
     private int price;
+
     private int stock;
 
 }
