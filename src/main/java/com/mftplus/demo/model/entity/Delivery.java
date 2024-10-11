@@ -2,9 +2,7 @@ package com.mftplus.demo.model.entity;
 
 
 import com.google.gson.Gson;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -17,15 +15,18 @@ import lombok.experimental.SuperBuilder;
 @Entity(name= "DeliveryEntity")
 public class Delivery {
     @Id
+    @SequenceGenerator(name = "deliverySeq", sequenceName = "delivery_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deliverySeq")
     private Long id;
 
     private enum transportation_modes;
     private enum status;
 
-    @Column (name = "Delivery_customer")
+    @Column (name = "Delivery_customer", length = 20, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Person customer;
 
-    @Column (name = "Shipper")
+    @Column (name = "Shipper", length = 20, nullable = false)
     private Person Shipper;
 
     @Override
