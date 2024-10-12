@@ -18,8 +18,16 @@ import java.time.LocalDate;
 
 @Entity(name = "personEntity")
 @Table(name = "person_tbl")
+@NamedQueries({
+        @NamedQuery(name = "Person.findByNationalId",query = "select pp from personEntity pp where pp.nationalId like : nationalId"),
+        @NamedQuery(name = "Person.findByLastNameOrFirstName",query = "select pp from personEntity pp where pp.family like : family or pp.name like : name"),
+        @NamedQuery(name = "Person.findByPhoneNumber",query = "select pp from personEntity pp where pp.phoneNumber like : phoneNumber"),
+        @NamedQuery(name = "Person.findByPostalCode",query = "select pp from personEntity pp where pp.postalCode like : postalCode"),
+        @NamedQuery(name = "Person.findByAddress",query = "select pp from personEntity pp where pp.address like : address"),
+        @NamedQuery(name = "Person.findByUserId",query = "select pp from personEntity pp where pp.user.id = : user")
+})
 
-public class Person {
+public class Person extends Base{
 
     @Id
     @SequenceGenerator(name = "personSeq", sequenceName = "person_seq", allocationSize = 1)
