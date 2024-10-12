@@ -10,7 +10,7 @@ import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Map;
 
-public class CrudRepository <T extends Base, I> implements AutoCloseable{
+public class CrudRepository<T extends Base, I> implements AutoCloseable {
     private EntityManager entityManager;
 
     public void save(T t) {
@@ -29,15 +29,7 @@ public class CrudRepository <T extends Base, I> implements AutoCloseable{
         entityTransaction.commit();
     }
 
-    //    public void remove(I id, Class<T> tClass) {  //physical remove(be remove from db)
-//        entityManager = JpaProvider.getJpa().getEntityManager();
-//        EntityTransaction entityTransaction = entityManager.getTransaction();
-//        entityTransaction.begin();
-//        T entity = entityManager.find(tClass, id);
-//        entityManager.remove(entity);
-//        entityTransaction.commit();
-//    }
-    public void remove(I id, Class<T> tClass) {  //logic remove(does not remove from db)
+    public void remove(I id, Class<T> tClass) {
         entityManager = JpaProvider.getJpa().getEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
@@ -47,9 +39,6 @@ public class CrudRepository <T extends Base, I> implements AutoCloseable{
         entityManager.remove(entity);
         entityTransaction.commit();
     }
-
-
-
 
     public T findById(I id, Class<T> tClass) {
         entityManager = JpaProvider.getJpa().getEntityManager();

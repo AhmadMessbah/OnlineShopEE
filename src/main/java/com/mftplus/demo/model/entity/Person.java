@@ -59,7 +59,7 @@ public class Person extends Base{
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST},fetch = FetchType.EAGER)
     @JoinColumn(name = "person_users",foreignKey = @ForeignKey(name = "my_fk"))
     private User user;
 

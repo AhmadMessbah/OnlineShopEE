@@ -83,7 +83,7 @@ public class PersonService implements Service<Person, Long> {
         }
     }
 
-    public List<Person> findByAddress(String address) throws Exception {
+    public List<Person>findByAddress(String address) throws Exception {
         try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
             params.put("address", address + "%");
