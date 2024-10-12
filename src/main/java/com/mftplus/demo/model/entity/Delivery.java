@@ -22,10 +22,13 @@ public class Delivery {
     private enum transportation_modes;
     private enum status;
 
+    @OneToOne
     @Column (name = "Delivery_customer", length = 20, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+
     private Person customer;
 
+    @OneToOne
     @Column (name = "Shipper", length = 20, nullable = false)
     private Person Shipper;
 
