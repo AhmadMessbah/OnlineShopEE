@@ -11,11 +11,12 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-
 @Entity(name = "BankEntity")
 public class Bank {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bank_seq")
+    @SequenceGenerator(name = "bank_seq", sequenceName = "BANK_SEQ", allocationSize = 1)
     long id;
 
     @Column(name = "bank_name")

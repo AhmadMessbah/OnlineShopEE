@@ -17,7 +17,8 @@ import java.time.LocalDate;
 @Entity(name = "FinancialDocEntity")
 public class FinancialDoc {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financial_doc_seq")
+    @SequenceGenerator(name = "financial_doc_seq", sequenceName = "FINANCIAL_DOC_SEQ", allocationSize = 1)
     long id;
 
     @Column(name = "financialDoc_docNumber")
