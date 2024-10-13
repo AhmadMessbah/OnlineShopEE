@@ -18,8 +18,13 @@ import java.util.List;
 
 @Entity(name = "userEntity")
 @Table(name = "user_tbl")
+@NamedQueries({
+        @NamedQuery(name = "User.findByUsername",query = "select uu from userEntity uu where uu.username like : username"),
+        @NamedQuery(name = "User.findByPassword",query = "select uu from userEntity uu where uu.password like : password"),
+        @NamedQuery(name = "User.findByEmail",query = "select uu from userEntity uu where uu.email like : email" )
+})
 
-public class User {
+public class User extends Base{
     @Id
     @SequenceGenerator(name = "userSeq", sequenceName = "user_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
@@ -35,13 +40,10 @@ public class User {
     private String email;
 
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "my_user_role")
     private List<Role> roleList = new ArrayList<>();
 
-    public void addRole(Role role) {
-        roleList.add(role);
-    }
 
     @Override
     public String toString() {
