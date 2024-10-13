@@ -1,9 +1,7 @@
 package com.mftplus.demo.model.entity;
 
 import com.google.gson.Gson;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,12 +15,16 @@ import lombok.experimental.SuperBuilder;
 @Entity(name = "BankEntity")
 public class Bank {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    @Column(name = "Bank_name")
+
+    @Column(name = "bank_name")
     String name;
-    @Column(name = "Bank_accountNumber")
+
+    @Column(name = "bank_accountNumber")
     String accountNumber;
-    @Column(name = "Bank_branchCode")
+
+    @Column(name = "bank_branchCode")
     long branchCode;
 
     @Override

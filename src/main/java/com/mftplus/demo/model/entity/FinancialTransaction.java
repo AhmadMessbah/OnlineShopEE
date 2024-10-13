@@ -1,9 +1,7 @@
 package com.mftplus.demo.model.entity;
 
 import com.google.gson.Gson;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,17 +13,22 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @SuperBuilder
-
-@Entity(name = "FinancialTransactionEntity")
+@Entity
+@Table(name = "financial_transactions")
 public class FinancialTransaction {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    @Column(name = "FinancialTransaction_date")
+
+    @Column(name = "financial_transaction_date")
     LocalDate date;
-    @Column(name = "FinancialTransaction_tracingCode")
+
+    @Column(name = "financial_transaction_tracing_code")
     long tracingCode;
 
-    User user ;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    User user;
 
     @Override
     public String toString() {
