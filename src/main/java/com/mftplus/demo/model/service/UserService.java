@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UserService implements Service<User, Long> {
+
     @Getter
     private static UserService userService = new UserService();
 

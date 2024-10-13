@@ -24,7 +24,7 @@ import java.time.LocalDate;
         @NamedQuery(name = "Person.findByPhoneNumber",query = "select pp from personEntity pp where pp.phoneNumber like : phoneNumber"),
         @NamedQuery(name = "Person.findByPostalCode",query = "select pp from personEntity pp where pp.postalCode like : postalCode"),
         @NamedQuery(name = "Person.findByAddress",query = "select pp from personEntity pp where pp.address like : address"),
-        @NamedQuery(name = "Person.findByUserId",query = "select pp from personEntity pp where pp.user.id = : user")
+ //todo @NamedQuery(name = "Person.findByUserId",query = "select pp from personEntity pp where pp.user.id = : user")
 })
 
 public class Person extends Base{

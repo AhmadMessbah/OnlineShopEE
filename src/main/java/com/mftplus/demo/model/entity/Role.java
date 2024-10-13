@@ -14,9 +14,12 @@ import lombok.experimental.SuperBuilder;
 
 @Entity(name = "roleEntity")
 @Table(name = "role_tbl")
+@NamedQueries({
+        @NamedQuery(name = "Role.findByRoleName",query = "select rr from roleEntity rr where rr.roleName like : roleName")
+})
 
 
-public class Role {
+public class Role extends Base{
 
     @Id
     @SequenceGenerator(name = "roleSeq", sequenceName = "role_seq", allocationSize = 1)

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -21,8 +23,8 @@ public class ProductGroup {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
-  //  @OneToMany
-//    private  List<ProductGroup> child;
+    @OneToMany
+    private List<ProductGroup> child;
 
     @ManyToOne
     private  ProductGroup parent;

@@ -25,7 +25,7 @@ public class FinancialTransaction {
     @Column(name = "FinancialTransaction_tracingCode")
     long tracingCode;
 
-    //User user ;
+    User user ;
 
     @Override
     public String toString() {

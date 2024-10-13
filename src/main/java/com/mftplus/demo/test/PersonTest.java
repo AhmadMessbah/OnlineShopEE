@@ -44,7 +44,7 @@ public class PersonTest {
         //     PersonService.getPersonService().findByPostalCode("1");
         //     System.out.println(person.getPostalCode());
         //     System.out.println("Person Saved :"+person);
-        //   System.out.println(person);
-        //   System.out.println("removed"+person.getId());
+        //     System.out.println(person);
+        //     System.out.println("removed"+person.getId());
     }
 }
