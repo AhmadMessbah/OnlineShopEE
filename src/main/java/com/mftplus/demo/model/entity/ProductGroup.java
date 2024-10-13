@@ -22,11 +22,14 @@ public class ProductGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @Column(name = "name", nullable = false)
     private String name;
-    @OneToMany
-    private List<ProductGroup> child;
+//    @OneToMany
+//    @Column(name = "productGroup-child")
+//    private List<ProductGroup> child;
 
-    @ManyToOne
+    @OneToOne
+    @Column(name="productGroup-parent")
     private  ProductGroup parent;
 
 
