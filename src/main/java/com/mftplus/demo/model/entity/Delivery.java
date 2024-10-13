@@ -19,6 +19,8 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deliverySeq")
     private Long id;
 
+
+    //TODO: mehdi please check .
 //    private enum transportation_modes;
 //    private enum status;
 
