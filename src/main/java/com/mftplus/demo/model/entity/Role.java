@@ -1,25 +1,26 @@
 package com.mftplus.demo.model.entity;
 
-import com.google.gson.Gson;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
+@ToString
 
 @Entity(name = "roleEntity")
 @Table(name = "role_tbl")
 @NamedQueries({
-        @NamedQuery(name = "Role.findByRoleName",query = "select rr from roleEntity rr where rr.roleName like : roleName and rr.deleted=false ")
+        @NamedQuery(name = "Role.findByRoleName", query = "select rr from roleEntity rr where rr.roleName like : roleName and rr.deleted=false ")
 })
 
 
-public class Role extends Base{
+public class Role extends Base {
 
     @Id
     @SequenceGenerator(name = "roleSeq", sequenceName = "role_seq", allocationSize = 1)
@@ -29,8 +30,4 @@ public class Role extends Base{
     @Column(name = "role_name", length = 15, nullable = false)
     private String roleName;
 
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);
-    }
 }
