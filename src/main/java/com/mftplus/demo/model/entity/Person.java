@@ -20,7 +20,7 @@ import java.time.LocalDate;
 @Table(name = "person_tbl")
 @NamedQueries({
         @NamedQuery(name = "Person.findByNationalId",query = "select pp from personEntity pp where pp.nationalId like : nationalId"),
-        @NamedQuery(name = "Person.findByLastNameOrFirstName",query = "select pp from personEntity pp where pp.family like : family or pp.name like : name"),
+        @NamedQuery(name = "Person.findByLastNameAndFirstName",query = "select pp from personEntity pp where pp.family like : family and pp.name like : name"),
         @NamedQuery(name = "Person.findByPhoneNumber",query = "select pp from personEntity pp where pp.phoneNumber like : phoneNumber"),
         @NamedQuery(name = "Person.findByPostalCode",query = "select pp from personEntity pp where pp.postalCode like : postalCode"),
         @NamedQuery(name = "Person.findByAddress",query = "select pp from personEntity pp where pp.address like : address"),

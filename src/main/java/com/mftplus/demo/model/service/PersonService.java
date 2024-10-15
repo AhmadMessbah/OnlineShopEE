@@ -4,6 +4,7 @@ import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.repository.CrudRepository;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,15 +58,16 @@ public class PersonService implements Service<Person, Long> {
         }
     }
 
-    public List<Person> findByLastNameOrFirstName(String name, String family) throws Exception {
+    public Person findByLastNameAndFirstName(String name, String family) throws Exception {
         try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
             params.put("name", name + "%");
             params.put("family", family + "%");
-            List<Person> personList = crudRepository.findBy("Person.findByLastNameOrFirstName", params, Person.class);
-            return (personList.isEmpty()) ? null : personList;
+            List<Person> personList = crudRepository.findBy("Person.findByLastNameAndFirstName", params, Person.class);
+            return (personList.isEmpty()) ? null :personList.get(0) ;
         }
     }
+
 
     public List<Person> findByPhoneNumber(String phoneNumber) throws Exception {
         try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
@@ -83,7 +85,7 @@ public class PersonService implements Service<Person, Long> {
         }
     }
 
-    public List<Person>findByAddress(String address) throws Exception {
+    public List<Person> findByAddress(String address) throws Exception {
         try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
             params.put("address", address + "%");
