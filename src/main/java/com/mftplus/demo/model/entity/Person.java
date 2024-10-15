@@ -19,11 +19,11 @@ import java.time.LocalDate;
 @Entity(name = "personEntity")
 @Table(name = "person_tbl")
 @NamedQueries({
-        @NamedQuery(name = "Person.findByNationalId",query = "select pp from personEntity pp where pp.nationalId like : nationalId"),
-        @NamedQuery(name = "Person.findByLastNameAndFirstName",query = "select pp from personEntity pp where pp.family like : family and pp.name like : name"),
-        @NamedQuery(name = "Person.findByPhoneNumber",query = "select pp from personEntity pp where pp.phoneNumber like : phoneNumber"),
-        @NamedQuery(name = "Person.findByPostalCode",query = "select pp from personEntity pp where pp.postalCode like : postalCode"),
-        @NamedQuery(name = "Person.findByAddress",query = "select pp from personEntity pp where pp.address like : address"),
+        @NamedQuery(name = "Person.findByNationalId",query = "select pp from personEntity pp where pp.nationalId like : nationalId and pp.deleted=false "),
+        @NamedQuery(name = "Person.findByLastNameAndFirstName",query = "select pp from personEntity pp where pp.family like : family and pp.name like : name and pp.deleted=false "),
+        @NamedQuery(name = "Person.findByPhoneNumber",query = "select pp from personEntity pp where pp.phoneNumber like : phoneNumber and pp.deleted=false "),
+        @NamedQuery(name = "Person.findByPostalCode",query = "select pp from personEntity pp where pp.postalCode like : postalCode and pp.deleted=false "),
+        @NamedQuery(name = "Person.findByAddress",query = "select pp from personEntity pp where pp.address like : address and pp.deleted=false "),
  //todo @NamedQuery(name = "Person.findByUserId",query = "select pp from personEntity pp where pp.user.id = : user")
 })
 

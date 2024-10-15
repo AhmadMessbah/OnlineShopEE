@@ -19,9 +19,9 @@ import java.util.List;
 @Entity(name = "userEntity")
 @Table(name = "user_tbl")
 @NamedQueries({
-        @NamedQuery(name = "User.findByUsername",query = "select uu from userEntity uu where uu.username like : username"),
-        @NamedQuery(name = "User.findByPassword",query = "select uu from userEntity uu where uu.password like : password"),
-        @NamedQuery(name = "User.findByEmail",query = "select uu from userEntity uu where uu.email like : email" )
+        @NamedQuery(name = "User.findByUsername",query = "select uu from userEntity uu where uu.username like : username and uu.deleted=false "),
+        @NamedQuery(name = "User.findByPassword",query = "select uu from userEntity uu where uu.password like : password and uu.deleted=false "),
+        @NamedQuery(name = "User.findByEmail",query = "select uu from userEntity uu where uu.email like : email and uu.deleted=false " )
 })
 
 public class User extends Base{

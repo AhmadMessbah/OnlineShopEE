@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @Entity(name = "roleEntity")
 @Table(name = "role_tbl")
 @NamedQueries({
-        @NamedQuery(name = "Role.findByRoleName",query = "select rr from roleEntity rr where rr.roleName like : roleName")
+        @NamedQuery(name = "Role.findByRoleName",query = "select rr from roleEntity rr where rr.roleName like : roleName and rr.deleted=false ")
 })
 
 
