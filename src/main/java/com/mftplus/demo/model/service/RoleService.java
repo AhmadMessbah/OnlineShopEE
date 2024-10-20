@@ -55,8 +55,8 @@ public class RoleService implements Service<Role, Long> {
         try (CrudRepository<Role, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
             params.put("roleName", "%" + roleName + "%");
-            List<Role> roles = crudRepository.findBy("Role.findByRoleName", params, Role.class);
-            return (roles.isEmpty()) ? null : roles;
+            return crudRepository.findBy("Role.findByRoleName",params, Role.class );
+
         }
     }
 }

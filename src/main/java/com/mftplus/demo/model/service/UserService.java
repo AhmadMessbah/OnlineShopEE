@@ -58,23 +58,33 @@ public class UserService implements Service<User, Long> {
             return crudRepository.findBy("User.findByUsername", params, User.class);
         }
     }
+
     public List<User> findByPassword(String password) throws Exception {
         try (CrudRepository<User, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
-            params.put("password", "%"+ password + "%");
-            List<User> users = crudRepository.findBy("User.findByPassword", params, User.class);
-            return (users.isEmpty()) ? null : users;
+            params.put("password", "%" + password + "%");
+            return crudRepository.findBy("User.findByPassword",params, User.class );
         }
     }
 
     public List<User> findByEmail(String email) throws Exception {
         try (CrudRepository<User, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
-            params.put("email", "%"+ email + "%");
-            List<User> users = crudRepository.findBy("User.findByEmail", params, User.class);
-            return (users.isEmpty()) ? null : users;
+            params.put("email", "%" + email + "%");
+            return crudRepository.findBy("User.findByEmail",params, User.class );
+
         }
     }
 
-
+//    public List<User> findByRoleName(String role) throws Exception {
+//        try (CrudRepository<User, Long> crudRepository = new CrudRepository<>()) {
+//            HashMap<String, Object> params = new HashMap<>();
+//            params.put("roleList", role);
+//            if (role.isEmpty()) {
+//                return null;
+//            } else {
+//                return crudRepository.findBy("User.findByRoleName",params, User.class );
+//            }
+//        }
+//    }
 }

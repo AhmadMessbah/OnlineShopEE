@@ -25,7 +25,7 @@ import java.time.LocalDate;
         @NamedQuery(name = "Person.findByPhoneNumber", query = "select pp from personEntity pp where pp.phoneNumber like : phoneNumber and pp.deleted=false "),
         @NamedQuery(name = "Person.findByPostalCode", query = "select pp from personEntity pp where pp.postalCode like : postalCode and pp.deleted=false "),
         @NamedQuery(name = "Person.findByAddress", query = "select pp from personEntity pp where pp.address like : address and pp.deleted=false "),
-        //todo @NamedQuery(name = "Person.findByUserId",query = "select pp from personEntity pp where pp.user.id = : user")
+        @NamedQuery(name = "Person.findByUsername", query = "select pp from personEntity pp where pp.user.username = : username")
 })
 
 public class Person extends Base {
@@ -59,6 +59,7 @@ public class Person extends Base {
     @Column(name = "person_gender", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
+
 
     @OneToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "person_users", foreignKey = @ForeignKey(name = "my_fk"))

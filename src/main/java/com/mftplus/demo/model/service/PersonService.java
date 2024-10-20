@@ -64,10 +64,22 @@ public class PersonService implements Service<Person, Long> {
             params.put("name", name + "%");
             params.put("family", family + "%");
             List<Person> personList = crudRepository.findBy("Person.findByLastNameAndFirstName", params, Person.class);
-            return (personList.isEmpty()) ? null :personList.get(0) ;
+            return (personList.isEmpty()) ? null : personList.get(0);
         }
     }
 
+    public Person findByUsername(String username) throws Exception {
+        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("username", username);
+            List<Person> personList = crudRepository.findBy("Person.findByUsername", params, Person.class);
+            if (personList.isEmpty()) {
+                return null;
+            } else {
+                return personList.get(0);
+            }
+        }
+    }
 
     public List<Person> findByPhoneNumber(String phoneNumber) throws Exception {
         try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
