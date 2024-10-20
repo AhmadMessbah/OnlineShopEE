@@ -10,6 +10,10 @@ public class RoleTest {
                // .id(1L)
                 .roleName("seller")
                 .build();
+//        RoleService.getRoleService().save(role1);
+//        System.out.println(role1);
+//        System.out.println(RoleService.getRoleService().findByRoleName("buyer"));
+//        System.out.println(RoleService.getRoleService().findById(1L).getRoleName());
 //        Role role2 = Role
 //                .builder()
 //                .roleName("customer")

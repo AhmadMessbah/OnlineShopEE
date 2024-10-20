@@ -8,22 +8,37 @@ import java.util.List;
 
 public class UserTest {
     public static void main(String[] args) throws Exception {
-
-//        Role role=Role.builder()
-//                .roleName("buyer")
-//                .build();
-//        Role role1=Role.builder()
-//                .roleName("seller")
-//                .build();
+        Role role1=Role.builder()
+                .roleName("buyer")
+                .build();
+        Role role2=Role.builder()
+                .roleName("seller")
+                .build();
         //todo:not work
         //  user.addRole(role);
         //  user.addRole(role1);
 
         User user = User.builder()
-                .username("---")
-                .password("d--d")
-                .email("--@yahoo.com")
+                .username("moomoo")
+                .password("dd")
+                .email("moo@yahoo.com")
+                .roleList(List.of(role1))
                 .build();
+
+        User user2 = User.builder()
+                .username("mobinA")
+                .password("mo123")
+                .email("momo@yahoo.com")
+                .build();
+//        System.out.println(UserService.getUserService().findById(1L).getRoleList());
+
+//        System.out.println(UserService.getUserService().findByPassword("d"));
+//        UserService.getUserService().save(user);
+//        UserService.getUserService().save(user2);
+//        System.out.println(user);
+//        System.out.println(user2);
+
+      //  System.out.println(UserService.getUserService().findByEmail("momo@yahoo.com"));
         //RoleService.save(role);
         //RoleService.save(role1);
         //user.setRoleList(List.of(role,role1));//todo:worked
@@ -31,11 +46,8 @@ public class UserTest {
         //UserService.getUserService().save(user);
         //System.out.println("Save User Success"+user);
         //System.out.println(UserService.getUserService().findById(1L));
-        //UserService.getUserService().findByEmail("a");
-        //System.out.println("Email :"+user.getEmail());
         // UserService.getUserService().edit(user);//todo : unEdited in db !!
         //UserService.getUserService().edit(UserService.getUserService().findById(1L));
-        //System.out.println("User Updated Successfully :"+ user.getPassword());
         //UserService.getUserService().remove(1L);
         // System.out.println("User Removed-->"+user.getId());
     }

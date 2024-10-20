@@ -21,9 +21,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderSeq")
     private Long id;
 
-    private Person seller;
-    private Person customer;
-    private Delivery delivery;
+//    private Person seller; todo
+//    private Person customer;
+//    private Delivery delivery;
 
     @Column(name = "recive_time", nullable = false)
     private LocalDateTime reciveTime;

@@ -24,9 +24,9 @@ public class ProductGroup {
     private int id;
     @Column(name = "name", nullable = false)
     private String name;
-//    @OneToMany
-//    @Column(name = "productGroup-child")
-//    private List<ProductGroup> child;
+    @OneToMany
+    @Column(name = "productGroup-child")
+    private List<ProductGroup> child;
 
     @OneToOne
     @Column(name="productGroup-parent")

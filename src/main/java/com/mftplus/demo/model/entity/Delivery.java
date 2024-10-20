@@ -21,8 +21,8 @@ public class Delivery {
 
 
     //TODO: mehdi please check .
-//    private enum transportation_modes;
-//    private enum status;
+    private enum transportation_modes;
+    private enum status;
 
     @OneToOne
     @Column (name = "Delivery_customer", length = 20, nullable = false)

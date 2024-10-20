@@ -1,6 +1,6 @@
 package com.mftplus.demo.model.entity;
 
-import jakarta.json.bind.annotation.JsonbTransient;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Version;
 import lombok.Getter;
@@ -18,10 +18,12 @@ import lombok.experimental.SuperBuilder;
 
 public class Base {
     @Version
-    @JsonbTransient
+    @JsonIgnore
     private Long versionId;
-    @JsonbTransient
+    @JsonIgnore
     private boolean editing = false;
-    @JsonbTransient
+    @JsonIgnore
     private boolean deleted = false;
+    @JsonIgnore
+    private boolean locked;
 }
