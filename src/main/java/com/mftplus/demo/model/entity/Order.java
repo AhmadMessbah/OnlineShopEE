@@ -28,7 +28,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderSeq")
     private Long id;
 
-    //    private Long customerId;
+    @ManyToOne
+    private User user;
 
     @Column(name = "order_Date", nullable = false)
     private LocalDateTime orderDate;
