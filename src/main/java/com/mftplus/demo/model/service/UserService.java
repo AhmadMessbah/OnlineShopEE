@@ -51,11 +51,12 @@ public class UserService implements Service<User, Long> {
         }
     }
 
-    public List<User> findByUsername(String username) throws Exception {
+    public User findByUsername(String username) throws Exception {
         try (CrudRepository<User, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
             params.put("username", username + "%");
-            return crudRepository.findBy("User.findByUsername", params, User.class);
+            List<User> users = crudRepository.findBy("User.findByUsername", params, User.class);
+            return (users.isEmpty()) ? null : users.get(0);
         }
     }
 
@@ -63,16 +64,26 @@ public class UserService implements Service<User, Long> {
         try (CrudRepository<User, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
             params.put("password", "%" + password + "%");
-            return crudRepository.findBy("User.findByPassword",params, User.class );
+            return crudRepository.findBy("User.findByPassword", params, User.class);
         }
     }
 
-    public List<User> findByEmail(String email) throws Exception {
+    public User findByUsernameAndPassword(String username, String password) throws Exception {
+        try (CrudRepository<User, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("username", username + "%");
+            params.put("password", password + "%");
+            List<User> users = crudRepository.findBy("User.findByUsernameAndPassword", params, User.class);
+            return (users.isEmpty()) ? null : users.get(0);
+        }
+    }
+
+    public User findByEmail(String email) throws Exception {
         try (CrudRepository<User, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
             params.put("email", "%" + email + "%");
-            return crudRepository.findBy("User.findByEmail",params, User.class );
-
+            List<User>users = crudRepository.findBy("User.findByEmail", params, User.class);
+            return (users.isEmpty()) ? null : users.get(0);
         }
     }
 

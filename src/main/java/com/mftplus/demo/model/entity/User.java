@@ -7,9 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -22,6 +19,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "User.findByUsername", query = "select uu from userEntity uu where uu.username like : username and uu.deleted=false "),
         @NamedQuery(name = "User.findByPassword", query = "select uu from userEntity uu where uu.password like : password and uu.deleted=false "),
+        @NamedQuery(name = "User.findByUsernameAndPassword", query = "select uu from userEntity uu where uu.username like : username and uu.password like : password and uu.deleted=false" ),
         @NamedQuery(name = "User.findByEmail", query = "select uu from userEntity uu where uu.email like : email and uu.deleted=false ")
 })
 
@@ -41,7 +39,7 @@ public class User extends Base {
     private String email;
 
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinTable(name = "my_user_role")
-    private List<Role> roleList = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+//    @JoinTable(name = "my_user_role")
+//    private List<Role> roleList = new ArrayList<>();
 }

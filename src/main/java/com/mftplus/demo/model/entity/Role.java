@@ -16,7 +16,10 @@ import lombok.experimental.SuperBuilder;
 @Entity(name = "roleEntity")
 @Table(name = "role_tbl")
 @NamedQueries({
-        @NamedQuery(name = "Role.findByRoleName", query = "select rr from roleEntity rr where rr.roleName like : roleName and rr.deleted=false ")
+        @NamedQuery(name = "Role.findByRoleName", query = "select rr from roleEntity rr where rr.roleName like : roleName and rr.deleted=false "),
+        @NamedQuery(name = "Role.findByUserPassAndUsername", query = "select rr from roleEntity rr where rr.user.username like : username and rr.user.password like : password and rr.deleted=false "),
+        @NamedQuery(name = "Role.findByUserEmail", query = "select rr from roleEntity rr where rr.user.email like : email and rr.deleted=false ")
+
 })
 
 
@@ -29,5 +32,9 @@ public class Role extends Base {
 
     @Column(name = "role_name", length = 15, nullable = false)
     private String roleName;
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_Owner")
+    private User user;
 
 }
