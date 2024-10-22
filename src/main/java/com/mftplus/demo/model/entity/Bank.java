@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @Entity(name = "BankEntity")
+    //TODO: Add @Table
 public class Bank {
 
     @Id
