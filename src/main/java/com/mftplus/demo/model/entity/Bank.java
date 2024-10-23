@@ -13,21 +13,27 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Entity(name = "BankEntity")
 @Table(name = "bank_tbl")
+@NamedQueries({
+        @NamedQuery(name = "Bank.findById", query = "SELECT b FROM BankEntity b WHERE b.id = :id"),
+        @NamedQuery(name = "Bank.findByName", query = "SELECT b FROM BankEntity b WHERE b.name LIKE :name"),
+        @NamedQuery(name = "Bank.findByAccountNumber", query = "SELECT b FROM BankEntity b WHERE b.accountNumber = :accountNumber"),
+        @NamedQuery(name = "Bank.findByBranchCode", query = "SELECT b FROM BankEntity b WHERE b.branchCode = :branchCode")
+})
 public class Bank extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bank_seq")
     @SequenceGenerator(name = "bank_seq", sequenceName = "bank_seq", allocationSize = 1)
-    long id;
+    private Long id;
 
     @Column(name = "bank_name")
-    String name;
+    private String name;
 
     @Column(name = "bank_accountNumber")
-    String accountNumber;
+    private String accountNumber;
 
     @Column(name = "bank_branchCode")
-    long branchCode;
+    private long branchCode;
 
     @Override
     public String toString() {
