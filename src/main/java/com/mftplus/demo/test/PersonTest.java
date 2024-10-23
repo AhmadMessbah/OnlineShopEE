@@ -6,7 +6,6 @@ import com.mftplus.demo.model.entity.User;
 import com.mftplus.demo.model.entity.enums.Gender;
 import com.mftplus.demo.model.service.PersonService;
 
-
 import java.time.LocalDate;
 import java.util.List;
 
