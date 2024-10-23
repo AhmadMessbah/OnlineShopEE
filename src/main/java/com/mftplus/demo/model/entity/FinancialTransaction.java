@@ -21,20 +21,20 @@ public class FinancialTransaction extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financial_transaction_seq")
     @SequenceGenerator(name = "financial_transaction_seq", sequenceName = "financial_transaction_seq", allocationSize = 1)
-    long id;
+    private long id;
 
     @Column(name = "financial_transaction_date")
     @NotNull
     @PastOrPresent
-    LocalDate date;
+    private LocalDate date;
 
     @Column(name = "financial_transaction_tracing_code")
     @NotNull
-    long tracingCode;
+    private long tracingCode;
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
     @Override
     public String toString() {

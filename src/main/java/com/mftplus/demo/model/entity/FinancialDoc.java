@@ -21,23 +21,23 @@ public class FinancialDoc extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financial_doc_seq")
     @SequenceGenerator(name = "financial_doc_seq", sequenceName = "financial_doc_seq", allocationSize = 1)
-    long id;
+    private long id;
 
     @Column(name = "financialDoc_docNumber")
     @NotNull
-    long docNumber;
+    private long docNumber;
 
     @Column(name = "financialDoc_date")
     @NotNull
     @PastOrPresent
-    LocalDate date;
+    private LocalDate date;
 
     @Column(name = "financialDoc_description")
-    String description;
+    private String description;
 
     @OneToOne
     @JoinColumn(name = "financialTransaction_id")
-    FinancialTransaction financialTransaction;
+    private FinancialTransaction financialTransaction;
 
     @Override
     public String toString() {
