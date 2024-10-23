@@ -13,6 +13,12 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Entity(name = "BankEntity")
 @Table(name = "bank_tbl")
+@NamedQueries({
+        @NamedQuery(name = "Bank.findById", query = "SELECT b FROM BankEntity b WHERE b.id = :id"),
+        @NamedQuery(name = "Bank.findByName", query = "SELECT b FROM BankEntity b WHERE b.name LIKE :name"),
+        @NamedQuery(name = "Bank.findByAccountNumber", query = "SELECT b FROM BankEntity b WHERE b.accountNumber = :accountNumber"),
+        @NamedQuery(name = "Bank.findByBranchCode", query = "SELECT b FROM BankEntity b WHERE b.branchCode = :branchCode")
+})
 public class Bank extends Base {
 
     @Id

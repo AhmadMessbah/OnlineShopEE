@@ -10,12 +10,19 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
 @Entity
 @Table(name = "financial_transactions")
+@NamedQueries({
+        @NamedQuery(name = "FinancialTransaction.findById", query = "SELECT ft FROM FinancialTransaction ft WHERE ft.id = :id"),
+        @NamedQuery(name = "FinancialTransaction.findByDate", query = "SELECT ft FROM FinancialTransaction ft WHERE ft.date = :date"),
+        @NamedQuery(name = "FinancialTransaction.findByTracingCode", query = "SELECT ft FROM FinancialTransaction ft WHERE ft.tracingCode = :tracingCode"),
+        @NamedQuery(name = "FinancialTransaction.findByUserId", query = "SELECT ft FROM FinancialTransaction ft WHERE ft.user.id = :userId")
+})
 public class FinancialTransaction extends Base {
 
     @Id
