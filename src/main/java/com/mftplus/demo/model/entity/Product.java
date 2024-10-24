@@ -15,8 +15,9 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "product_tbl")
 @SuperBuilder
 
-public class Product {
+public class Product extends Base {
     @Id
+    @SequenceGenerator(name = "productSeq", sequenceName = "product_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column( name="name", length = 20 ,nullable = false)
