@@ -26,8 +26,10 @@ public class Delivery {
     private Long id;
 
     private String orderId;
+
+
     private String deliveryAddress;
-    private String recipientName;
+//    private Customer customer;
     private String phoneNumber;
     private LocalDateTime shippedDate;
     private LocalDateTime deliveredDate;
@@ -36,5 +38,7 @@ public class Delivery {
     private String carrier;
     private double shippingCost;
     private DeliveryStatus deliveryStatus;
+
+
 
 }
