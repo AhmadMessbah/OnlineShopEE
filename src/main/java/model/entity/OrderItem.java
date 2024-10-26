@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import model.entity.enums.OrderStatus;
 
 @NoArgsConstructor
 @Getter
@@ -42,6 +43,11 @@ public class OrderItem {
 
     @Column(name = "discount")
     private double discount;
+
+    private double tax;
+
+    @Enumerated(EnumType.ORDINAL)
+    private OrderStatus orderStatus;
 
 
 }
