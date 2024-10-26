@@ -17,9 +17,12 @@ import java.time.LocalDateTime;
 @Entity(name = "orderEntity")
 @Table(name ="order_tbl")
 public class Order {
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @SequenceGenerator(name = "orderSeq", sequenceName = "order_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderSeq")
+      private Long id;
 //    private Person seller;
 //    private Person customer;
 //    private Delivery delivery;
