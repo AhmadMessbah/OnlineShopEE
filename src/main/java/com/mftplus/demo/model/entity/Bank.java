@@ -1,6 +1,5 @@
 package com.mftplus.demo.model.entity;
 
-import com.google.gson.Gson;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,9 +33,5 @@ public class Bank extends Base {
 
     @Column(name = "bank_branchCode")
     private long branchCode;
-
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);
     }
-}
+
