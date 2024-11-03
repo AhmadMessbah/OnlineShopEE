@@ -1,6 +1,5 @@
 package com.mftplus.demo.model.entity;
 
-import com.google.gson.Gson;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -43,8 +42,4 @@ public class FinancialTransaction extends Base {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);
     }
-}

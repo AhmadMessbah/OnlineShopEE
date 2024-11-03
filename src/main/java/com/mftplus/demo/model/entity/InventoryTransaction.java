@@ -1,7 +1,6 @@
 package com.mftplus.demo.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.gson.Gson;
 import com.mftplus.demo.model.entity.enums.InventoryStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
@@ -53,8 +52,4 @@ public class InventoryTransaction extends Base {
 
     @Enumerated(EnumType.ORDINAL)
     private InventoryStatus status;
-
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);}
-}
+    }
