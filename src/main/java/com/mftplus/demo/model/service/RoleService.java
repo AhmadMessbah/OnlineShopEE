@@ -1,88 +1,76 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.Role;
-import com.mftplus.demo.model.repository.CrudRepository;
-import lombok.Getter;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
 import java.util.List;
 
+@Slf4j
+@ApplicationScoped
 public class RoleService implements Service<Role, Long> {
+    @PersistenceContext(unitName = "mft")
+    private EntityManager entityManager;
 
-    @Getter
-    private static RoleService roleService = new RoleService();
 
-    private RoleService() {
+    @Override
+    @Transactional
+    public void save(Role role) {
+        entityManager.persist(role);
     }
 
     @Override
-    public void save(Role role) throws Exception {
-        try (CrudRepository<Role, Long> crudRepository = new CrudRepository<>()) {
-            crudRepository.save(role);
-        }
+    @Transactional
+    public void edit(Role role) {
+        entityManager.merge(role);
     }
 
     @Override
-    public void edit(Role role) throws Exception {
-        try (CrudRepository<Role, Long> crudRepository = new CrudRepository<>()) {
-            crudRepository.edit(role);
-        }
+    @Transactional
+    public void remove(Long id) {
+        Role role = entityManager.find(Role.class, id);
+        entityManager.remove(role);
     }
 
     @Override
-    public void remove(Long id) throws Exception {
-        try (CrudRepository<Role, Long> crudRepository = new CrudRepository<>()) {
-            crudRepository.remove(id, Role.class);
-        }
+    @Transactional
+    public Role findById(Long id) {
+        return entityManager.find(Role.class, id);
     }
 
     @Override
-    public Role findById(Long id) throws Exception {
-        try (CrudRepository<Role, Long> crudRepository = new CrudRepository<>()) {
-            return crudRepository.findById(id, Role.class);
-        }
+    @Transactional
+    public List<Role> findAll() {
+        Query query = entityManager.createQuery("select r from roleEntity r", Role.class);
+        return query.getResultList();
     }
 
-    @Override
-    public List<Role> findAll() throws Exception {
-        try (CrudRepository<Role, Long> crudRepository = new CrudRepository<>()) {
-            return crudRepository.findAll(Role.class);
-        }
+    @Transactional
+    public List<Role> findByRoleName(String roleName) {
+        Query query = entityManager.createQuery("select r from roleEntity r where r.roleName = :roleName", Role.class);
+        query.setParameter("roleName", roleName);
+        return query.getResultList();
+
     }
 
-    public List<Role> findByRoleName(String roleName) throws Exception {
-        try (CrudRepository<Role, Long> crudRepository = new CrudRepository<>()) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("roleName", "%" + roleName + "%");
-            return crudRepository.findBy("Role.findByRoleName", params, Role.class);
+    @Transactional
+    public Role findByUserPassAndUsername(String username, String password) {
+        Query query = entityManager.createQuery("select r from roleEntity r where r.user.username = : username and r.user.password = : password", Role.class);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        return (Role) query.getSingleResult();
 
-        }
     }
 
-    public Role findByUserPassAndUsername(String username, String password) throws Exception {
-        try (CrudRepository<Role, Long> crudRepository = new CrudRepository<>()) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("username", username);
-            params.put("password", password);
-            List<Role> roleList = crudRepository.findBy("Role.findByUserPassAndUsername", params, Role.class);
-            if (roleList.isEmpty()) {
-                return null;
-            } else {
-                return roleList.get(0);
-            }
-        }
-    }
+    @Transactional
+    public Role findByUserEmail(String email) {
+        Query query = entityManager.createQuery("select r from roleEntity r where r.user.email = : email", Role.class);
+        query.setParameter("email", email);
+        return (Role) query.getSingleResult();
 
-    public Role findByUserEmail(String email) throws Exception {
-        try (CrudRepository<Role, Long> crudRepository = new CrudRepository<>()) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("email", email);
-            List<Role> roleList = crudRepository.findBy("Role.findByUserEmail", params, Role.class);
-            if (roleList.isEmpty()) {
-                return null;
-            } else {
-                return roleList.get(0);
-            }
-        }
     }
 }

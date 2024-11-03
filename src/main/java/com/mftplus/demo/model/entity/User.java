@@ -1,27 +1,20 @@
 package com.mftplus.demo.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-@ToString
 
 
 @Entity(name = "userEntity")
 @Table(name = "user_tbl")
-@NamedQueries({
-        @NamedQuery(name = "User.findByUsername", query = "select uu from userEntity uu where uu.username like : username and uu.deleted=false "),
-        @NamedQuery(name = "User.findByPassword", query = "select uu from userEntity uu where uu.password like : password and uu.deleted=false "),
-        @NamedQuery(name = "User.findByUsernameAndPassword", query = "select uu from userEntity uu where uu.username like : username and uu.password like : password and uu.deleted=false" ),
-        @NamedQuery(name = "User.findByEmail", query = "select uu from userEntity uu where uu.email like : email and uu.deleted=false ")
-})
 
 public class User extends Base {
     @Id
@@ -30,12 +23,15 @@ public class User extends Base {
     private long id;
 
     @Column(name = "user_username", length = 30, unique = true, nullable = false)
+    @Pattern(regexp = "^[a-zA-Z0-9]{3,30}$", message = "invalid username !")
     private String username;
 
     @Column(name = "user_password", length = 30, nullable = false)
+    @Pattern(regexp = "^[a-zA-Z0-9]{3,30}$", message = "invalid password !")
     private String password;
 
     @Column(name = "user_email", length = 30, nullable = false)
+    @Pattern(regexp = "^[a-zA-Z0-9]{3,30}$", message = "invalid email !")
     private String email;
 
 

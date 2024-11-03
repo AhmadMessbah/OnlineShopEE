@@ -2,10 +2,10 @@ package com.mftplus.demo.model.entity;
 
 import com.mftplus.demo.model.entity.enums.Gender;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
@@ -15,18 +15,9 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @SuperBuilder
-@ToString
 
 @Entity(name = "personEntity")
 @Table(name = "person_tbl")
-@NamedQueries({
-        @NamedQuery(name = "Person.findByNationalId", query = "select pp from personEntity pp where pp.nationalId like : nationalId and pp.deleted=false "),
-        @NamedQuery(name = "Person.findByLastNameAndFirstName", query = "select pp from personEntity pp where pp.family like : family and pp.name like : name and pp.deleted=false "),
-        @NamedQuery(name = "Person.findByPhoneNumber", query = "select pp from personEntity pp where pp.phoneNumber like : phoneNumber and pp.deleted=false "),
-        @NamedQuery(name = "Person.findByPostalCode", query = "select pp from personEntity pp where pp.postalCode like : postalCode and pp.deleted=false "),
-        @NamedQuery(name = "Person.findByAddress", query = "select pp from personEntity pp where pp.address like : address and pp.deleted=false "),
-        @NamedQuery(name = "Person.findByUsername", query = "select pp from personEntity pp where pp.user.username = : username")
-})
 
 public class Person extends Base {
 
@@ -36,24 +27,30 @@ public class Person extends Base {
     private Long id;
 
     @Column(name = "person_firstName", length = 30, nullable = false)
+    @Pattern(regexp = "^[a-zA-Z]{2,30}$", message = "invalid name !")
     private String name;
 
     @Column(name = "person_lastName", length = 40, nullable = false)
+    @Pattern(regexp = "^[a-zA-Z]{2,40}$", message = "invalid family")
     private String family;
 
     @Column(name = "person_national_id", length = 10, nullable = false)
+    @Pattern(regexp = "^[0-9]{3,10}$", message = "invalid national id !")
     private String nationalId;
 
     @Column(name = "person_birth_date", nullable = false)
     private LocalDate birthDate;
 
     @Column(name = "person_phone_number", length = 13, nullable = false)
+    @Pattern(regexp = "^[0-9]{3,13}$", message = "invalid phone number !")
     private String phoneNumber;
 
     @Column(name = "person_address", length = 200, nullable = false)
+    @Pattern(regexp = "^[a-zA-Z\\s]{5,200}$", message = "invalid address text !")
     private String address;
 
-    @Column(name = "person_postal_code")
+    @Column(name = "person_postal_code", length = 30)
+    @Pattern(regexp = "^[0-9]{1,30}$", message = "invalid postalCode !")
     private String postalCode;
 
     @Column(name = "person_gender", nullable = false)

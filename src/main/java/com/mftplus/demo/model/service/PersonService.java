@@ -1,107 +1,103 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.Person;
-import com.mftplus.demo.model.repository.CrudRepository;
-import lombok.Getter;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+@Slf4j
+@ApplicationScoped
 public class PersonService implements Service<Person, Long> {
-    @Getter
-    private static PersonService personService = new PersonService();
+    @PersistenceContext(unitName = "mft")
+    private EntityManager entityManager;
 
-    private PersonService() {
+    @Override
+    @Transactional
+    public void save(Person person) {
+        entityManager.persist(person);
     }
 
     @Override
-    public void save(Person person) throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            crudRepository.save(person);
-        }
+    @Transactional
+    public void edit(Person person) {
+        entityManager.merge(person);
     }
 
     @Override
-    public void edit(Person person) throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            crudRepository.edit(person);
-        }
+    public void remove(Long id) {
+        Person person = entityManager.find(Person.class, id);
+        entityManager.remove(person);
     }
 
     @Override
-    public void remove(Long id) throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            crudRepository.remove(id, Person.class);
-        }
+    @Transactional
+    public Person findById(Long id) {
+        return entityManager.find(Person.class, id);
+
     }
 
     @Override
-    public Person findById(Long id) throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            return crudRepository.findById(id, Person.class);
-        }
+    @Transactional
+    public List<Person> findAll() {
+        Query query = entityManager.createQuery("select p from personEntity p", Person.class);
+        return query.getResultList();
     }
 
-    @Override
-    public List<Person> findAll() throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            return crudRepository.findAll(Person.class);
-        }
+    @Transactional
+    public List<Person> findByNationalId(String nationalId) {
+        Query query = entityManager.createQuery("select p from personEntity p where p.nationalId = :nationalId", Person.class);
+        query.setParameter("nationalId", nationalId);
+        return query.getResultList();
     }
 
-    public List<Person> findByNationalId(String nationalId) throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("nationalId", nationalId + "%");
-            return crudRepository.findBy("Person.findByNationalId", params, Person.class);
-        }
+    @Transactional
+    public Person findByLastNameAndFirstName(String name, String family) {
+        Query query = entityManager.createQuery("select p from  personEntity p where p.family = : family and p.name = : name", Person.class);
+        query.setParameter("family", family);
+        query.setParameter("name", name);
+        return (Person) query.getSingleResult();
     }
 
-    public Person findByLastNameAndFirstName(String name, String family) throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("name", name + "%");
-            params.put("family", family + "%");
-            List<Person> personList = crudRepository.findBy("Person.findByLastNameAndFirstName", params, Person.class);
-            return (personList.isEmpty()) ? null : personList.get(0);
-        }
+    @Transactional
+    public Person findByUsernameAndPassword(String username, String password) {
+        Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = : username and p.user.password = : password", Person.class);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        return (Person) query.getSingleResult();
     }
 
-    public Person findByUsername(String username) throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("username", username);
-            List<Person> personList = crudRepository.findBy("Person.findByUsername", params, Person.class);
-            if (personList.isEmpty()) {
-                return null;
-            } else {
-                return personList.get(0);
-            }
-        }
+    @Transactional
+    public Person findByUsername(String username) {
+        Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = :username", Person.class);
+        query.setParameter("username", username);
+        return (Person) query.getSingleResult();
+
     }
 
-    public List<Person> findByPhoneNumber(String phoneNumber) throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("phoneNumber", phoneNumber + "%");
-            return crudRepository.findBy("Person.findByPhoneNumber", params, Person.class);
-        }
+    @Transactional
+    public List<Person> findByPhoneNumber(String phoneNumber) {
+        Query query = entityManager.createQuery("select p from  personEntity p where p.phoneNumber = :phoneNumber", Person.class);
+        query.setParameter("phoneNumber", phoneNumber);
+        return query.getResultList();
+
     }
 
-    public List<Person> findByPostalCode(String postalCode) throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("postalCode", postalCode + "%");
-            return crudRepository.findBy("Person.findByPostalCode", params, Person.class);
-        }
+    @Transactional
+    public List<Person> findByPostalCode(String postalCode) {
+        Query query = entityManager.createQuery("select p from personEntity p where p.postalCode = :postalCode", Person.class);
+        query.setParameter("postalCode", postalCode);
+        return query.getResultList();
     }
 
-    public List<Person> findByAddress(String address) throws Exception {
-        try (CrudRepository<Person, Long> crudRepository = new CrudRepository<>()) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("address", address + "%");
-            return crudRepository.findBy("Person.findByAddress", params, Person.class);
-        }
+    @Transactional
+    public List<Person> findByAddress(String address) {
+        Query query = entityManager.createQuery("select p from personEntity p where p.address = :address", Person.class);
+        query.setParameter("address", address);
+        return query.getResultList();
     }
 }
