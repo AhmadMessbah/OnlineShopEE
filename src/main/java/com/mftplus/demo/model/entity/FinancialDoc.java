@@ -26,7 +26,7 @@ public class FinancialDoc {
     private Integer id;
 
     @Pattern(regexp = "^[a-zA-Z0-9 ]{2,50}$", message = "Invalid document name!")
-    @Column(name = "name")
+    @Column(name = "doc_name")
     private String name;
 
     @OneToMany(mappedBy = "financialDoc")

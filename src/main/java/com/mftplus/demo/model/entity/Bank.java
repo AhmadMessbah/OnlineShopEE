@@ -26,7 +26,7 @@ public class Bank {
     private Integer id;
 
     @Pattern(regexp = "^[a-zA-Z ]{2,50}$", message = "Invalid bank name!")
-    @Column(name = "name")
+    @Column(name = "bank_name")
     private String name;
 
     @Pattern(regexp = "^[0-9]{8,20}$", message = "Invalid bank account number!")
