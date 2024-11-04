@@ -6,10 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -21,39 +20,30 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SequenceGenerator(name = "transactionSeq", sequenceName = "transaction_seq", allocationSize = 1)
 public class Transaction {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transactionSeq")
     @Column(name = "transaction_id")
     private Integer id;
 
+    @Pattern(regexp = "^[0-9]{1,10}$", message = "Invalid amount!")
     @Column(name = "amount")
     private Double amount;
 
-    @Pattern(regexp = "^(COMPLETED|PENDING|FAILED)$", message = "Invalid status!")
-    @Column(name = "status")
-    private String status;
+    @ManyToOne
+    @JoinColumn(name = "payment_method_id")
+    private PaymentMethod paymentMethod;
 
-    @Pattern(regexp = "^[a-zA-Z0-9 ]{1,100}$", message = "Invalid description!")
-    @Column(name = "description")
-    private String description;
+    @ManyToOne
+    @JoinColumn(name = "bank_id")
+    private Bank bank;
 
-    @Column(name = "transaction_date")
-    private Date transactionDate;
+    @ManyToOne
+    @JoinColumn(name = "doc_id")
+    private FinancialDoc financialDoc;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @OneToOne(mappedBy = "transaction")
+    private Refund refund;
 
-    @Column(name = "payment_method_id")
-    private Integer paymentMethodId;
-
-    @Column(name = "bank_id")
-    private Integer bankId;
-
-    @Pattern(regexp = "^(PENDING|COMPLETED)$", message = "Invalid refund status!")
-    @Column(name = "refund_status")
-    private String refundStatus;
-
-    @Column(name = "refund_date")
-    private Date refundDate;
+    @OneToMany(mappedBy = "transaction")
+    private List<Report> reports;
 }

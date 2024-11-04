@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-import java.util.Date;
 
 @NoArgsConstructor
 @Getter
@@ -21,27 +19,16 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SequenceGenerator(name = "refundSeq", sequenceName = "refund_seq", allocationSize = 1)
 public class Refund {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "refundSeq")
     @Column(name = "refund_id")
     private Integer id;
 
-    @Column(name = "transaction_id")
-    private Integer transactionId;
-
-    @Pattern(regexp = "^[0-9]*\\.?[0-9]+$", message = "Invalid amount!")
+    @Pattern(regexp = "^[0-9]{1,10}$", message = "Invalid refund amount!")
     @Column(name = "amount")
     private Double amount;
 
-    @Column(name = "refund_date")
-    private Date refundDate;
-
-    @Pattern(regexp = "^(PENDING|COMPLETED|REJECTED)$", message = "Invalid refund status!")
-    @Column(name = "status")
-    private String status;
-
-    @Pattern(regexp = "^[a-zA-Z0-9 ]{1,200}$", message = "Invalid description!")
-    @Column(name = "description")
-    private String description;
+    @OneToOne
+    @JoinColumn(name = "transaction_id")
+    private Transaction transaction;
 }

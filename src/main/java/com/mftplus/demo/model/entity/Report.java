@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-import java.util.Date;
 
 @NoArgsConstructor
 @Getter
@@ -21,30 +19,16 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SequenceGenerator(name = "reportSeq", sequenceName = "report_seq", allocationSize = 1)
 public class Report {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reportSeq")
     @Column(name = "report_id")
     private Integer id;
 
-    @Column(name = "user_id")
-    private Integer userId;
-
-    @Column(name = "transaction_id")
-    private Integer transactionId;
-
-    @Pattern(regexp = "^[a-zA-Z ]{1,50}$", message = "Invalid report type!")
-    @Column(name = "report_type")
-    private String reportType;
-
-    @Pattern(regexp = "^[a-zA-Z0-9 ]{1,200}$", message = "Invalid description!")
+    @Pattern(regexp = "^[a-zA-Z0-9 ]{2,100}$", message = "Invalid report description!")
     @Column(name = "description")
     private String description;
 
-    @Column(name = "report_date")
-    private Date reportDate;
-
-    @Pattern(regexp = "^(OPEN|CLOSED)$", message = "Invalid status!")
-    @Column(name = "status")
-    private String status;
+    @ManyToOne
+    @JoinColumn(name = "transaction_id")
+    private Transaction transaction;
 }

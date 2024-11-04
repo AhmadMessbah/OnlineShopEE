@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -20,7 +20,6 @@ import jakarta.validation.constraints.Pattern;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SequenceGenerator(name = "bankSeq", sequenceName = "bank_seq", allocationSize = 1)
 public class Bank {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bankSeq")
     @Column(name = "bank_id")
@@ -33,4 +32,7 @@ public class Bank {
     @Pattern(regexp = "^[0-9]{8,20}$", message = "Invalid bank account number!")
     @Column(name = "account_number")
     private String accountNumber;
+
+    @OneToMany(mappedBy = "bank")
+    private List<Transaction> transactions;
 }
