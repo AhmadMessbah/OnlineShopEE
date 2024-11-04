@@ -10,40 +10,40 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-@Slf4j
 @ApplicationScoped
+@Slf4j
 public class RoleService implements Service<Role, Long> {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 
 
-    @Override
     @Transactional
+    @Override
     public void save(Role role) {
         entityManager.persist(role);
     }
 
-    @Override
     @Transactional
+    @Override
     public void edit(Role role) {
         entityManager.merge(role);
     }
 
-    @Override
     @Transactional
+    @Override
     public void remove(Long id) {
         Role role = entityManager.find(Role.class, id);
         entityManager.remove(role);
     }
 
-    @Override
     @Transactional
+    @Override
     public Role findById(Long id) {
         return entityManager.find(Role.class, id);
     }
 
-    @Override
     @Transactional
+    @Override
     public List<Role> findAll() {
         Query query = entityManager.createQuery("select r from roleEntity r", Role.class);
         return query.getResultList();

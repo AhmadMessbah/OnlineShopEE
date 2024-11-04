@@ -10,39 +10,39 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-@Slf4j
 @ApplicationScoped
+@Slf4j
 public class PersonService implements Service<Person, Long> {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 
-    @Override
     @Transactional
+    @Override
     public void save(Person person) {
         entityManager.persist(person);
     }
 
-    @Override
     @Transactional
+    @Override
     public void edit(Person person) {
         entityManager.merge(person);
     }
-
+    @Transactional
     @Override
     public void remove(Long id) {
         Person person = entityManager.find(Person.class, id);
         entityManager.remove(person);
     }
 
-    @Override
     @Transactional
+    @Override
     public Person findById(Long id) {
         return entityManager.find(Person.class, id);
 
     }
 
-    @Override
     @Transactional
+    @Override
     public List<Person> findAll() {
         Query query = entityManager.createQuery("select p from personEntity p", Person.class);
         return query.getResultList();
