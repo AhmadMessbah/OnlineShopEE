@@ -1,7 +1,6 @@
 package com.mftplus.demo.test;
 
 import com.mftplus.demo.model.entity.FinancialDoc;
-import com.mftplus.demo.model.entity.FinancialTransaction;
 import com.mftplus.demo.model.service.FinancialDocService;
 
 import java.time.LocalDate;

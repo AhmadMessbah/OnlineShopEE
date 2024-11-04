@@ -1,6 +1,5 @@
 package com.mftplus.demo.test;
 
-import com.mftplus.demo.model.entity.FinancialTransaction;
 import com.mftplus.demo.model.entity.User;
 import com.mftplus.demo.model.service.FinancialTransactionService;
 

@@ -1,37 +1,42 @@
 package com.mftplus.demo.model.entity;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.*;
+
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-@Entity(name = "BankEntity")
-@Table(name = "bank_tbl")
-@NamedQueries({
-        @NamedQuery(name = "Bank.findById", query = "SELECT b FROM BankEntity b WHERE b.id = :id"),
-        @NamedQuery(name = "Bank.findByName", query = "SELECT b FROM BankEntity b WHERE b.name LIKE :name"),
-        @NamedQuery(name = "Bank.findByAccountNumber", query = "SELECT b FROM BankEntity b WHERE b.accountNumber = :accountNumber"),
-        @NamedQuery(name = "Bank.findByBranchCode", query = "SELECT b FROM BankEntity b WHERE b.branchCode = :branchCode")
-})
-public class Bank extends Base {
+@Entity
+@Table(name = "banks")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@SequenceGenerator(name = "bankSeq", sequenceName = "bank_seq", allocationSize = 1)
+public class Bank {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bank_seq")
-    @SequenceGenerator(name = "bank_seq", sequenceName = "bank_seq", allocationSize = 1)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bankSeq")
+    @Column(name = "bank_id")
+    private Integer id;
 
-    @Column(name = "bank_name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "bank_accountNumber")
+    @Column(name = "account_number")
     private String accountNumber;
 
-    @Column(name = "bank_branchCode")
-    private long branchCode;
-    }
+    @Column(name = "account_holder_name")
+    private String accountHolderName;
 
+    @Column(name = "iban")
+    private String iban;
+
+    @Column(name = "swift_code")
+    private String swiftCode;
+}

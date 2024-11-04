@@ -15,26 +15,29 @@ import java.util.Date;
 @Setter
 @SuperBuilder
 @Entity
-@Table(name = "financial_docs")
+@Table(name = "refunds")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@SequenceGenerator(name = "financialDocSeq", sequenceName = "financial_doc_seq", allocationSize = 1)
-public class FinancialDoc {
+@SequenceGenerator(name = "refundSeq", sequenceName = "refund_seq", allocationSize = 1)
+public class Refund {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financialDocSeq")
-    @Column(name = "doc_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "refundSeq")
+    @Column(name = "refund_id")
     private Integer id;
 
     @Column(name = "transaction_id")
     private Integer transactionId;
 
-    @Column(name = "doc_type")
-    private String docType;
+    @Column(name = "amount")
+    private Double amount;
 
-    @Column(name = "file_path")
-    private String filePath;
+    @Column(name = "refund_date")
+    private Date refundDate;
 
-    @Column(name = "upload_date")
-    private Date uploadDate;
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "description")
+    private String description;
 }

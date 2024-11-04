@@ -1,6 +1,5 @@
 package com.mftplus.demo.model.service;
 
-import com.mftplus.demo.model.entity.FinancialTransaction;
 import com.mftplus.demo.model.repository.CrudRepository;
 import lombok.Getter;
 
