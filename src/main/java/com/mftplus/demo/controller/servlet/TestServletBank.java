@@ -1,7 +1,6 @@
 package com.mftplus.demo.controller.servlet;
 
 import com.mftplus.demo.model.entity.Bank;
-import com.mftplus.demo.model.service.BankService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
