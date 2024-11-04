@@ -80,15 +80,10 @@ public class UserService implements Service<User, Long> {
         return (User) query.getSingleResult();
     }
 
-//    public List<User> findByRoleName(String role) throws Exception {
-//        try (CrudRepository<User, Long> crudRepository = new CrudRepository<>()) {
-//            HashMap<String, Object> params = new HashMap<>();
-//            params.put("roleList", role);
-//            if (role.isEmpty()) {
-//                return null;
-//            } else {
-//                return crudRepository.findBy("User.findByRoleName",params, User.class );
-//            }
-//        }
-//    }
+    @Transactional
+    public List<User> findByRoleName(String roleName) {
+        Query query = entityManager.createQuery("select u from userEntity u join roleEntity r where r.roleName = :roleName", User.class);
+        query.setParameter("roleName", roleName);
+        return query.getResultList();
+    }
 }

@@ -5,13 +5,17 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-
+@ToString
 
 @Entity(name = "userEntity")
 @Table(name = "user_tbl")
@@ -35,7 +39,7 @@ public class User extends Base {
     private String email;
 
 
-//    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-//    @JoinTable(name = "my_user_role")
-//    private List<Role> roleList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "my_user_role")
+    private List<Role> roleList = new ArrayList<>();
 }

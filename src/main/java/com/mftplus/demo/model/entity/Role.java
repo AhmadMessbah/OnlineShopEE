@@ -5,12 +5,17 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
+@ToString
 
 @Entity(name = "roleEntity")
 @Table(name = "role_tbl")
@@ -27,8 +32,13 @@ public class Role extends Base {
     @Pattern(regexp = "^[a-zA-Z]{2,15}$", message = "invalid role name !")
     private String roleName;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_Owner")
-    private User user;
+
+    @OneToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
+    @JoinTable(name = "role_premission")
+    private List<Permission> permission = new ArrayList<>();
+
+//    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "role_Owner")
+//    private User user;
 
 }

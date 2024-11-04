@@ -1,6 +1,7 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.Role;
+import com.mftplus.demo.model.entity.User;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -58,19 +59,11 @@ public class RoleService implements Service<Role, Long> {
     }
 
     @Transactional
-    public Role findByUserPassAndUsername(String username, String password) {
-        Query query = entityManager.createQuery("select r from roleEntity r where r.user.username = : username and r.user.password = : password", Role.class);
-        query.setParameter("username", username);
-        query.setParameter("password", password);
-        return (Role) query.getSingleResult();
+    public List<Role> findByPermission(String permissionName) {
+        Query query = entityManager.createQuery("select r from roleEntity r join permissionEntity pp where pp.permissionName = : permissionName", Role.class);
+        query.setParameter("permissionName", permissionName);
+        return query.getResultList();
 
     }
 
-    @Transactional
-    public Role findByUserEmail(String email) {
-        Query query = entityManager.createQuery("select r from roleEntity r where r.user.email = : email", Role.class);
-        query.setParameter("email", email);
-        return (Role) query.getSingleResult();
-
-    }
 }

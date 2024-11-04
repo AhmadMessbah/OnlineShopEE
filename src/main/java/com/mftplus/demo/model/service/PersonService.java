@@ -13,6 +13,7 @@ import java.util.List;
 @ApplicationScoped
 @Slf4j
 public class PersonService implements Service<Person, Long> {
+
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 
