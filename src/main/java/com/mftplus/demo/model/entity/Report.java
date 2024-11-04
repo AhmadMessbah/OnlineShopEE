@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -32,15 +33,18 @@ public class Report {
     @Column(name = "transaction_id")
     private Integer transactionId;
 
+    @Pattern(regexp = "^[a-zA-Z ]{1,50}$", message = "Invalid report type!")
     @Column(name = "report_type")
     private String reportType;
 
+    @Pattern(regexp = "^[a-zA-Z0-9 ]{1,200}$", message = "Invalid description!")
     @Column(name = "description")
     private String description;
 
     @Column(name = "report_date")
     private Date reportDate;
 
+    @Pattern(regexp = "^(OPEN|CLOSED)$", message = "Invalid status!")
     @Column(name = "status")
     private String status;
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -29,15 +30,18 @@ public class Refund {
     @Column(name = "transaction_id")
     private Integer transactionId;
 
+    @Pattern(regexp = "^[0-9]*\\.?[0-9]+$", message = "Invalid amount!")
     @Column(name = "amount")
     private Double amount;
 
     @Column(name = "refund_date")
     private Date refundDate;
 
+    @Pattern(regexp = "^(PENDING|COMPLETED|REJECTED)$", message = "Invalid refund status!")
     @Column(name = "status")
     private String status;
 
+    @Pattern(regexp = "^[a-zA-Z0-9 ]{1,200}$", message = "Invalid description!")
     @Column(name = "description")
     private String description;
 }

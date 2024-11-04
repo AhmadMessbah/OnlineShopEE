@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -29,9 +30,11 @@ public class Transaction {
     @Column(name = "amount")
     private Double amount;
 
+    @Pattern(regexp = "^(COMPLETED|PENDING|FAILED)$", message = "Invalid status!")
     @Column(name = "status")
     private String status;
 
+    @Pattern(regexp = "^[a-zA-Z0-9 ]{1,100}$", message = "Invalid description!")
     @Column(name = "description")
     private String description;
 
@@ -47,6 +50,7 @@ public class Transaction {
     @Column(name = "bank_id")
     private Integer bankId;
 
+    @Pattern(regexp = "^(PENDING|COMPLETED)$", message = "Invalid refund status!")
     @Column(name = "refund_status")
     private String refundStatus;
 

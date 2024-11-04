@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
 @NoArgsConstructor
 @Getter
@@ -25,18 +26,11 @@ public class Bank {
     @Column(name = "bank_id")
     private Integer id;
 
+    @Pattern(regexp = "^[a-zA-Z ]{2,50}$", message = "Invalid bank name!")
     @Column(name = "name")
     private String name;
 
+    @Pattern(regexp = "^[0-9]{8,20}$", message = "Invalid bank account number!")
     @Column(name = "account_number")
     private String accountNumber;
-
-    @Column(name = "account_holder_name")
-    private String accountHolderName;
-
-    @Column(name = "iban")
-    private String iban;
-
-    @Column(name = "swift_code")
-    private String swiftCode;
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.Date;
+import jakarta.validation.constraints.Pattern;
 
 @NoArgsConstructor
 @Getter
@@ -26,15 +26,11 @@ public class FinancialDoc {
     @Column(name = "doc_id")
     private Integer id;
 
-    @Column(name = "transaction_id")
-    private Integer transactionId;
-
+    @Pattern(regexp = "^[a-zA-Z ]{1,50}$", message = "Invalid document type!")
     @Column(name = "doc_type")
     private String docType;
 
+    @Pattern(regexp = "^(http|https)://.*", message = "Invalid file path!")
     @Column(name = "file_path")
     private String filePath;
-
-    @Column(name = "upload_date")
-    private Date uploadDate;
 }
