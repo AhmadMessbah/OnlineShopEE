@@ -29,44 +29,49 @@ public class PersonApi {
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{nationalId}")
+    @Path("/nationalId/{nationalId}")
     public Response getPersonByNationalId(@PathParam("nationalId") String nationalId) {
         return Response.ok().entity(personService.findByNationalId(nationalId)).build();
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{fullName}")
+    @Path("/fullName/{fullName}")
     public Response getPersonByNameAndFamily(@PathParam("fullName") String name, String family) {
         return Response.ok().entity(personService.findByLastNameAndFirstName(name, family)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{loginData}")
+    @Path("/loginData/{loginData}")
     public Response getPersonByUsernameAndPassword(@PathParam("loginData") String username, String password) {
         return Response.ok().entity(personService.findByUsernameAndPassword(username, password)).build();
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{username}")
+    @Path(value = "/username/{username}")
     public Response getPersonByUsername(@PathParam("username") String username) {
-        return Response.ok().entity(personService.findByUsername(username)).build();
+        try {
+            return Response.ok().entity(personService.findByUsername(username)).build();
+        }catch (Exception e) {
+            log.error(e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{phone}")
+    @Path("/phone/{phone}")
     public Response getPersonByPhoneNumber(@PathParam("phone") String phoneNumber) {
         return Response.ok().entity(personService.findByPhoneNumber(phoneNumber)).build();
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{postCode}")
+    @Path("/postCode/{postCode}")
     public Response getPersonByPostalCode(@PathParam("postCode") String postalCode) {
         return Response.ok().entity(personService.findByPostalCode(postalCode)).build();
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{address}")
+    @Path("/address/{address}")
     public Response getPersonByAddress(@PathParam("address") String address) {
         return Response.ok().entity(personService.findByAddress(address)).build();
     }

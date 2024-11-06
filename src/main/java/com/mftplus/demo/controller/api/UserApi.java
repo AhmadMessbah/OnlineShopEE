@@ -30,7 +30,7 @@ public class UserApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{username}")
+    @Path("/username/{username}")
     public Response getUserByUsername(@PathParam("username") String username) {
         return Response.ok().entity(userService.findByUsername(username)).build();
     }
