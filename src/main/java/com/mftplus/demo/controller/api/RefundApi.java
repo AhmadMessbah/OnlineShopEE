@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RequestScoped
 @Path("/refunds")
-public class RefundResource {
+public class RefundApi {
 
     @Inject
     private RefundService refundService;

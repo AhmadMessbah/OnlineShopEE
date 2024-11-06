@@ -1,7 +1,7 @@
 package com.mftplus.demo.controller.api;
 
-import com.mftplus.demo.model.entity.Transaction;
-import com.mftplus.demo.model.service.TransactionService;
+import com.mftplus.demo.model.entity.PaymentMethod;
+import com.mftplus.demo.model.service.PaymentMethodService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolation;
@@ -18,11 +18,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequestScoped
-@Path("/transactions")
-public class TransactionResource {
+@Path("/payment-methods")
+public class PaymentMethodApi {
 
     @Inject
-    private TransactionService transactionService;
+    private PaymentMethodService paymentMethodService;
 
     @Inject
     private Validator validator;
@@ -30,9 +30,9 @@ public class TransactionResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createTransaction(@Valid Transaction transaction) {
+    public Response createPaymentMethod(@Valid PaymentMethod paymentMethod) {
         try {
-            Set<ConstraintViolation<Transaction>> violations = validator.validate(transaction);
+            Set<ConstraintViolation<PaymentMethod>> violations = validator.validate(paymentMethod);
 
             if (!violations.isEmpty()) {
                 String errorMessage = violations.stream()
@@ -44,9 +44,9 @@ public class TransactionResource {
                         .build();
             }
 
-            transactionService.save(transaction);
+            paymentMethodService.save(paymentMethod);
             return Response.status(Response.Status.CREATED)
-                    .entity("{\"message\": \"Transaction created successfully!\"}")
+                    .entity("{\"message\": \"Payment Method created successfully!\"}")
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST)

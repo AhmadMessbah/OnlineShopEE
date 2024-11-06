@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RequestScoped
 @Path("/banks")
-public class BankResource {
+public class BankApi {
 
     @Inject
     private BankService bankService;
