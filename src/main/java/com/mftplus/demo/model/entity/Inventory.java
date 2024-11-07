@@ -1,7 +1,7 @@
 package com.mftplus.demo.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.gson.Gson;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -46,7 +46,4 @@ public class Inventory extends Base {
     @Column(name = "phone", length = 14, nullable = false)
     private String phone;
 
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);}
 }

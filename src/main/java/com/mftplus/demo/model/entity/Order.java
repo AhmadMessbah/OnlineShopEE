@@ -1,6 +1,5 @@
 package com.mftplus.demo.model.entity;
 
-import com.google.gson.Gson;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -34,13 +33,9 @@ public class Order {
     @Column(name = "discount", nullable = false)
     private Long discount;
 
-    @Column(name = "oder_Item", nullable = false)
-    private OrderItem orderItem;
+//    @Column(name = "oder_Item", nullable = false)
+//    private OrderItem orderItem;
 
 
-    @Override
-    public String toString(){
-        return new Gson().toJson(this);
-    };
 
 }

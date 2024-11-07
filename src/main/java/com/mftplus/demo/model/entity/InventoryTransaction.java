@@ -52,4 +52,8 @@ public class InventoryTransaction extends Base {
 
     @Enumerated(EnumType.ORDINAL)
     private InventoryStatus status;
-    }
+
+//    @Override
+//    public String toString() {
+//        return new Gson().toJson(this);}
+}
