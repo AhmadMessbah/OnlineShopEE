@@ -26,26 +26,26 @@ public class Person extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personSeq")
     private Long id;
 
-    @Column(name = "person_firstName", length = 30, nullable = false)
+    @Column(name = "person_firstName", length = 30)
     @Pattern(regexp = "^[a-zA-Z]{2,30}$", message = "invalid name !")
     private String name;
 
-    @Column(name = "person_lastName", length = 40, nullable = false)
+    @Column(name = "person_lastName", length = 40)
     @Pattern(regexp = "^[a-zA-Z]{2,40}$", message = "invalid family")
     private String family;
 
-    @Column(name = "person_national_id", length = 10, nullable = false)
+    @Column(name = "person_national_id", length = 10)
     @Pattern(regexp = "^[0-9]{3,10}$", message = "invalid national id !")
     private String nationalId;
 
-    @Column(name = "person_birth_date", nullable = false)
+    @Column(name = "person_birth_date")
     private LocalDate birthDate;
 
-    @Column(name = "person_phone_number", length = 13, nullable = false)
+    @Column(name = "person_phone_number", length = 13)
     @Pattern(regexp = "^[0-9]{3,13}$", message = "invalid phone number !")
     private String phoneNumber;
 
-    @Column(name = "person_address", length = 200, nullable = false)
+    @Column(name = "person_address", length = 200)
     @Pattern(regexp = "^[a-zA-Z\\s]{5,200}$", message = "invalid address text !")
     private String address;
 
@@ -53,7 +53,7 @@ public class Person extends Base {
     @Pattern(regexp = "^[0-9]{1,30}$", message = "invalid postalCode !")
     private String postalCode;
 
-    @Column(name = "person_gender", nullable = false)
+    @Column(name = "person_gender")
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
 

@@ -37,7 +37,7 @@ public class PersonApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/fullName/{fullName}")
     public Response getPersonByNameAndFamily(@PathParam("fullName") String name, String family) {
-        return Response.ok().entity(personService.findByLastNameAndFirstName(name, family)).build();
+        return Response.ok().entity(personService.findByFirstNameAndLastName(name , family)).build();
     }
 
     @GET

@@ -36,28 +36,28 @@ public class UserApi {
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{password}")
+    @Path("/password/{password}")
     public Response getUserByPassword(@PathParam("password") String password) {
         return Response.ok().entity(userService.findByPassword(password)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{logData}")
+    @Path("/loginData/{logData}")
     public Response getUserByUsernameAndPassword(@PathParam("logData") String username , String password) {
         return Response.ok().entity(userService.findByUsernameAndPassword(username , password)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{email}")
+    @Path("/email/{email}")
     public Response getUserByEmail(@PathParam("email") String email) {
         return Response.ok().entity(userService.findByEmail(email)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{role}")
+    @Path("/role/{role}")
     public Response getUserByRoleName(@PathParam("role") String roleName) {
         return Response.ok().entity(userService.findByRoleName(roleName)).build();
     }
