@@ -41,7 +41,7 @@ public class PersonTest {
                 .gender(Gender.Female)
                 .build();
 
-       PersonService.getPersonService().save(person);
+//       PersonService.getPersonService().save(person);
         System.out.println(person);
 //        person.setUser(user2);
 //        PersonService.getPersonService().save(person);

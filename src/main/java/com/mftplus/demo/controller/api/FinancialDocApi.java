@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RequestScoped
 @Path("/financial-docs")
-public class FinancialDocResource {
+public class FinancialDocApi {
 
     @Inject
     private FinancialDocService financialDocService;

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RequestScoped
 @Path("/reports")
-public class ReportResource {
+public class ReportApi {
 
     @Inject
     private ReportService reportService;
