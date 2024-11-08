@@ -25,7 +25,7 @@ public class Report {
     private Integer id;
 
     @Pattern(regexp = "^[a-zA-Z0-9 ]{2,100}$", message = "Invalid report description!")
-    @Column(name = "description")
+    @Column(name = "description", length = 100)
     private String description;
 
     @ManyToOne

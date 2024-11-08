@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
+
 import java.util.List;
 
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public class FinancialDoc {
     private Integer id;
 
     @Pattern(regexp = "^[a-zA-Z0-9 ]{2,50}$", message = "Invalid document name!")
-    @Column(name = "doc_name")
+    @Column(name = "doc_name", length = 50)
     private String name;
 
     @OneToMany(mappedBy = "financialDoc")
