@@ -2,56 +2,57 @@ package com.mftplus.demo.controller.api;
 
 import com.mftplus.demo.model.entity.PaymentMethod;
 import com.mftplus.demo.model.service.PaymentMethodService;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validator;
-import jakarta.validation.Valid;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
-@RequestScoped
 @Path("/payment-methods")
+@Slf4j
 public class PaymentMethodApi {
 
     @Inject
     private PaymentMethodService paymentMethodService;
 
-    @Inject
-    private Validator validator;
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllPaymentMethods() {
+        log.info("Getting all payment methods");
+        return Response.ok().entity(paymentMethodService.findAll()).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    public Response getPaymentMethodById(@PathParam("id") Integer id) {
+        PaymentMethod paymentMethod = paymentMethodService.findById(id);
+        if (paymentMethod == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Payment Method not found").build();
+        }
+        return Response.ok().entity(paymentMethod).build();
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createPaymentMethod(@Valid PaymentMethod paymentMethod) {
-        try {
-            Set<ConstraintViolation<PaymentMethod>> violations = validator.validate(paymentMethod);
+    public Response addPaymentMethod(PaymentMethod paymentMethod) {
+        paymentMethodService.save(paymentMethod);
+        return Response.status(Response.Status.CREATED).entity(paymentMethod).build();
+    }
 
-            if (!violations.isEmpty()) {
-                String errorMessage = violations.stream()
-                        .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
-                        .collect(Collectors.joining(", "));
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updatePaymentMethod(PaymentMethod paymentMethod) {
+        paymentMethodService.edit(paymentMethod);
+        return Response.ok().entity(paymentMethod).build();
+    }
 
-                return Response.status(Response.Status.BAD_REQUEST)
-                        .entity("{\"errors\": \"" + errorMessage + "\"}")
-                        .build();
-            }
-
-            paymentMethodService.save(paymentMethod);
-            return Response.status(Response.Status.CREATED)
-                    .entity("{\"message\": \"Payment Method created successfully!\"}")
-                    .build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("{\"errors\": \"" + e.getMessage() + "\"}")
-                    .build();
-        }
+    @DELETE
+    @Path("{id}")
+    public Response deletePaymentMethod(@PathParam("id") Integer id) {
+        paymentMethodService.remove(id);
+        return Response.ok().entity(id).build();
     }
 }

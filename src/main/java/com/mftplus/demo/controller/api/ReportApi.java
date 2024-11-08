@@ -2,56 +2,57 @@ package com.mftplus.demo.controller.api;
 
 import com.mftplus.demo.model.entity.Report;
 import com.mftplus.demo.model.service.ReportService;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validator;
-import jakarta.validation.Valid;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
-@RequestScoped
 @Path("/reports")
+@Slf4j
 public class ReportApi {
 
     @Inject
     private ReportService reportService;
 
-    @Inject
-    private Validator validator;
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllReports() {
+        log.info("Getting all reports");
+        return Response.ok().entity(reportService.findAll()).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    public Response getReportById(@PathParam("id") Integer id) {
+        Report report = reportService.findById(id);
+        if (report == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Report not found").build();
+        }
+        return Response.ok().entity(report).build();
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createReport(@Valid Report report) {
-        try {
-            Set<ConstraintViolation<Report>> violations = validator.validate(report);
+    public Response addReport(Report report) {
+        reportService.save(report);
+        return Response.status(Response.Status.CREATED).entity(report).build();
+    }
 
-            if (!violations.isEmpty()) {
-                String errorMessage = violations.stream()
-                        .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
-                        .collect(Collectors.joining(", "));
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateReport(Report report) {
+        reportService.edit(report);
+        return Response.ok().entity(report).build();
+    }
 
-                return Response.status(Response.Status.BAD_REQUEST)
-                        .entity("{\"errors\": \"" + errorMessage + "\"}")
-                        .build();
-            }
-
-            reportService.save(report);
-            return Response.status(Response.Status.CREATED)
-                    .entity("{\"message\": \"Report created successfully!\"}")
-                    .build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("{\"errors\": \"" + e.getMessage() + "\"}")
-                    .build();
-        }
+    @DELETE
+    @Path("{id}")
+    public Response deleteReport(@PathParam("id") Integer id) {
+        reportService.remove(id);
+        return Response.ok().entity(id).build();
     }
 }
