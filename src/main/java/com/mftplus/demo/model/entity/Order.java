@@ -1,16 +1,21 @@
 package com.mftplus.demo.model.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-
+@ToString
 
 @Entity(name = "OrderEntity")
 @Table(name = "order_tbl")
@@ -20,22 +25,40 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderSeq")
     private Long id;
 
-//    private Person seller; todo
-//    private Person customer;
-//    private Delivery delivery;
+    //    private Long customerId;
 
-    @Column(name = "recive_time", nullable = false)
-    private LocalDateTime reciveTime;
+    @Column(name = "order_Date", nullable = false)
+    private LocalDateTime orderDate;
 
-    @Column(name = "total_cost", nullable = false)
-    private Long totalCost;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
-    @Column(name = "discount", nullable = false)
-    private Long discount;
+    @Column(name = "total_amount", nullable = false)
+    private double totalAmount;
+    @Column(name = "discount", length = 10, nullable = false)
+    private double discount;
+    @Column(name = "tax", length = 10, nullable = false)
+    private double tax;
+    @Column(name = "shipping_cost", nullable = false)
+    private double shippingCost;
 
-//    @Column(name = "oder_Item", nullable = false)
-//    private OrderItem orderItem;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_items", foreignKey = @ForeignKey(name = "my_fk"))
+    private List<OrderItem> orderItems;
 
+    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
 
+    @Column(name = "billing_address", nullable = false)
+    private String billingAddress;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+    public void updateOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
 }
