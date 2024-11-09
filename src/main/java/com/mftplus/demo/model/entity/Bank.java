@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
+
 import java.util.List;
 
 @NoArgsConstructor
@@ -26,11 +27,11 @@ public class Bank {
     private Integer id;
 
     @Pattern(regexp = "^[a-zA-Z ]{2,50}$", message = "Invalid bank name!")
-    @Column(name = "bank_name")
+    @Column(name = "bank_name", length = 50)
     private String name;
 
     @Pattern(regexp = "^[0-9]{8,20}$", message = "Invalid bank account number!")
-    @Column(name = "account_number")
+    @Column(name = "account_number", length = 20)
     private String accountNumber;
 
     @OneToMany(mappedBy = "bank")

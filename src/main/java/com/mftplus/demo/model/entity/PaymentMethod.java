@@ -26,7 +26,7 @@ public class PaymentMethod {
     private Integer id;
 
     @Pattern(regexp = "^[a-zA-Z ]{2,50}$", message = "Invalid payment method name!")
-    @Column(name = "payment_name")
+    @Column(name = "payment_name" , length = 50)
     private String name;
 
     @OneToMany(mappedBy = "paymentMethod")

@@ -1,51 +1,35 @@
 package com.mftplus.demo.model.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-@Entity(name = "FinancialDocEntity")
-@NamedQueries({
-        @NamedQuery(name = "FinancialDoc.findById", query = "SELECT f FROM FinancialDocEntity f WHERE f.id = :id"),
-        @NamedQuery(name = "FinancialDoc.findByDocNumber", query = "SELECT f FROM FinancialDocEntity f WHERE f.docNumber = :docNumber"),
-        @NamedQuery(name = "FinancialDoc.findByDate", query = "SELECT f FROM FinancialDocEntity f WHERE f.date = :date"),
-        @NamedQuery(name = "FinancialDoc.findByDescription", query = "SELECT f FROM FinancialDocEntity f WHERE f.description LIKE :description"),
-        @NamedQuery(name = "FinancialDoc.findByTransactionId", query = "SELECT f FROM FinancialDocEntity f WHERE f.financialTransaction.id = :transactionId")
-})
-public class FinancialDoc extends Base {
+@Entity
+@Table(name = "financial_docs")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@SequenceGenerator(name = "financialDocSeq", sequenceName = "financial_doc_seq", allocationSize = 1)
+public class FinancialDoc {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financial_doc_seq")
-    @SequenceGenerator(name = "financial_doc_seq", sequenceName = "financial_doc_seq", allocationSize = 1)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financialDocSeq")
+    @Column(name = "doc_id")
+    private Integer id;
 
-    @Column(name = "financialDoc_docNumber")
-    @NotNull
-    private long docNumber;
+    @Pattern(regexp = "^[a-zA-Z0-9 ]{2,50}$", message = "Invalid document name!")
+    @Column(name = "doc_name", length = 50)
+    private String name;
 
-    @Column(name = "financialDoc_date")
-    @NotNull
-    @PastOrPresent
-    private LocalDate date;
-
-    @Column(name = "financialDoc_description")
-    private String description;
-
-//    @OneToOne
-//    @JoinColumn(name = "financialTransaction_id")
-//    private FinancialTransaction financialTransaction;
-//
-//    @Override
-//    public String toString() {
-//        return new Gson().toJson(this);
-//    }
+    @OneToMany(mappedBy = "financialDoc")
+    private List<Transaction> transactions;
 }
