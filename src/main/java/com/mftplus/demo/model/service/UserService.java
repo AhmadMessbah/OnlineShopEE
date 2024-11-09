@@ -82,7 +82,7 @@ public class UserService implements Service<User, Long> {
 
     @Transactional
     public List<User> findByRoleName(String roleName) {
-        Query query = entityManager.createQuery("select u from userEntity u join roleEntity r where r.roleName = :roleName", User.class);
+        Query query = entityManager.createQuery("select u from userEntity u join roleEntity r where r.roleName = : roleName", User.class);
         query.setParameter("roleName", roleName);
         return query.getResultList();
     }

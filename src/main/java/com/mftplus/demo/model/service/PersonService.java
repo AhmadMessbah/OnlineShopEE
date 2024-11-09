@@ -57,10 +57,11 @@ public class PersonService implements Service<Person, Long> {
     }
 
     @Transactional
-    public Person findByLastNameAndFirstName(String name, String family) {
-        Query query = entityManager.createQuery("select p from  personEntity p where p.family = : family and p.name = : name", Person.class);
-        query.setParameter("family", family);
-        query.setParameter("name", name);
+    public Person findByFirstNameAndLastName(String name, String family) {
+        Query query = entityManager.createQuery("select p from  personEntity p where p.name = : name and p.family = : family", Person.class);
+        query.setParameter("name", name+"%s");
+        query.setParameter("family", family+"%s");
+
         return (Person) query.getSingleResult();
     }
 

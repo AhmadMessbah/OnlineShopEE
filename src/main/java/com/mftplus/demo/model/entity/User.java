@@ -26,16 +26,16 @@ public class User extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
     private long id;
 
-    @Column(name = "user_username", length = 30, unique = true, nullable = false)
+    @Column(name = "user_username", length = 30, unique = true)
     @Pattern(regexp = "^[a-zA-Z0-9]{3,30}$", message = "invalid username !")
     private String username;
 
-    @Column(name = "user_password", length = 30, nullable = false)
+    @Column(name = "user_password", length = 30)
     @Pattern(regexp = "^[a-zA-Z0-9]{3,30}$", message = "invalid password !")
     private String password;
 
-    @Column(name = "user_email", length = 30, nullable = false)
-    @Pattern(regexp = "^[a-zA-Z0-9]{3,30}$", message = "invalid email !")
+    @Column(name = "user_email", length = 30)
+    @Pattern(regexp = "^[a-zA-Z0-9.]{3,30}$", message = "invalid email !")
     private String email;
 
 

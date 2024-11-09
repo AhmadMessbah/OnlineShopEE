@@ -3,12 +3,13 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.service.PermissionService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
-@Path("permissions")
+@Path("/permissions")
 @Slf4j
 public class PermissionApi {
     @Inject
@@ -29,7 +30,7 @@ public class PermissionApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{name}")
+    @Path("/name/{name}")
     public Response getPermissionByName(@PathParam("name") String permissionName) {
         return Response.ok().entity(permissionService.findByName(permissionName)).build();
     }
@@ -37,7 +38,7 @@ public class PermissionApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addPermission(Permission permission) {
+    public Response addPermission(@Valid Permission permission) {
         permissionService.save(permission);
         return Response.ok().entity(permission).build();
     }
@@ -45,7 +46,7 @@ public class PermissionApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updatePermission(Permission permission) {
+    public Response updatePermission(@Valid Permission permission) {
         permissionService.edit(permission);
         return Response.ok().entity(permission).build();
     }

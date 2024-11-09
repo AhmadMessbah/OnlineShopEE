@@ -28,13 +28,13 @@ public class Role extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleSeq")
     private Long id;
 
-    @Column(name = "role_name", length = 15, nullable = false)
+    @Column(name = "role_name", length = 15)
     @Pattern(regexp = "^[a-zA-Z]{2,15}$", message = "invalid role name !")
     private String roleName;
 
 
     @OneToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
-    @JoinTable(name = "role_premission")
+    @JoinTable(name = "role_permission")
     private List<Permission> permission = new ArrayList<>();
 
 //    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

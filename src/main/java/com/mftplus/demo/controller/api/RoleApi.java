@@ -29,14 +29,14 @@ public class RoleApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{type}")
+    @Path("/type/{type}")
     public Response getRoleByName(@PathParam("type") String roleName) {
         return Response.ok().entity(roleService.findByRoleName(roleName)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{permission}")
+    @Path("/permission/{permission}")
     public Response getRoleByPermissionName(@PathParam("permission") String permissionName) {
         return Response.ok().entity(roleService.findByPermission(permissionName)).build();
     }
