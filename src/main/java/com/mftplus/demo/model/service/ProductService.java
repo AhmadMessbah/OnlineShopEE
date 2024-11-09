@@ -1,59 +1,81 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.Product;
-import com.mftplus.demo.model.repository.CrudRepository;
-import lombok.Getter;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 
-import java.util.HashMap;
+
 import java.util.List;
 
-    public class ProductService implements Service<Product, Long> {
-        @Getter
-        private static ProductService productService = new com.mftplus.demo.model.service.ProductService();
+@ApplicationScoped
 
-        private ProductService() {
-        }
+public class ProductService implements Service<Product, Long> {
 
-        @Override
-        public void save(Product product) throws Exception {
-            try (CrudRepository<Product, Long> crudRepository = new CrudRepository<>()) {
-                crudRepository.save(product);
-            }
-        }
+    @PersistenceContext(unitName = "mft")
+    private EntityManager entityManager;
 
-        @Override
-        public void edit(Product product) throws Exception {
-            try (CrudRepository<Product, Long> crudRepository = new CrudRepository<>()) {
-                crudRepository.edit(product);
-            }
-        }
-
-        @Override
-        public void remove(Long id) throws Exception {
-            try (CrudRepository<Product, Long> crudRepository = new CrudRepository<>()) {
-                crudRepository.remove(id, Product.class);
-            }
-        }
-
-        @Override
-        public Product findById(Long id) throws Exception {
-            try (CrudRepository<Product, Long> crudRepository = new CrudRepository<>()) {
-                return crudRepository.findById(id, Product.class);
-            }
-        }
-
-        @Override
-        public List<Product> findAll() throws Exception {
-            try (CrudRepository<Product, Long> crudRepository = new CrudRepository<>()) {
-                return crudRepository.findAll(Product.class);
-            }
-        }
-
-        public List<Product> findByName(String name) throws Exception {
-            try (CrudRepository<Product, Long> crudRepository = new CrudRepository<>()) {
-                HashMap<String, Object> params = new HashMap<>();
-                params.put("name", name + "%");
-                return crudRepository.findBy("Person.findByName", params, Product.class);
-            }
-        }
+    @Transactional
+    @Override
+    public void save(Product product) {
+        entityManager.persist(product);
     }
+
+    @Transactional
+    @Override
+    public void edit(Product product) {
+        entityManager.merge(product);
+
+    }
+
+    @Transactional
+    @Override
+    public void remove(Long id) {
+        Product product = entityManager.find(Product.class, id);
+        entityManager.remove(product);
+    }
+
+    @Transactional
+    @Override
+    public Product findById(Long id) {
+        return entityManager.find(Product.class, id);
+
+    }
+
+    @Transactional
+    @Override
+    public List<Product> findAll() {
+        Query query = entityManager.createQuery("select p from productEntity p", Product.class);
+        return query.getResultList();
+    }
+
+    @Transactional
+    public List<Product> findByName(String name) {
+        Query query = entityManager.createQuery("select p from productEntity p where p.name = : name", Product.class);
+        query.setParameter("name", name);
+        return query.getResultList();
+    }
+
+    @Transactional
+    public List<Product> findByPrice(Float price ) {
+        Query query = entityManager.createQuery("select p from productEntity p where p.price = : price", Product.class);
+        query.setParameter("price", price);
+        return query.getResultList();
+    }
+    @Transactional
+    public List<Product> findByCode(Long code ) {
+        Query query = entityManager.createQuery("select p from productEntity p where p.code = : code", Product.class);
+        query.setParameter("code", code);
+        return query.getResultList();
+    }
+
+    @Transactional
+    public List<Product> findByGroup(String parent , String child ) {
+        Query query = entityManager.createQuery("select p from productEntity p where p.productGroup.parent = : parent and p.productGroup.child = :child", Product.class);
+        query.setParameter("parent", parent);
+        query.setParameter("child", child);
+        return query.getResultList();
+    }
+}

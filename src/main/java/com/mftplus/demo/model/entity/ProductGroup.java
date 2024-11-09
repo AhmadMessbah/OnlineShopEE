@@ -37,8 +37,8 @@ public class ProductGroup extends Base{
     @Column(name="productGroup-parent")
     private  String parent;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST},fetch = FetchType.EAGER)
-    private List<Product> productList = new ArrayList<>();
+//    @ManyToMany(cascade = {CascadeType.PERSIST},fetch = FetchType.EAGER)
+//    private List<Product> productList = new ArrayList<>();
 
 
 }

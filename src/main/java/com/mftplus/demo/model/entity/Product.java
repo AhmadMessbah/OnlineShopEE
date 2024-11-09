@@ -22,7 +22,7 @@ public class Product extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "productSeq" )
     private Long id;
 
-    @Column( name="name", length = 30 ,nullable = false)
+    @Column( name="name", length = 30 ) //todo nullable...
     @Pattern(regexp = "^[a-zA-Z]{3,30}$",message = "invalid name!")
     private String name;
 
@@ -30,8 +30,14 @@ public class Product extends Base {
     @Pattern(regexp = "^[0-9]{2,30}$",message = "invalid price")
     private Float price;
 
-//    @Column(name = "stock" , nullable = false)
-//    private int stock;
+    @Column(name = "product_code" )
+    private Long code;
+
+    @ManyToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
+    @JoinColumn(name = "p_group")
+    private ProductGroup productGroup;
+
+
 
 
 

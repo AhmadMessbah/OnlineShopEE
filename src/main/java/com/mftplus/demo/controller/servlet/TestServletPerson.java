@@ -34,7 +34,7 @@ public class TestServletPerson extends HttpServlet {
                 .build();
 
         try {
-            PersonService.getPersonService().save(person);
+//            PersonService.getPersonService().save(person);
             System.out.println(person);
         } catch (Exception e) {
             System.out.println("Error Person Loading..." + e.getMessage());
