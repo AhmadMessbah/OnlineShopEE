@@ -3,6 +3,7 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.service.PersonService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -22,8 +23,8 @@ public class PersonApi {
             return Response.ok().entity(personService.findAll()).build();
     }
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getPersonById(@PathParam("id") Long id) {
         return Response.ok().entity(personService.findById(id)).build();
     }
@@ -80,7 +81,7 @@ public class PersonApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addPerson(Person person) {
+    public Response addPerson(@Valid Person person) {
         personService.save(person);
         return Response.ok().entity(person).build();
     }
@@ -88,7 +89,7 @@ public class PersonApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updatePerson(Person person) {
+    public Response updatePerson(@Valid Person person) {
         personService.edit(person);
         return Response.ok().entity(person).build();
     }
