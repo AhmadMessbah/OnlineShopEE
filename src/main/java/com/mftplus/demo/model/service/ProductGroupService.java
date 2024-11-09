@@ -22,6 +22,7 @@ public class ProductGroupService implements Service<ProductGroup, Long> {
     @Transactional
     @Override
     public void save(ProductGroup ProductGroup) {
+
         entityManager.persist(ProductGroup);
     }
 
