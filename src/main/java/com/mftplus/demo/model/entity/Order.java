@@ -1,5 +1,7 @@
 package com.mftplus.demo.model.entity;
 
+
+import com.mftplus.demo.model.entity.enums.OrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
