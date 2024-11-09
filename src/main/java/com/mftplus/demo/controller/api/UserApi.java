@@ -43,8 +43,8 @@ public class UserApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/loginData/{logData}")
-    public Response getUserByUsernameAndPassword(@PathParam("logData") String username , String password) {
+    @Path("/loginData/{loginData}")
+    public Response getUserByUsernameAndPassword(@PathParam("loginData") String username , String password) {
         return Response.ok().entity(userService.findByUsernameAndPassword(username , password)).build();
     }
 

@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@ToString
 
 @Entity(name = "userEntity")
 @Table(name = "user_tbl")
