@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @SuperBuilder
 
-@Entity(name= "DeliveryEntity")
+@Entity(name= "deliveryEntity")
 @Table(name = "delivery_tbl")
 public class Delivery {
 
