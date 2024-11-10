@@ -12,7 +12,7 @@ import java.util.List;
 
 @ApplicationScoped
 @Slf4j
-public class OrderItemService {
+public class OrderItemService implements Service<OrderItem, Long>{
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 
@@ -39,13 +39,15 @@ public class OrderItemService {
 
     @Transactional
     public List<OrderItem> findAll(){
-        Query query = entityManager.createQuery("SELECT o FROM OrderItem o", OrderItem.class);
+        Query query = entityManager.createQuery("SELECT o FROM OrderItemEntity o", OrderItem.class);
         return query.getResultList();
     }
 
     @Transactional
     public List<OrderItem> findByProductId(Long orderId) {
-        Query query = entityManager.createQuery("SELECT o FROM OrderItem o WHERE o.productId = :productId", OrderItem.class);
+        Query query = entityManager.createQuery("SELECT o FROM OrderItemEntity o WHERE o.productId = :productId", OrderItem.class);
+        query.setParameter("productId", orderId);
+        return query.getResultList();
     }
 
 }
