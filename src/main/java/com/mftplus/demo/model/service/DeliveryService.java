@@ -38,13 +38,13 @@ public class DeliveryService implements Service<Delivery, Long> {
         entityManager.remove(delivery);
     }
 
-    @Override
+    @Transactional
     public Delivery findById(Long id) {
         return entityManager.find(Delivery.class, id);
     }
 
     @Transactional
-    @Override
+
     public List<Delivery> findAll(){
         Query query = entityManager.createQuery("select d from deliveryEntity d", Delivery.class);
         return query.getResultList();
