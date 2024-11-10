@@ -32,7 +32,7 @@ public class FinancialDocService {
 
     @Transactional
     public List<FinancialDoc> findAll() {
-        Query query = entityManager.createQuery("select f from FinancialDoc f", FinancialDoc.class);
+        Query query = entityManager.createQuery("select f from FinancialDocEntity f", FinancialDoc.class);
         return query.getResultList();
     }
 

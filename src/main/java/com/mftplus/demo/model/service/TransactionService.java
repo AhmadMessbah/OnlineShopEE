@@ -32,7 +32,7 @@ public class TransactionService {
 
     @Transactional
     public List<Transaction> findAll() {
-        Query query = entityManager.createQuery("select t from Transaction t", Transaction.class);
+        Query query = entityManager.createQuery("select t from TransactionEntity t", Transaction.class);
         return query.getResultList();
     }
 

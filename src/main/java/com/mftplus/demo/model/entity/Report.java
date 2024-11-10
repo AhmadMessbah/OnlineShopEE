@@ -1,7 +1,5 @@
 package com.mftplus.demo.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,10 +11,8 @@ import jakarta.validation.constraints.Pattern;
 @Getter
 @Setter
 @SuperBuilder
-@Entity
-@Table(name = "reports")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Entity(name = "ReportEntity")
+@Table(name = "reports_tbl")
 @SequenceGenerator(name = "reportSeq", sequenceName = "report_seq", allocationSize = 1)
 public class Report {
     @Id

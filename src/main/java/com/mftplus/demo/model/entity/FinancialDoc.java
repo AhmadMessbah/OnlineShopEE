@@ -1,7 +1,5 @@
 package com.mftplus.demo.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,10 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
-@Entity
-@Table(name = "financial_docs")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Entity(name = "FinancialDocEntity")
+@Table(name = "financial_docs_tbl")
 @SequenceGenerator(name = "financialDocSeq", sequenceName = "financial_doc_seq", allocationSize = 1)
 public class FinancialDoc {
     @Id

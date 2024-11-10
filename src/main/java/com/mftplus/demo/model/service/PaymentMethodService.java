@@ -32,7 +32,7 @@ public class PaymentMethodService {
 
     @Transactional
     public List<PaymentMethod> findAll() {
-        Query query = entityManager.createQuery("select p from PaymentMethod p", PaymentMethod.class);
+        Query query = entityManager.createQuery("select p from PaymentMethodEntity p", PaymentMethod.class);
         return query.getResultList();
     }
 

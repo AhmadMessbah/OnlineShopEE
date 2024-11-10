@@ -32,7 +32,7 @@ public class RefundService {
 
     @Transactional
     public List<Refund> findAll() {
-        Query query = entityManager.createQuery("select r from Refund r", Refund.class);
+        Query query = entityManager.createQuery("select r from RefundEntity r", Refund.class);
         return query.getResultList();
     }
 

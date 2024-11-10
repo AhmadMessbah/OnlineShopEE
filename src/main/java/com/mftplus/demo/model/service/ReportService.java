@@ -32,7 +32,7 @@ public class ReportService {
 
     @Transactional
     public List<Report> findAll() {
-        Query query = entityManager.createQuery("select r from Report r", Report.class);
+        Query query = entityManager.createQuery("select r from ReportEntity r", Report.class);
         return query.getResultList();
     }
 
