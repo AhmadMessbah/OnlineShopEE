@@ -46,13 +46,13 @@ public class Order {
     @Column(name = "shipping_cost", nullable = false)
     private double shippingCost;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_items", foreignKey = @ForeignKey(name = "my_fk"))
-    private List<OrderItem> orderItems;
+//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+//    @JoinColumn(name = "order_items", foreignKey = @ForeignKey(name = "my_fk"))
+//    private List<OrderItem> orderItems;
 
-    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "delivery_id")
-    private Delivery delivery;
+//    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//    @JoinColumn(name = "delivery_id")
+//    private Delivery delivery;
 
     @Column(name = "billing_address", nullable = false)
     private String billingAddress;

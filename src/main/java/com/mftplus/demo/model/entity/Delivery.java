@@ -29,8 +29,8 @@ public class Delivery {
     private Long id;
 
 
-    @OneToOne(mappedBy = "delivery")
-    private Order order;
+//    @OneToOne(mappedBy = "delivery")
+//    private Order order;
 
     @Column(name = "delivery_address", nullable = false)
     private String deliveryAddress;
