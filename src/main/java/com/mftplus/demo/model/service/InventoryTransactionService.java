@@ -1,81 +1,68 @@
-//package com.mftplus.demo.model.service;
-//import com.mftplus.demo.model.entity.InventoryTransaction;
-//import com.mftplus.demo.model.repository.CrudRepository;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//public class InventoryTransactionService implements Service<InventoryTransaction, Long>{
-//    @Override
-//    public void save(InventoryTransaction inventoryTransaction) throws Exception {
-//        try(CrudRepository<InventoryTransaction,Long> repository= new CrudRepository<>()) {
-//            repository.save(inventoryTransaction);
-//        }
-//    }
-//
-//    @Override
-//    public void edit(InventoryTransaction inventoryTransaction) throws Exception {
-//        try(CrudRepository<InventoryTransaction,Long> repository= new CrudRepository<>()) {
-//            repository.edit(inventoryTransaction);
-//        }
-//    }
-//
-//    @Override
-//    public void remove(Long id) throws Exception {
-//        try(CrudRepository<InventoryTransaction, Long>repository= new CrudRepository<>()) {
-//            repository.remove(id, InventoryTransaction.class);
-//        }
-//    }
-//
-//    @Override
-//    public InventoryTransaction findById(Long id) throws Exception {
-//        try(CrudRepository<InventoryTransaction, Long>repository= new CrudRepository<>()){
-//            return repository.findById(id, InventoryTransaction.class);}
-//    }
-//
-//    @Override
-//    public List<InventoryTransaction> findAll() throws Exception {
-//        try(CrudRepository<InventoryTransaction, Long>repository= new CrudRepository<>()){
-//            return repository.findAll(InventoryTransaction.class);}
-//    }
-//
-//    public List<InventoryTransaction> findByInventoryId(Long id) throws Exception {
-//        try (CrudRepository<InventoryTransaction, Long> repository=new CrudRepository<>()){
-//            Map<String,Object> params= new HashMap<>();
-//            params.put(("id"),id);
-//            List<InventoryTransaction> inventoryTransactionList = repository.findBy("InventoryTransaction.findByInventoryId",params,InventoryTransaction.class);
-//            if(inventoryTransactionList.isEmpty()){
-//                return null;
-//            }else {
-//                return (List<InventoryTransaction>) inventoryTransactionList.get(0);
-//            }
-//        }
-//    }
-//
-//    public List<InventoryTransaction> findByProductId(Long id) throws Exception {
-//        try (CrudRepository<InventoryTransaction, Long> repository=new CrudRepository<>()){
-//            Map<String,Object> params= new HashMap<>();
-//            params.put(("id"),id);
-//            List<InventoryTransaction> inventoryTransactionList = repository.findBy("InventoryTransaction.findByProductId",params,InventoryTransaction.class);
-//            if(inventoryTransactionList.isEmpty()){
-//                return null;
-//            }else {
-//                return (List<InventoryTransaction>) inventoryTransactionList.get(0);
-//            }
-//        }
-//    }
-//
-//    public List<InventoryTransaction> findByOrderId(Long id) throws Exception {
-//        try (CrudRepository<InventoryTransaction, Long> repository=new CrudRepository<>()){
-//            Map<String,Object> params= new HashMap<>();
-//            params.put(("id"),id);
-//            List<InventoryTransaction> inventoryTransactionList = repository.findBy("InventoryTransaction.findByOrderId",params,InventoryTransaction.class);
-//            if(inventoryTransactionList.isEmpty()){
-//                return null;
-//            }else {
-//                return (List<InventoryTransaction>) inventoryTransactionList.get(0);
-//            }
-//        }
-//    }
-//
-//}
+package com.mftplus.demo.model.service;
+import com.mftplus.demo.model.entity.InventoryTransaction;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+
+@ApplicationScoped
+@Slf4j
+public class InventoryTransactionService{
+
+    @PersistenceContext(unitName = "mft")
+    private EntityManager entityManager;
+
+    @Transactional
+    public void save(InventoryTransaction inventoryTransaction){
+        entityManager.persist(inventoryTransaction);
+        }
+
+
+    @Transactional
+    public void edit(InventoryTransaction inventoryTransaction){
+        entityManager.merge(inventoryTransaction);
+        }
+
+
+    @Transactional
+    public void remove(Long id){
+        InventoryTransaction inventoryTransaction = entityManager.find(InventoryTransaction.class, id);
+        entityManager.remove(inventoryTransaction);
+        }
+
+
+    @Transactional
+    public InventoryTransaction findById(Long id){
+        return entityManager.find(InventoryTransaction.class, id);
+    }
+
+    @Transactional
+    public List<InventoryTransaction> findAll(){
+        Query query = entityManager.createQuery("select oo from inventoryTransactionEntity oo", InventoryTransaction.class);
+        return query.getResultList();
+    }
+
+    @Transactional
+    public List<InventoryTransaction> findByInventoryId(Long id){
+        Query query = entityManager.createQuery("select oo from inventoryTransactionEntity oo where oo.inventory.id = :inventory", InventoryTransaction.class);
+        query.setParameter("inventory", id);
+        return query.getResultList();
+    }
+
+    public List<InventoryTransaction> findByProductId(Long id){
+        Query query = entityManager.createQuery("select oo from inventoryTransactionEntity oo where oo.product.id = :product", InventoryTransaction.class);
+        query.setParameter("product", id);
+        return query.getResultList();
+    }
+
+    public List<InventoryTransaction> findByOrderId(Long id){
+        Query query = entityManager.createQuery("select oo from inventoryTransactionEntity oo where oo.order.id = :order", InventoryTransaction.class);
+        query.setParameter("order", id);
+        return query.getResultList();
+    }
+
+}

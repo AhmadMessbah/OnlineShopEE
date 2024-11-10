@@ -8,8 +8,8 @@ public class ConnectionProvider {
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
                 "jdbc:oracle:thin:@localhost:1521:xe",
-                "javaee",
-                "javaee123"
+                "javase",
+                "java123"
         );
     }
 }
