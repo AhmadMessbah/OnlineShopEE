@@ -38,14 +38,15 @@ public class OrderItemService {
     }
 
     @Transactional
-    public List<OrderItem> findAll(){
-        Query query = entityManager.createQuery("SELECT o FROM OrderItem o", OrderItem.class);
+    public List<OrderItem> findAll() {
+        Query query = entityManager.createQuery("SELECT o FROM OrderItemEntity o", OrderItem.class);
         return query.getResultList();
     }
 
     @Transactional
     public List<OrderItem> findByProductId(Long orderId) {
-        Query query = entityManager.createQuery("SELECT o FROM OrderItem o WHERE o.productId = :productId", OrderItem.class);
+        Query query = entityManager.createQuery("SELECT o FROM OrderItemEntity o WHERE o.productId = :productId", OrderItem.class);
+        return query.setParameter("productId", orderId).getResultList();
     }
 
 }
