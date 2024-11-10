@@ -44,8 +44,15 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/loginData/{loginData}")
-    public Response getUserByUsernameAndPassword(@PathParam("loginData") String username , String password) {
-        return Response.ok().entity(userService.findByUsernameAndPassword(username , password)).build();
+    public Response getUserByUsernameAndPassword(@PathParam("loginData") String loginData) {
+        String[]parts = loginData.split(" ");
+        if(parts.length == 2){
+            String username = parts[0];
+            String password = parts[1];
+            return Response.ok().entity(userService.findByUsernameAndPassword(username,password)).build();
+        }else {
+            throw new IllegalArgumentException("input username && password !!");
+        }
     }
 
     @GET
@@ -59,7 +66,11 @@ public class UserApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/role/{role}")
     public Response getUserByRoleName(@PathParam("role") String roleName) {
-        return Response.ok().entity(userService.findByRoleName(roleName)).build();
+       try {
+           return Response.ok().entity(userService.findByRoleName(roleName)).build();
+       }catch (Exception e){
+           return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+       }
     }
 
     @POST
