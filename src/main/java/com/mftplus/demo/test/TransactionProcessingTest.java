@@ -1,6 +1,7 @@
 package com.mftplus.demo.test;
 
 import com.mftplus.demo.model.entity.*;
+
 import java.util.Objects;
 
 public class TransactionProcessingTest {
@@ -174,6 +175,7 @@ public class TransactionProcessingTest {
             }
             System.out.println();
         }
+
         // نمایش کلی داده‌ها
         for (Bank bank : banks) {
             System.out.println("Bank{id=" + bank.getId() + ", name='" + bank.getName() + "', accountNumber='" + bank.getAccountNumber() + "'}");
