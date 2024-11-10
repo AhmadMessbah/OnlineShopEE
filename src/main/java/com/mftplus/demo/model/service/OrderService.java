@@ -65,7 +65,7 @@ public class OrderService implements Service<Order, Long> {
 
     @Transactional
     public List<Order> findByBillingAddress(String billingAddress) {
-        Query query = entityManager.createQuery("select o from orderEntity o where o.billingAddress = :billingAddress", Order.class);
+        Query query = entityManager.createQuery("select o from OrderEntity o where o.billingAddress = :billingAddress", Order.class);
         query.setParameter("billingAddress", billingAddress);
         return query.getResultList();
     }
