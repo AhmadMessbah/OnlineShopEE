@@ -51,7 +51,7 @@ public class UserApi {
             String password = parts[1];
             return Response.ok().entity(userService.findByUsernameAndPassword(username,password)).build();
         }else {
-            throw new IllegalArgumentException("username && password most be use !!");
+            throw new IllegalArgumentException("input username && password !!");
         }
     }
 

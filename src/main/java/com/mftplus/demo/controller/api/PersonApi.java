@@ -52,7 +52,7 @@ public class PersonApi {
             String family = parts[1];
             return Response.ok().entity(personService.findByFirstNameAndLastName(name,family)).build();
         }else {
-            throw new IllegalArgumentException("name && family most be use !!");
+            throw new IllegalArgumentException("input name & family !");
         }
     }
 
