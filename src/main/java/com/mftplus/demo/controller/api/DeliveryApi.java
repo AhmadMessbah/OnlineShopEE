@@ -28,11 +28,35 @@ public class DeliveryApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getDeliveryById(@PathParam("id") Integer id) {
-        Delivery delivery = deliveryService.findById(Long.valueOf(id));
+    public Response getDeliveryById(@PathParam("id") Long id) {
+        Delivery delivery = deliveryService.findById(id);
         if (delivery == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Refund not found").build();
         }
         return Response.ok().entity(delivery).build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addDelivery(Delivery delivery) {
+        deliveryService.save(delivery);
+        return Response.status(Response.Status.CREATED).entity(delivery).build();
+    }
+
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateDelivery(Delivery delivery) {
+        deliveryService.edit(delivery);
+        return Response.ok().entity(delivery).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response deleteDelivery(@PathParam("id") Long id) {
+        deliveryService.remove(id);
+        return Response.ok().entity(id).build();
     }
 }
