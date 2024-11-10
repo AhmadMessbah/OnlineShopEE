@@ -28,8 +28,8 @@ public class DeliveryApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getfindById(@PathParam("id") Integer id) {
-        Delivery delivery = deliveryService.findById(id);
+    public Response getDeliveryById(@PathParam("id") Integer id) {
+        Delivery delivery = deliveryService.findById(Long.valueOf(id));
         if (delivery == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Refund not found").build();
         }
