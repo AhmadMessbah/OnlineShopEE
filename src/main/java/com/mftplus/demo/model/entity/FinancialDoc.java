@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-
 import java.util.List;
 
 @NoArgsConstructor
@@ -15,12 +14,11 @@ import java.util.List;
 @SuperBuilder
 @Entity(name = "FinancialDocEntity")
 @Table(name = "financial_docs_tbl")
-@SequenceGenerator(name = "financialDocSeq", sequenceName = "financial_doc_seq", allocationSize = 1)
 public class FinancialDoc {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financialDocSeq")
     @Column(name = "doc_id")
-    private Integer id;
+    private long id;
 
     @Pattern(regexp = "^[a-zA-Z0-9 ]{2,50}$", message = "Invalid document name!")
     @Column(name = "doc_name", length = 50)

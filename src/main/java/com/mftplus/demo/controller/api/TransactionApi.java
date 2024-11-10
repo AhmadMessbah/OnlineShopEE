@@ -25,7 +25,7 @@ public class TransactionApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getTransactionById(@PathParam("id") Integer id) {
+    public Response getTransactionById(@PathParam("id") Long id) {
         Transaction transaction = transactionService.findById(id);
         if (transaction == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Transaction not found").build();
@@ -51,7 +51,7 @@ public class TransactionApi {
 
     @DELETE
     @Path("{id}")
-    public Response deleteTransaction(@PathParam("id") Integer id) {
+    public Response deleteTransaction(@PathParam("id") Long id) {
         transactionService.remove(id);
         return Response.ok().entity(id).build();
     }

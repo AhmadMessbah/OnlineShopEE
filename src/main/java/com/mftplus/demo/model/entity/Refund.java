@@ -13,12 +13,11 @@ import jakarta.validation.constraints.Pattern;
 @SuperBuilder
 @Entity(name = "RefundEntity")
 @Table(name = "refunds_tbl")
-@SequenceGenerator(name = "refundSeq", sequenceName = "refund_seq", allocationSize = 1)
 public class Refund {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "refundSeq")
     @Column(name = "refund_id")
-    private Integer id;
+    private long id;
 
     @Pattern(regexp = "^[0-9]{1,10}$", message = "Invalid refund amount!")
     @Column(name = "amount")

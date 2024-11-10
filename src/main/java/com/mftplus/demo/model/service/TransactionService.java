@@ -25,7 +25,7 @@ public class TransactionService {
     }
 
     @Transactional
-    public void remove(Integer id) {
+    public void remove(Long id) {
         Transaction transaction = entityManager.find(Transaction.class, id);
         entityManager.remove(transaction);
     }
@@ -37,7 +37,7 @@ public class TransactionService {
     }
 
     @Transactional
-    public Transaction findById(Integer id) {
+    public Transaction findById(Long id) {
         return entityManager.find(Transaction.class, id);
     }
 }

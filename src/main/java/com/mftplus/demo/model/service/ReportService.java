@@ -25,7 +25,7 @@ public class ReportService {
     }
 
     @Transactional
-    public void remove(Integer id) {
+    public void remove(Long id) {
         Report report = entityManager.find(Report.class, id);
         entityManager.remove(report);
     }
@@ -37,7 +37,7 @@ public class ReportService {
     }
 
     @Transactional
-    public Report findById(Integer id) {
+    public Report findById(Long id) {
         return entityManager.find(Report.class, id);
     }
 }

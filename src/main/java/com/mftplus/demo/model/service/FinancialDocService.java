@@ -25,7 +25,7 @@ public class FinancialDocService {
     }
 
     @Transactional
-    public void remove(Integer id) {
+    public void remove(Long id) {
         FinancialDoc financialDoc = entityManager.find(FinancialDoc.class, id);
         entityManager.remove(financialDoc);
     }
@@ -37,7 +37,7 @@ public class FinancialDocService {
     }
 
     @Transactional
-    public FinancialDoc findById(Integer id) {
+    public FinancialDoc findById(Long id) {
         return entityManager.find(FinancialDoc.class, id);
     }
 }

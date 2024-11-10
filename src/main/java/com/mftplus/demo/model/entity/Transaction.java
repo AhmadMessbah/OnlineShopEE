@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-
 import java.util.List;
 
 @NoArgsConstructor
@@ -15,12 +14,11 @@ import java.util.List;
 @SuperBuilder
 @Entity(name = "TransactionEntity")
 @Table(name = "transactions_tbl")
-@SequenceGenerator(name = "transactionSeq", sequenceName = "transaction_seq", allocationSize = 1)
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transactionSeq")
     @Column(name = "transaction_id")
-    private Integer id;
+    private long id;
 
     @Pattern(regexp = "^[0-9]{1,10}$", message = "Invalid amount!")
     @Column(name = "amount")

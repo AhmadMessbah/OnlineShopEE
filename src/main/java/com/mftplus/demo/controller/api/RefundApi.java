@@ -25,7 +25,7 @@ public class RefundApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getRefundById(@PathParam("id") Integer id) {
+    public Response getRefundById(@PathParam("id") Long id) {
         Refund refund = refundService.findById(id);
         if (refund == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Refund not found").build();
@@ -51,7 +51,7 @@ public class RefundApi {
 
     @DELETE
     @Path("{id}")
-    public Response deleteRefund(@PathParam("id") Integer id) {
+    public Response deleteRefund(@PathParam("id") Long id) {
         refundService.remove(id);
         return Response.ok().entity(id).build();
     }

@@ -13,12 +13,11 @@ import jakarta.validation.constraints.Pattern;
 @SuperBuilder
 @Entity(name = "ReportEntity")
 @Table(name = "reports_tbl")
-@SequenceGenerator(name = "reportSeq", sequenceName = "report_seq", allocationSize = 1)
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reportSeq")
     @Column(name = "report_id")
-    private Integer id;
+    private long id;
 
     @Pattern(regexp = "^[a-zA-Z0-9 ]{2,100}$", message = "Invalid report description!")
     @Column(name = "description", length = 100)

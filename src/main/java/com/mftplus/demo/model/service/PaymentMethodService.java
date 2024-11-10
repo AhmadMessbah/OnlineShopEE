@@ -25,7 +25,7 @@ public class PaymentMethodService {
     }
 
     @Transactional
-    public void remove(Integer id) {
+    public void remove(Long id) {
         PaymentMethod paymentMethod = entityManager.find(PaymentMethod.class, id);
         entityManager.remove(paymentMethod);
     }
@@ -37,7 +37,7 @@ public class PaymentMethodService {
     }
 
     @Transactional
-    public PaymentMethod findById(Integer id) {
+    public PaymentMethod findById(Long id) {
         return entityManager.find(PaymentMethod.class, id);
     }
 }
