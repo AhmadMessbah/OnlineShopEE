@@ -46,13 +46,13 @@ public class OrderService implements Service<Order, Long> {
     @Transactional
 
     public List<Order> findAll() {
-        Query query = entityManager.createQuery("select o from orderEntity o", Order.class);
+        Query query = entityManager.createQuery("select o from OrderEntity o", Order.class);
         return query.getResultList();
     }
 
     @Transactional
     public Order findByCustomerId(Long id) {
-        Query query = entityManager.createQuery("select o from orderEntity o where o.customerId = :customerId", Order.class);
+        Query query = entityManager.createQuery("select o from OrderEntity o where o.customerId = :customerId", Order.class);
         query.setParameter("customerId", id);
         return (Order) query.getSingleResult();
     }
