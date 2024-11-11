@@ -3,6 +3,7 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.model.entity.Role;
 import com.mftplus.demo.model.service.RoleService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -20,6 +21,7 @@ public class RoleApi {
         log.info("get roles");
         return Response.ok().entity(roleService.findAll()).build();
     }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
@@ -44,14 +46,15 @@ public class RoleApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addRole(Role role)  {
+    public Response addRole(@Valid Role role)  {
         roleService.save(role);
         return Response.ok().entity(roleService).build();
     }
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateRole(Role role)  {
+    public Response updateRole(@Valid Role role)  {
         roleService.edit(role);
         return Response.ok().entity(roleService).build();
     }

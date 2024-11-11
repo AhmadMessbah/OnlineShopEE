@@ -13,7 +13,7 @@ import java.util.List;
 
 @ApplicationScoped
 @Slf4j
-public class PermissionService implements Service<Permission , Long> {
+public class PermissionService implements Service<Permission, Long> {
 
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
@@ -51,7 +51,5 @@ public class PermissionService implements Service<Permission , Long> {
         query.setParameter("permissionName", permissionName);
         return query.getResultList();
     }
-
-
 
 }

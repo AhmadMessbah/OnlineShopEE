@@ -3,6 +3,7 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.model.entity.User;
 import com.mftplus.demo.model.service.UserService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -34,6 +35,7 @@ public class UserApi {
     public Response getUserByUsername(@PathParam("username") String username) {
         return Response.ok().entity(userService.findByUsername(username)).build();
     }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/password/{password}")
@@ -66,17 +68,14 @@ public class UserApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/role/{role}")
     public Response getUserByRoleName(@PathParam("role") String roleName) {
-       try {
-           return Response.ok().entity(userService.findByRoleName(roleName)).build();
-       }catch (Exception e){
-           return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-       }
+
+        return Response.ok().entity(userService.findByRoleName(roleName)).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addUser(User user) {
+    public Response addUser(@Valid User user) {
         userService.save(user);
         return Response.ok().entity(user).build();
     }
@@ -84,7 +83,7 @@ public class UserApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateUser(User user) {
+    public Response updateUser(@Valid User user) {
         userService.edit(user);
         return Response.ok().entity(user).build();
     }

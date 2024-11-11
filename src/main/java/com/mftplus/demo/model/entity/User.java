@@ -46,7 +46,7 @@ public class User extends Base {
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "my_user_role")
-    @JsonProperty("عنوان کاربر :")
+//    @JsonProperty("عنوان کاربر :")
     private List<Role> roleList = new ArrayList<>();
 
 }
