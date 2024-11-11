@@ -27,6 +27,8 @@ public class PersonApi {
         log.info("Get Admin Info");
         return Response.ok().entity(personService.findAll()).build();
     }
+    //todo--->>>message to show the wrongs
+
 
     @GET
     @Path("{id}")

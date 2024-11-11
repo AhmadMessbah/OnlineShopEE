@@ -57,20 +57,19 @@ public class PersonService implements Service<Person, Long> {
     }
 
     @Transactional
-    public Person findByFirstNameAndLastName(String name, String family) {
-        Query query = entityManager.createQuery("select p from  personEntity p where p.name = : name and p.family = : family", Person.class);
-        query.setParameter("name", name+"%s");
-        query.setParameter("family", family+"%s");
-
-        return (Person) query.getSingleResult();
+    public List<Person> findByFirstNameAndLastName(String name, String family) {
+           Query query = entityManager.createQuery("select p from  personEntity p where p.name = : name and p.family = : family", Person.class);
+           query.setParameter("name", name);
+           query.setParameter("family", family);
+           return query.getResultList();
     }
 
     @Transactional
     public Person findByUsernameAndPassword(String username, String password) {
-        Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = : username and p.user.password = : password", Person.class);
-        query.setParameter("username", username);
-        query.setParameter("password", password);
-        return (Person) query.getSingleResult();
+            Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = : username and p.user.password = : password", Person.class);
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            return (Person) query.getSingleResult();
     }
 
     @Transactional

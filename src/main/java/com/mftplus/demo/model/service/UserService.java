@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -82,8 +83,9 @@ public class UserService implements Service<User, Long> {
 
     @Transactional
     public List<User> findByRoleName(String roleName) {
-        Query query = entityManager.createQuery("select u from userEntity u join roleEntity r where r.roleName = : roleName", User.class);
-        query.setParameter("roleName", roleName);
-        return query.getResultList();
+            Query query = entityManager.createQuery("select u from userEntity u cross join roleEntity r where r.roleName=:roleName", User.class);
+            query.setParameter("roleName", roleName);
+            return query.getResultList();
+
     }
 }

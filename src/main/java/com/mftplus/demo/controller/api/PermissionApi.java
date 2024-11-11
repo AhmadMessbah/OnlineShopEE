@@ -1,5 +1,6 @@
 package com.mftplus.demo.controller.api;
 
+import com.mftplus.demo.controller.exception.NoUserException;
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.service.PermissionService;
 import jakarta.inject.Inject;
@@ -18,9 +19,10 @@ public class PermissionApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPermissions() {
-        log.info("get Permissions:");
-        return Response.ok().entity(permissionService.findAll()).build();
+            log.info("get Permissions:");
+            return Response.ok().entity(permissionService.findAll()).build();
     }
+    //todo--->>>message to show the wrongs
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
