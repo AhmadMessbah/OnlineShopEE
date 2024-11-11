@@ -1,7 +1,6 @@
 package com.mftplus.demo.model.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -9,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
 
 @NoArgsConstructor
 @Getter
@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity(name = "permissionEntity")
 @Table(name = "permission_tbl")
-public class Permission {
+public class Permission extends Base {
     @Id
     @SequenceGenerator(name = "permissionSeq" , sequenceName = "permission_seq" , allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "permissionSeq")

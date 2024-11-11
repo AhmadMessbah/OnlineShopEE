@@ -8,6 +8,7 @@ import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serializable;
 import java.util.List;
 
 @ApplicationScoped
@@ -19,7 +20,7 @@ public class PersonService implements Service<Person, Long> {
 
     @Transactional
     @Override
-    public void save(Person person) {
+    public void save(Person person)  {
         entityManager.persist(person);
     }
 

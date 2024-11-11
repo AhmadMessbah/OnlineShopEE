@@ -1,6 +1,5 @@
 package com.mftplus.demo.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Version;
@@ -10,13 +9,15 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+
 @NoArgsConstructor
 @SuperBuilder
 @Getter
 @Setter
 @MappedSuperclass
+@ToString
 
-public class Base {
+public class Base  {
     @Version
     @JsonbTransient
     private Long versionId;

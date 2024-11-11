@@ -60,6 +60,7 @@ public class RoleService implements Service<Role, Long> {
 
     @Transactional
     public List<Role> findByPermission(String permissionName) {
+                                                //TODO-->> inja bayad cross join bezanam vali vaqti mizaram personam null mishe!!
         Query query = entityManager.createQuery("select r from roleEntity r join permissionEntity pp where pp.permissionName = : permissionName", Role.class);
         query.setParameter("permissionName", permissionName);
         return query.getResultList();

@@ -9,13 +9,14 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Path("/persons")
 @Slf4j
-public class PersonApi {
+public class PersonApi{
 
 
     @Inject
@@ -61,8 +62,17 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/loginData/{loginData}")
-    public Response getPersonByUsernameAndPassword(@PathParam("loginData") String username, String password) {
-        return Response.ok().entity(personService.findByUsernameAndPassword(username, password)).build();
+    public Response getPersonByUsernameAndPassword(@PathParam("loginData") String username , String password) {
+       return Response.ok(personService.findByUsernameAndPassword(username,password)).build();
+//          todo--> vaghti ino minevisam person null mishe!!(dakhele voroodi ham String loginData gozashte bodam)
+//        String[]parts = loginData.split(" ");
+//        if(parts.length == 2){
+//            String username = parts[0];
+//            String password = parts[1];
+//            return Response.ok().entity(personService.findByUsernameAndPassword(username,password)).build();
+//        }else {
+//            throw new IllegalArgumentException("input username & password !");
+//        }
     }
 
     @GET
