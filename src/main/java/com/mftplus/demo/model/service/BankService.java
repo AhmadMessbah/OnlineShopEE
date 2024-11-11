@@ -25,19 +25,19 @@ public class BankService {
     }
 
     @Transactional
-    public void remove(Integer id) {
+    public void remove(Long id) {
         Bank bank = entityManager.find(Bank.class, id);
         entityManager.remove(bank);
     }
 
     @Transactional
     public List<Bank> findAll() {
-        Query query = entityManager.createQuery("select b from Bank b", Bank.class);
+        Query query = entityManager.createQuery("select b from BankEntity b", Bank.class);
         return query.getResultList();
     }
 
     @Transactional
-    public Bank findById(Integer id) {
+    public Bank findById(Long id) {
         return entityManager.find(Bank.class, id);
     }
 }

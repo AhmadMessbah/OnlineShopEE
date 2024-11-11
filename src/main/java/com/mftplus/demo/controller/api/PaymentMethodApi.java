@@ -25,7 +25,7 @@ public class PaymentMethodApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getPaymentMethodById(@PathParam("id") Integer id) {
+    public Response getPaymentMethodById(@PathParam("id") Long id) {
         PaymentMethod paymentMethod = paymentMethodService.findById(id);
         if (paymentMethod == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Payment Method not found").build();
@@ -51,7 +51,7 @@ public class PaymentMethodApi {
 
     @DELETE
     @Path("{id}")
-    public Response deletePaymentMethod(@PathParam("id") Integer id) {
+    public Response deletePaymentMethod(@PathParam("id") Long id) {
         paymentMethodService.remove(id);
         return Response.ok().entity(id).build();
     }

@@ -25,7 +25,7 @@ public class FinancialDocApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getFinancialDocById(@PathParam("id") Integer id) {
+    public Response getFinancialDocById(@PathParam("id") Long id) {
         FinancialDoc financialDoc = financialDocService.findById(id);
         if (financialDoc == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Financial document not found").build();
@@ -51,7 +51,7 @@ public class FinancialDocApi {
 
     @DELETE
     @Path("{id}")
-    public Response deleteFinancialDoc(@PathParam("id") Integer id) {
+    public Response deleteFinancialDoc(@PathParam("id") Long id) {
         financialDocService.remove(id);
         return Response.ok().entity(id).build();
     }

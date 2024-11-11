@@ -25,7 +25,7 @@ public class ReportApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getReportById(@PathParam("id") Integer id) {
+    public Response getReportById(@PathParam("id") Long id) {
         Report report = reportService.findById(id);
         if (report == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Report not found").build();
@@ -51,7 +51,7 @@ public class ReportApi {
 
     @DELETE
     @Path("{id}")
-    public Response deleteReport(@PathParam("id") Integer id) {
+    public Response deleteReport(@PathParam("id") Long id) {
         reportService.remove(id);
         return Response.ok().entity(id).build();
     }

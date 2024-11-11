@@ -25,19 +25,19 @@ public class FinancialDocService {
     }
 
     @Transactional
-    public void remove(Integer id) {
+    public void remove(Long id) {
         FinancialDoc financialDoc = entityManager.find(FinancialDoc.class, id);
         entityManager.remove(financialDoc);
     }
 
     @Transactional
     public List<FinancialDoc> findAll() {
-        Query query = entityManager.createQuery("select f from FinancialDoc f", FinancialDoc.class);
+        Query query = entityManager.createQuery("select f from FinancialDocEntity f", FinancialDoc.class);
         return query.getResultList();
     }
 
     @Transactional
-    public FinancialDoc findById(Integer id) {
+    public FinancialDoc findById(Long id) {
         return entityManager.find(FinancialDoc.class, id);
     }
 }

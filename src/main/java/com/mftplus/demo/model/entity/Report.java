@@ -1,7 +1,5 @@
 package com.mftplus.demo.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,16 +11,13 @@ import jakarta.validation.constraints.Pattern;
 @Getter
 @Setter
 @SuperBuilder
-@Entity
-@Table(name = "reports")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
-@SequenceGenerator(name = "reportSeq", sequenceName = "report_seq", allocationSize = 1)
+@Entity(name = "ReportEntity")
+@Table(name = "reports_tbl")
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reportSeq")
     @Column(name = "report_id")
-    private Integer id;
+    private long id;
 
     @Pattern(regexp = "^[a-zA-Z0-9 ]{2,100}$", message = "Invalid report description!")
     @Column(name = "description", length = 100)

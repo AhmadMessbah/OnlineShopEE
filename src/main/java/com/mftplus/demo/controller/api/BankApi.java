@@ -25,7 +25,7 @@ public class BankApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getBankById(@PathParam("id") Integer id) {
+    public Response getBankById(@PathParam("id") Long id) {
         Bank bank = bankService.findById(id);
         if (bank == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Bank not found").build();
@@ -51,7 +51,7 @@ public class BankApi {
 
     @DELETE
     @Path("{id}")
-    public Response deleteBank(@PathParam("id") Integer id) {
+    public Response deleteBank(@PathParam("id") Long id) {
         bankService.remove(id);
         return Response.ok().entity(id).build();
     }

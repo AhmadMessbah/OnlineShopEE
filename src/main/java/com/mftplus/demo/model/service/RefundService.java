@@ -25,19 +25,19 @@ public class RefundService {
     }
 
     @Transactional
-    public void remove(Integer id) {
+    public void remove(Long id) {
         Refund refund = entityManager.find(Refund.class, id);
         entityManager.remove(refund);
     }
 
     @Transactional
     public List<Refund> findAll() {
-        Query query = entityManager.createQuery("select r from Refund r", Refund.class);
+        Query query = entityManager.createQuery("select r from RefundEntity r", Refund.class);
         return query.getResultList();
     }
 
     @Transactional
-    public Refund findById(Integer id) {
+    public Refund findById(Long id) {
         return entityManager.find(Refund.class, id);
     }
 }

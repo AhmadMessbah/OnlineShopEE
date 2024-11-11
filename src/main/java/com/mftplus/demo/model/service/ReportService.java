@@ -25,19 +25,19 @@ public class ReportService {
     }
 
     @Transactional
-    public void remove(Integer id) {
+    public void remove(Long id) {
         Report report = entityManager.find(Report.class, id);
         entityManager.remove(report);
     }
 
     @Transactional
     public List<Report> findAll() {
-        Query query = entityManager.createQuery("select r from Report r", Report.class);
+        Query query = entityManager.createQuery("select r from ReportEntity r", Report.class);
         return query.getResultList();
     }
 
     @Transactional
-    public Report findById(Integer id) {
+    public Report findById(Long id) {
         return entityManager.find(Report.class, id);
     }
 }
