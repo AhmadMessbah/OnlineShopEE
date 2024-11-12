@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @SuperBuilder
-@ToString
+
 
 @Entity(name = "OrderItemEntity")
 @Table(name = "order_item_tbl")
