@@ -26,8 +26,8 @@ public class TestZahra {
         Product product=Product.builder().name("dress").build();
         OrderItem orderItem=OrderItem.builder().unitPrice(100L).build();
         Order order=Order.builder().orderItems(List.of(orderItem)).orderStatus(OrderStatus.PENDING).discount(100).shippingCost(50).build();
-        orderService.save(order);
-        InventoryTransaction inventoryTransaction=InventoryTransaction.builder().product(product).build();
+//        orderService.save(order);
+        InventoryTransaction inventoryTransaction=InventoryTransaction.builder().order(order).product(product).build();
         Inventory inventory = Inventory.builder().inventoryTransaction(inventoryTransaction).address("tehran").phone("1234").title("pooshak").build();
         inventoryService.save(inventory);
         return inventory.toString();

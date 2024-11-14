@@ -52,6 +52,12 @@ public class InventoryApi {
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("/id/{id}")
+    public Response getInventoriesProduct(@PathParam("id") Long id){
+        return Response.ok().entity(inventoryService.findByOrderId(id)).build();
+    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("{phone}")
     public Response getInventoriesByPhone(@PathParam("phone") String phone){
         return Response.ok().entity(inventoryService.findByPhone(phone)).build();
