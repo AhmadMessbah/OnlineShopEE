@@ -15,6 +15,12 @@ public class OrderApi {
     @Inject
     private OrderService orderService;
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOrders() {
+        log.info("getOrders");
+        return Response.ok().entity(orderService.findAll()).build();
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

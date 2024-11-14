@@ -11,6 +11,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,37 +30,44 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderSeq")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private User user;
 
     @Column(name = "order_Date") //nullable = false
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private OrderStatus orderStatus;
 
     @Column(name = "total_amount") //nullable = false
     private double totalAmount;
+
     @Column(name = "discount", length = 10) //nullable = false
     private double discount;
+
     @Column(name = "tax", length = 10) //nullable = false
     private double tax;
+
     @Column(name = "shipping_cost") //nullable = false
     private double shippingCost;
 
-//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
 //    @JoinColumn(name = "order_items", foreignKey = @ForeignKey(name = "my_fk"))
-//    private List<OrderItem> orderItems;
+    @JoinTable(name = "order_orderItem", foreignKey = @ForeignKey(name = "my_fk"))
+    private List<OrderItem> orderItems=new ArrayList<>();
 
 //    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 //    @JoinColumn(name = "delivery_id")
 //    private Delivery delivery;
 
-    @Column(name = "billing_address", nullable = false)
+    @Column(name = "bill_addr")//, nullable = false
     private String billingAddress;
-    @Column(name = "created_at", nullable = false)
+
+    @Column(name = "created_at")//, nullable = false
     private LocalDateTime createdAt;
-    @Column(name = "updated_at", nullable = false)
+
+    @Column(name = "updated_at")//, nullable = false
     private LocalDateTime updatedAt;
 
     public void updateOrderStatus(OrderStatus orderStatus) {

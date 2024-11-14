@@ -21,20 +21,21 @@ import java.time.LocalDate;
 @Entity(name = "OrderItemEntity")
 @Table(name = "order_item_tbl")
 public class OrderItem {
-  @Id
+    @Id
     @SequenceGenerator(name = "orderItemSeq", sequenceName = "order_item_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderItemSeq")
     @Column(name = "order_Id")
     private Long id;
 
-    @Column(name = "product_id")
-    private int productId;
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "orderItem_pro")
+    private Product product;
 
     @Column(name = "product_quantity")
     private double quantity;
 
     @Column(name = "unit_price")
-    private long unitPrice;
+    private Long unitPrice;
 
     @Transient
     private double totalPrice;
