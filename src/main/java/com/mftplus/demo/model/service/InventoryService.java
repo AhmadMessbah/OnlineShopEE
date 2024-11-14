@@ -88,5 +88,11 @@ public class InventoryService {
         query.setParameter("name", name);
         return query.getResultList();
     }
+    @Transactional
+    public Inventory findByOrderId(Long id) {
+        Query query = entityManager.createQuery("select oo from inventoryEntity oo  where oo.inventoryTransaction.order.id=:id", Inventory.class);
+        query.setParameter("id", id);
+        return (Inventory) query.getSingleResult();
+    }
 
 }
