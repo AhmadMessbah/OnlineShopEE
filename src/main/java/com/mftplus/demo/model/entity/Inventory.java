@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -25,15 +24,15 @@ public class Inventory extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inventory_seq")
     private Long id;
 
-    @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$",message = "Invalid Name")
+  //  @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$",message = "Invalid Name")
     @Column(name = "title", length = 30, nullable = false)
     private String title;
 
-    @Pattern(regexp = "^[a-zA-Z0-9]{3,300}$",message = "Invalid Address")
+  //  @Pattern(regexp = "^[a-zA-Z0-9]{3,300}$",message = "Invalid Address")
     @Column(name = "address", length = 200, nullable = false)
     private String address;
 
-    @Pattern(regexp = "[\\d{11}]",message = "Invalid Phone Number")
+  //  @Pattern(regexp = "[\\d]{11}",message = "Invalid Phone Number")
     @Column(name = "phone", length = 14, nullable = false)
     private String phone;
 

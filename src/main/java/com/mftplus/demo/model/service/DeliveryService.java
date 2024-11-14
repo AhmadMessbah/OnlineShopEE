@@ -1,7 +1,6 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.Delivery;
-import com.mftplus.demo.model.entity.Permission;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -21,43 +20,44 @@ public class DeliveryService implements Service<Delivery, Long> {
     private EntityManager entityManager;
 
     @Transactional
-
+    @Override
     public void save(Delivery delivery){
         entityManager.persist(delivery);
     }
     @Transactional
-
+    @Override
     public void edit(Delivery delivery){
         entityManager.merge(delivery);
     }
 
     @Transactional
-
+    @Override
     public void remove(Long id){
         Delivery delivery = entityManager.find(Delivery.class, id);
         entityManager.remove(delivery);
     }
 
     @Transactional
+    @Override
     public Delivery findById(Long id) {
         return entityManager.find(Delivery.class, id);
     }
 
     @Transactional
-
+    @Override
     public List<Delivery> findAll(){
         Query query = entityManager.createQuery("select d from deliveryEntity d", Delivery.class);
         return query.getResultList();
     }
-    @Transactional
 
+    @Transactional
     public Delivery findByTrackingNumber(String trackingNumber){
         Query query = entityManager.createQuery("select d from deliveryEntity d where d.trackingNumber = :trackingNumber", Delivery.class);
         query.setParameter("trackingNumber", trackingNumber);
         return (Delivery) query.getSingleResult();
     }
-    @Transactional
 
+    @Transactional
     public List<Delivery> findByDeliveryAddress(String deliveryAddress){
         Query query = entityManager.createQuery("select d from deliveryEntity d where d.deliveryAddress = :deliveryAddress", Delivery.class);
         query.setParameter("deliveryAddress", deliveryAddress);

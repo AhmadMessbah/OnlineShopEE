@@ -6,6 +6,8 @@ import com.mftplus.demo.model.entity.Role;
 import com.mftplus.demo.model.entity.User;
 import com.mftplus.demo.model.entity.enums.Gender;
 import com.mftplus.demo.model.service.PersonService;
+import com.mftplus.demo.model.service.RoleService;
+import com.mftplus.demo.model.service.UserService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -15,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Slf4j
-@Path("/test")
+@Path("/mobina_test")
 
 public class TestApiMobina {
     @Inject
@@ -23,7 +25,7 @@ public class TestApiMobina {
 
 //    @Inject
 //    private UserService userService;
-
+//
 //    @Inject
 //    private RoleService roleService;
 

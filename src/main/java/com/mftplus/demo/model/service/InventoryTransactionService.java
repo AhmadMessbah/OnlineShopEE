@@ -48,8 +48,8 @@ public class InventoryTransactionService{
 
     @Transactional
     public List<InventoryTransaction> findByInventoryId(Long id){
-        Query query = entityManager.createQuery("select oo from inventoryTransactionEntity oo where oo.inventory.id = :inventory", InventoryTransaction.class);
-        query.setParameter("inventory", id);
+        Query query = entityManager.createQuery("select oo from inventoryTransactionEntity oo cross join inventoryEntity e where e.id=:id", InventoryTransaction.class);
+        query.setParameter("id", id);
         return query.getResultList();
     }
 

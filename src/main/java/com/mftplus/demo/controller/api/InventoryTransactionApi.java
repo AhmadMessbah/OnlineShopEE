@@ -32,8 +32,9 @@ public class InventoryTransactionApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{inventory}")
+    @Path("/inventory/{inventory}")
     public Response getInventoryTransactionByInventory(@PathParam("inventory") Long id){
+        log.info("get inventory id");
         return Response.ok().entity(inventoryTransactionService.findByInventoryId(id)).build();
     }
 

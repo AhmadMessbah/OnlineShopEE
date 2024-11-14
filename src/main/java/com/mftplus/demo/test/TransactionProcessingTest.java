@@ -13,13 +13,15 @@ public class TransactionProcessingTest {
                 Bank.builder().id(1L).name("Sample Bank").accountNumber("1234567890").build(),
                 Bank.builder().id(2L).name("Another Bank").accountNumber("0987654321").build(),
                 Bank.builder().id(-1L).name(null).accountNumber("null").build()  // داده نادرست
+
         };
 
         // داده‌های مختلف برای کلاس PaymentMethod
         PaymentMethod[] paymentMethods = {
                 PaymentMethod.builder().id(1L).name("Credit Card").build(),
                 PaymentMethod.builder().id(2L).name("Debit Card").build(),
-                PaymentMethod.builder().id(0L).name("Invalid Payment Method").build()  // داده نادرست
+                PaymentMethod.builder().id(0L).name("Invalid Payment Method").build()
+                // داده نادرست
         };
 
         // داده‌های مختلف برای کلاس FinancialDoc

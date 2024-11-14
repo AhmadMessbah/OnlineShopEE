@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@ToString
 
 
 @Entity(name = "OrderEntity")
@@ -31,19 +32,19 @@ public class Order {
     @ManyToOne
     private User user;
 
-    @Column(name = "order_Date", nullable = false)
+    @Column(name = "order_Date") //nullable = false
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @Column(name = "total_amount", nullable = false)
+    @Column(name = "total_amount") //nullable = false
     private double totalAmount;
-    @Column(name = "discount", length = 10, nullable = false)
+    @Column(name = "discount", length = 10) //nullable = false
     private double discount;
-    @Column(name = "tax", length = 10, nullable = false)
+    @Column(name = "tax", length = 10) //nullable = false
     private double tax;
-    @Column(name = "shipping_cost", nullable = false)
+    @Column(name = "shipping_cost") //nullable = false
     private double shippingCost;
 
 //    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL , fetch = FetchType.EAGER)

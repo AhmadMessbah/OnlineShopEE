@@ -1,6 +1,7 @@
 package com.mftplus.demo.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,8 @@ public class Product extends Base {
     private String name;
 
     @Column(name = "price", length= 30)
-    @Pattern(regexp = "^[0-9]{2,30}$",message = "invalid price")
+//    @Pattern(regexp = "^[0-9]{2,30}$",message = "invalid price")
+    @Min(value=0, message="Cant be negative")
     private Float price;
 
     @Column(name = "product_code" )

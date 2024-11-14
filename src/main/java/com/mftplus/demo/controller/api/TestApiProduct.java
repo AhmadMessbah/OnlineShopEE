@@ -7,7 +7,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import lombok.extern.slf4j.Slf4j;
 
-@Path("/test")
+@Path("/testproduct")
 @Slf4j
 public class TestApiProduct {
 

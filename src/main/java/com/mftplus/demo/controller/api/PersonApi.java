@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Path("/persons")
+
 @Slf4j
 public class PersonApi{
 

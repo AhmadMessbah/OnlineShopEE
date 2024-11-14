@@ -3,6 +3,7 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.model.entity.Order;
 import com.mftplus.demo.model.service.OrderService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -25,7 +26,7 @@ public class OrderApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addOrder(Order order) {
+    public Response addOrder(@Valid Order order) {
         orderService.save(order);
         return Response.status(Response.Status.CREATED).entity(order).build();
     }
@@ -33,7 +34,7 @@ public class OrderApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateOrder(Order order) {
+    public Response updateOrder(@Valid Order order) {
         orderService.edit(order);
         return Response.ok().entity(order).build();
     }

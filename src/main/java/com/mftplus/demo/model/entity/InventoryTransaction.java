@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -22,9 +25,9 @@ public class InventoryTransaction extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inventory_t_seq")
     private Long id;
 
-    @OneToOne
+    @OneToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
     @JoinColumn(name=("inventory"), foreignKey = @ForeignKey(name="fk-inventoryTrans_inventory"))
-    private Inventory inventory;
+    private List<Inventory> inventory = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name=("product"), foreignKey = @ForeignKey(name="fk-inventoryTrans_product"))
@@ -34,7 +37,7 @@ public class InventoryTransaction extends Base {
     @JoinColumn(name = ("order"), foreignKey= @ForeignKey(name ="fk-inventoryTrans-order"))
     private Order order;
 
-    @Pattern(regexp = "\\d", message = "Invalid Number")
+    //@Pattern(regexp = "\\d", message = "Invalid Number")
     @Column(name = "count", length = 10)
     private int count;
 

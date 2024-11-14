@@ -19,27 +19,32 @@ public class OrderService implements Service<Order, Long> {
     private EntityManager entityManager;
 
     @Transactional
+    @Override
     public void save(Order order) {
         entityManager.persist(order);
     }
 
     @Transactional
+    @Override
     public void edit(Order order) {
         entityManager.merge(order);
     }
 
     @Transactional
+    @Override
     public void remove(Long id) {
         Order order = entityManager.find(Order.class, id);
         entityManager.remove(order);
     }
 
     @Transactional
+    @Override
     public Order findById(Long id) {
         return entityManager.find(Order.class, id);
     }
 
     @Transactional
+    @Override
     public List<Order> findAll() {
         Query query = entityManager.createQuery("select o from OrderEntity o", Order.class);
         return query.getResultList();
