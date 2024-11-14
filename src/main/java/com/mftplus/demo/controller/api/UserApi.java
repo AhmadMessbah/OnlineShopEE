@@ -68,7 +68,6 @@ public class UserApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/role/{role}")
     public Response getUserByRoleName(@PathParam("role") String roleName) {
-
         return Response.ok().entity(userService.findByRoleName(roleName)).build();
     }
 

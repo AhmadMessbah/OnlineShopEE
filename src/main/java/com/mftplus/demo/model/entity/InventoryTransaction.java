@@ -25,9 +25,9 @@ public class InventoryTransaction extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inventory_t_seq")
     private Long id;
 
-    @OneToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
-    @JoinColumn(name=("inventory"), foreignKey = @ForeignKey(name="fk-inventoryTrans_inventory"))
-    private List<Inventory> inventory = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
+//    @JoinColumn(name=("inventory"), foreignKey = @ForeignKey(name="fk-inventoryTrans_inventory"))
+//    private List<Inventory> inventory = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name=("product"), foreignKey = @ForeignKey(name="fk-inventoryTrans_product"))

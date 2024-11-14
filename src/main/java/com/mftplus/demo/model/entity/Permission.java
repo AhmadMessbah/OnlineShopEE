@@ -26,7 +26,7 @@ public class Permission extends Base {
     private Long id;
 
     @Column(name = "permission_name",length = 30)
-    @Pattern(regexp = "^[a-zA-Z]{2,30}$" , message = "invalid permission name!")
+//    @Pattern(regexp = "^[a-zA-Z]{2,30}$" , message = "invalid permission name!")
 //    @JsonProperty("امکان دسترسی :")
     private String permissionName;
 }

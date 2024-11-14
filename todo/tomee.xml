@@ -23,8 +23,8 @@
     <Resource id="jdbc/JtaDataSource" type="DataSource">
         jdbcDriver = oracle.jdbc.OracleDriver
         jdbcUrl = jdbc:oracle:thin:@localhost:1521:xe
-        username = javase
-        password = java123
+        username = javaee
+        password = javaee123
         jtaManaged = true
         maxIdle = 20
         minIdle = 5
@@ -33,8 +33,8 @@
     <Resource id="jdbc/NonJtaDataSource" type="DataSource">
         jdbcDriver = oracle.jdbc.OracleDriver
         jdbcUrl = jdbc:oracle:thin:@localhost:1521:xe
-        username = javase
-        password = java123
+        username = javaee
+        password = javaee123
         jtaManaged = false
         maxIdle = 20
         minIdle = 5

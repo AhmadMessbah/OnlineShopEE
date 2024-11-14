@@ -58,12 +58,12 @@ public class ProductService implements Service<Product, Long> {
         return query.getResultList();
     }
 
-    @Transactional
-    public List<Product> findByPrice(Float price) {
-        Query query = entityManager.createQuery("select p from productEntity p where p.price = : price", Product.class);
-        query.setParameter("price", price);
-        return query.getResultList();
-    }
+//    @Transactional
+//    public List<Product> findByPrice(Float price) {
+//        Query query = entityManager.createQuery("select p from productEntity p where p.price = : price", Product.class);
+//        query.setParameter("price", price);
+//        return query.getResultList();
+//    }
 
     @Transactional
     public List<Product> findByCode(Long code) {

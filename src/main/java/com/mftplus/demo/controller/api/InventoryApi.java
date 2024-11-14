@@ -42,6 +42,14 @@ public class InventoryApi {
     public Response getInventoriesByAddress(@PathParam("address") String address){
         return Response.ok().entity(inventoryService.findByAddress(address)).build();
     }
+
+    //todo->> one sample for getting the inventoryTransactions relation objects!
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/name/{name}")
+    public Response getInventoriesProduct(@PathParam("name") String name){
+        return Response.ok().entity(inventoryService.findByProduct(name)).build();
+    }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{phone}")

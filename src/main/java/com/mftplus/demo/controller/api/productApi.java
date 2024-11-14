@@ -42,13 +42,13 @@ public class productApi {
 
     }
 
-    @GET
-    @Path("/price/{price}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductByPrice(@PathParam("price") Float price) {
-        log.info("getProductByPrice +");
-        return Response.ok().entity(productService.findByPrice(price)).build();
-    }
+//    @GET
+//    @Path("/price/{price}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response getProductByPrice(@PathParam("price") Float price) {
+//        log.info("getProductByPrice +");
+//        return Response.ok().entity(productService.findByPrice(price)).build();
+//    }
 
     @GET
     @Path("/code/{code}")

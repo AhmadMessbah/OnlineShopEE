@@ -19,7 +19,7 @@ public class TestApiProduct {
     public String test() {
         log.info("test loaded++");
 
-        Product product = Product.builder().name("shampoo").price(170F).code(111L).build();
+        Product product = Product.builder().name("shampoo").code(111L).build();
         productService.save(product);
         return product.toString();
 

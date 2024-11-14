@@ -35,6 +35,8 @@ public class Inventory extends Base {
   //  @Pattern(regexp = "[\\d]{11}",message = "Invalid Phone Number")
     @Column(name = "phone", length = 14, nullable = false)
     private String phone;
+    @ManyToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
+    private InventoryTransaction inventoryTransaction;
 
 //    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 //    @JoinColumn(name = "InventoryTransaction")

@@ -40,6 +40,7 @@ public class Role extends Base {
 //    @JsonProperty("امکان دسترسی در عنوان :")
     private List<Permission> permission = new ArrayList<>();
 
+
 //    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 //    @JoinColumn(name = "role_Owner")
 //    private User user;
