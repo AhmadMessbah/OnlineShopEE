@@ -3,7 +3,6 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.model.entity.*;
 import com.mftplus.demo.model.entity.enums.OrderStatus;
 import com.mftplus.demo.model.service.InventoryService;
-import com.mftplus.demo.model.service.InventoryTransactionService;
 import com.mftplus.demo.model.service.OrderService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;

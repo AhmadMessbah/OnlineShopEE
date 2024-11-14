@@ -25,17 +25,19 @@ public class Inventory extends Base {
     private Long id;
 
   //  @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$",message = "Invalid Name")
-    @Column(name = "title", length = 30, nullable = false)
+    @Column(name = "title", length = 30)//, nullable = false
     private String title;
 
   //  @Pattern(regexp = "^[a-zA-Z0-9]{3,300}$",message = "Invalid Address")
-    @Column(name = "address", length = 200, nullable = false)
+    @Column(name = "address", length = 200)//, nullable = false
     private String address;
 
   //  @Pattern(regexp = "[\\d]{11}",message = "Invalid Phone Number")
-    @Column(name = "phone", length = 14, nullable = false)
+    @Column(name = "phone", length = 14)//, nullable = false
     private String phone;
+
     @ManyToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
+    @JoinColumn(name = "I_transaction")
     private InventoryTransaction inventoryTransaction;
 
 //    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

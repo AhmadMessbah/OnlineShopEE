@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
@@ -14,9 +15,10 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@ToString
 
 @Entity(name = "inventoryTransactionEntity")
-@Table(name = "Inventory_Transaction_table")
+@Table(name = "In_transactions")
 
 public class InventoryTransaction extends Base {
 
@@ -29,12 +31,12 @@ public class InventoryTransaction extends Base {
 //    @JoinColumn(name=("inventory"), foreignKey = @ForeignKey(name="fk-inventoryTrans_inventory"))
 //    private List<Inventory> inventory = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name=("product"), foreignKey = @ForeignKey(name="fk-inventoryTrans_product"))
+    @OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+  //  @JoinColumn(name=("product"), foreignKey = @ForeignKey(name="fk-inventoryTrans_product"))
     private Product product;
 
-    @OneToOne
-    @JoinColumn(name = ("order"), foreignKey= @ForeignKey(name ="fk-inventoryTrans-order"))
+    @OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+  //  @JoinColumn(name = ("order"), foreignKey= @ForeignKey(name ="fk-inventoryTrans-order"))
     private Order order;
 
     //@Pattern(regexp = "\\d", message = "Invalid Number")
