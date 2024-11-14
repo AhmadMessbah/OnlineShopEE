@@ -3,6 +3,7 @@ package com.mftplus.demo.model.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@ToString
 @Entity(name = "BankEntity")
 @Table(name = "banks_tbl")
 public class Bank {

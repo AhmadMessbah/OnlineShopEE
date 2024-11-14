@@ -3,6 +3,7 @@ package com.mftplus.demo.model.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@ToString
 @Entity(name = "PaymentMethodEntity")
 @Table(name = "payment_methods_tbl")
 public class PaymentMethod {
