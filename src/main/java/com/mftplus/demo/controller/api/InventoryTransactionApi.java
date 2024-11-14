@@ -40,14 +40,14 @@ public class InventoryTransactionApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{product}")
+    @Path("/product/{product}")
     public Response getInventoryTransactionByProduct(@PathParam("product") Long id){
         return Response.ok().entity(inventoryTransactionService.findByProductId(id)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{order}")
+    @Path("/order/{order}")
     public Response getInventoryTransactionByOrder(@PathParam("order") Long id){
         return Response.ok().entity(inventoryTransactionService.findByOrderId(id)).build();
     }

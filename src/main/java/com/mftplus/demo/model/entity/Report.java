@@ -21,7 +21,7 @@ public class Report {
     @Column(name = "report_id")
     private long id;
 
-    @Pattern(regexp = "^[a-zA-Z0-9 ]{2,100}$", message = "Invalid report description!")
+   // @Pattern(regexp = "^[a-zA-Z0-9 ]{2,100}$", message = "Invalid report description!")
     @Column(name = "description", length = 100)
     private String description;
 

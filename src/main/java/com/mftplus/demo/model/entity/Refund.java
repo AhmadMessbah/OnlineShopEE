@@ -21,7 +21,7 @@ public class Refund {
     @Column(name = "refund_id")
     private long id;
 
-    @Pattern(regexp = "^[0-9]{1,10}$", message = "Invalid refund amount!")
+    //@Pattern(regexp = "^[0-9]{1,10}$", message = "Invalid refund amount!")
     @Column(name = "amount")
     private Double amount;
 

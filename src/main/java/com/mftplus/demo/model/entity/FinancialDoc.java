@@ -22,10 +22,10 @@ public class FinancialDoc {
     @Column(name = "doc_id")
     private long id;
 
-    @Pattern(regexp = "^[a-zA-Z0-9 ]{2,50}$", message = "Invalid document name!")
+  //  @Pattern(regexp = "^[a-zA-Z0-9 ]{2,50}$", message = "Invalid document name!")
     @Column(name = "doc_name", length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "financialDoc")
-    private List<Transaction> transactions;
+//    @OneToMany(mappedBy = "financialDoc")
+//    private List<Transaction> transactions;
 }
