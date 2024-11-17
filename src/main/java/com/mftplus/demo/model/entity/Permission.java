@@ -14,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-@ToString
 
 @Entity(name = "permissionEntity")
 @Table(name = "permission_tbl")
