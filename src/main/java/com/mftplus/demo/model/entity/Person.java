@@ -1,15 +1,12 @@
 package com.mftplus.demo.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mftplus.demo.model.entity.enums.Gender;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 
@@ -18,7 +15,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @SuperBuilder
-@Slf4j
 
 @Entity(name = "personEntity")
 @Table(name = "person_tbl")
