@@ -4,23 +4,19 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.slf4j.Slf4j;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-@Slf4j
-@ToString
 
 @Entity(name = "ticketEntity")
 @Table(name = "ticket_tbl")
-public class Ticket extends Base{
+public class Ticket extends Base {
     @Id
-    @SequenceGenerator(name = "ticketSeq",sequenceName = "ticketSequence",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "ticketSeq")
+    @SequenceGenerator(name = "ticketSeq", sequenceName = "ticketSequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticketSeq")
     private Long id;
 
     @Column(name = "title")
@@ -35,10 +31,10 @@ public class Ticket extends Base{
     @Column(name = "resp_status")
     private String responseType;
 
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private User user;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private TicketGroup ticketGroup;
 
 

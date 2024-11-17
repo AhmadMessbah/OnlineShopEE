@@ -4,16 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.slf4j.Slf4j;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-@Slf4j
-@ToString
 
 @Entity(name = "messageEntity")
 @Table(name = "message_tbl")
@@ -23,7 +19,7 @@ public class Message extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "messageSeq")
     private Long id;
 
-    @Column(name = "text",length = 254)
+    @Column(name = "text", length = 254)
     private String text;
 
     @Column(name = "title")
@@ -32,7 +28,7 @@ public class Message extends Base {
     @Column(name = "date_time")
     private String dateTime;
 
-    @ManyToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private User user;
 
 

@@ -3,6 +3,7 @@ package com.mftplus.demo.controller.api;
 
 import com.mftplus.demo.model.entity.Ticket;
 import com.mftplus.demo.model.service.TicketService;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -11,6 +12,7 @@ import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/tickets")
+@Loggable
 @Slf4j
 public class TicketApi {
     @Inject

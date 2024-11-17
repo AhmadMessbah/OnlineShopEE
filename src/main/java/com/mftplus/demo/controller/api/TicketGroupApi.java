@@ -2,6 +2,7 @@ package com.mftplus.demo.controller.api;
 
 import com.mftplus.demo.model.entity.TicketGroup;
 import com.mftplus.demo.model.service.TicketGroupService;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -10,6 +11,7 @@ import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/groups")
+@Loggable
 @Slf4j
 public class TicketGroupApi {
     @Inject

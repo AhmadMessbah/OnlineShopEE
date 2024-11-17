@@ -1,9 +1,8 @@
 package com.mftplus.demo.controller.api;
 
 import com.mftplus.demo.model.entity.Message;
-import com.mftplus.demo.model.entity.Ticket;
 import com.mftplus.demo.model.service.MessageService;
-import com.mftplus.demo.model.service.TicketService;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -12,6 +11,7 @@ import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/messages")
+@Loggable
 @Slf4j
 public class MessageApi {
     @Inject

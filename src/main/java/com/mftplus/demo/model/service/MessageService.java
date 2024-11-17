@@ -8,13 +8,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @ApplicationScoped
 @Loggable
-@Slf4j
 public class MessageService implements Service<Message, Long> {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
