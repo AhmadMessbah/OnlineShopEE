@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @SuperBuilder
-@ToString
 @Slf4j
 
 @Entity(name = "personEntity")

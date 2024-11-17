@@ -1,6 +1,7 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.Person;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @ApplicationScoped
+@Loggable
 @Slf4j
 public class PersonService implements Service<Person, Long> {
 

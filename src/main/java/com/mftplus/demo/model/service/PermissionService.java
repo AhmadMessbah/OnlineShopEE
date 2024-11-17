@@ -2,6 +2,7 @@ package com.mftplus.demo.model.service;
 
 
 import com.mftplus.demo.model.entity.Permission;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @ApplicationScoped
+@Loggable
 @Slf4j
 public class PermissionService implements Service<Permission, Long> {
 
