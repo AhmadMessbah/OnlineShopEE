@@ -8,7 +8,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
-@Path("/payment-methods")
+@Path("/paymentMethods")
 @Slf4j
 public class PaymentMethodApi {
 

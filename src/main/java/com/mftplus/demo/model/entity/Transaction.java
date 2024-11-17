@@ -22,7 +22,7 @@ public class Transaction {
     @Column(name = "transaction_id")
     private long id;
 
-    @Pattern(regexp = "^[0-9]{1,10}$", message = "Invalid amount!")
+    //@Pattern(regexp = "^[0-9]{1,10}$", message = "Invalid amount!")
     @Column(name = "amount")
     private Double amount;
 
@@ -41,6 +41,6 @@ public class Transaction {
     @OneToOne(mappedBy = "transaction")
     private Refund refund;
 
-    @OneToMany(mappedBy = "transaction")
+    @OneToMany(mappedBy = "transaction",cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<Report> reports;
 }

@@ -3,6 +3,7 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.model.entity.Bank;
 import com.mftplus.demo.model.service.BankService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -36,15 +37,15 @@ public class BankApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addBank(Bank bank) {
+    public Response addBank(@Valid Bank bank) {
         bankService.save(bank);
-        return Response.status(Response.Status.CREATED).entity(bank).build();
+        return Response.ok().entity(bank).build();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateBank(Bank bank) {
+    public Response updateBank(@Valid Bank bank) {
         bankService.edit(bank);
         return Response.ok().entity(bank).build();
     }

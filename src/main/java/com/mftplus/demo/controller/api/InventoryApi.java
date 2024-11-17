@@ -32,13 +32,13 @@ public class InventoryApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{title}")
+    @Path("/title/{title}")
     public Response getInventoriesByTitle(@PathParam("title") String title){
         return Response.ok().entity(inventoryService.findByTitle(title)).build();
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{address}")
+    @Path("/address/{address}")
     public Response getInventoriesByAddress(@PathParam("address") String address){
         return Response.ok().entity(inventoryService.findByAddress(address)).build();
     }
@@ -52,13 +52,7 @@ public class InventoryApi {
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/id/{id}")
-    public Response getInventoriesProduct(@PathParam("id") Long id){
-        return Response.ok().entity(inventoryService.findByOrderId(id)).build();
-    }
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("{phone}")
+    @Path("/phone/{phone}")
     public Response getInventoriesByPhone(@PathParam("phone") String phone){
         return Response.ok().entity(inventoryService.findByPhone(phone)).build();
     }

@@ -22,10 +22,10 @@ public class PaymentMethod {
     @Column(name = "payment_method_id")
     private long id;
 
-    @Pattern(regexp = "^[a-zA-Z ]{2,50}$", message = "Invalid payment method name!")
+   // @Pattern(regexp = "^[a-zA-Z ]{2,50}$", message = "Invalid payment method name!")
     @Column(name = "payment_name", length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "paymentMethod")
+    @OneToMany(mappedBy = "paymentMethod",cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<Transaction> transactions;
 }

@@ -3,6 +3,7 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.model.entity.*;
 import com.mftplus.demo.model.entity.enums.OrderStatus;
 import com.mftplus.demo.model.service.InventoryService;
+import com.mftplus.demo.model.service.InventoryTransactionService;
 import com.mftplus.demo.model.service.OrderService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -11,12 +12,12 @@ import jakarta.ws.rs.Path;
 import java.util.List;
 
 @Path("test4")
-public class TestZahra {
+public class TestApiZahra {
     @Inject
     private OrderService orderService;
 
-//    @Inject
-//   private InventoryTransactionService inventoryTransactionService;
+    @Inject
+   private InventoryTransactionService inventoryTransactionService;
 
     @Inject
     private InventoryService inventoryService;
