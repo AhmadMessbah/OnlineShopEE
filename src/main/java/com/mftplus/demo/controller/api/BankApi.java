@@ -18,8 +18,8 @@ public class BankApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllBanks() {
-        log.info("Getting all banks");
+    public Response getBanks() {
+        log.info("get banks");
         return Response.ok().entity(bankService.findAll()).build();
     }
 
@@ -27,11 +27,14 @@ public class BankApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public Response getBankById(@PathParam("id") Long id) {
-        Bank bank = bankService.findById(id);
-        if (bank == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Bank not found").build();
-        }
-        return Response.ok().entity(bank).build();
+        return Response.ok().entity(bankService.findById(id)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/account/{accountNumber}")
+    public Response getBankByAccountNumber(@PathParam("accountNumber") String accountNumber) {
+        return Response.ok().entity(bankService.findByAccountNumber(accountNumber)).build();
     }
 
     @POST

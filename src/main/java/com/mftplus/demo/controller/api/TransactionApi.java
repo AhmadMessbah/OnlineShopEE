@@ -3,10 +3,13 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.model.entity.Transaction;
 import com.mftplus.demo.model.service.TransactionService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
+
+import java.time.LocalDate;
 
 @Path("/transactions")
 @Slf4j
@@ -17,8 +20,8 @@ public class TransactionApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllTransactions() {
-        log.info("Getting all transactions");
+    public Response getTransactions() {
+        log.info("get transactions");
         return Response.ok().entity(transactionService.findAll()).build();
     }
 
@@ -26,25 +29,36 @@ public class TransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public Response getTransactionById(@PathParam("id") Long id) {
-        Transaction transaction = transactionService.findById(id);
-        if (transaction == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Transaction not found").build();
-        }
-        return Response.ok().entity(transaction).build();
+        return Response.ok().entity(transactionService.findById(id)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/date/{date}")
+    public Response getTransactionsByDate(@PathParam("date") String date) {
+        LocalDate parsedDate = LocalDate.parse(date);
+        return Response.ok().entity(transactionService.findByDate(parsedDate)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/tracking/{trackingCode}")
+    public Response getTransactionByTrackingCode(@PathParam("trackingCode") Long trackingCode) {
+        return Response.ok().entity(transactionService.findByTrackingCode(trackingCode)).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addTransaction(Transaction transaction) {
+    public Response addTransaction(@Valid Transaction transaction) {
         transactionService.save(transaction);
-        return Response.status(Response.Status.CREATED).entity(transaction).build();
+        return Response.ok().entity(transaction).build();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateTransaction(Transaction transaction) {
+    public Response updateTransaction(@Valid Transaction transaction) {
         transactionService.edit(transaction);
         return Response.ok().entity(transaction).build();
     }
