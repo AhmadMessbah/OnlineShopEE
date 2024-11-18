@@ -1,4 +1,4 @@
-package com.mftplus.demo.controller.api;
+package com.mftplus.demo.controller.api.test;
 
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.entity.Person;
@@ -23,11 +23,11 @@ public class TestApiMobina {
     @Inject
     private PersonService personService;
 
-//    @Inject
-//    private UserService userService;
-//
-//    @Inject
-//    private RoleService roleService;
+    @Inject
+    private UserService userService;
+
+    @Inject
+    private RoleService roleService;
 
 
     @GET
@@ -50,33 +50,33 @@ public class TestApiMobina {
 
         return person.toString();
     }
-//    @PUT
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public String updatePerson(Person person){
-//       person.setId(1L);
-//       person.setFamily("azimi");
-//       personService.edit(person);
-//       return person.toString();
-//    }
-//    @GET
-//    @Path(value = "{id}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getPerson(@PathParam("id") Long id) {
-//        return Response.ok(personService.findById(id)).build();
-//
-//    }
-//
-//    @GET
-//    @Path( "/username/{username}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getPerson(@PathParam("username") String username) {
-//        try {
-//            return Response.ok(personService.findByUsername(username)).build();
-//        }catch (Exception e){
-//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-//        }
-//
-//    }
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String updatePerson(Person person){
+       person.setId(1L);
+       person.setFamily("azimi");
+       personService.edit(person);
+       return person.toString();
+    }
+    @GET
+    @Path(value = "{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPerson(@PathParam("id") Long id) {
+        return Response.ok(personService.findById(id)).build();
+
+    }
+
+    @GET
+    @Path( "/username/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPerson(@PathParam("username") String username) {
+        try {
+            return Response.ok(personService.findByUsername(username)).build();
+        }catch (Exception e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+
+    }
 
 }
