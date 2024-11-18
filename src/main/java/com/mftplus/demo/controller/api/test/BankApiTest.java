@@ -9,52 +9,60 @@ import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Path("/bank_test")
+@Path("/test_banks")
 public class BankApiTest {
 
     @Inject
     private BankService bankService;
 
+
     @GET
-    public String test() {
-        log.info("Testing Bank API");
-        Bank bank = Bank.builder()
-                .name("Test Bank")
-                .accountNumber("1234567890")
-                .branchCode(101L)
-                .build();
-        bankService.save(bank);
-
-        bank.setBranchCode(202L);
-        bankService.edit(bank);
-
-        return bank.toString();
-    }
-
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String updateBank(Bank bank) {
-        bank.setBranchCode(303L);
-        bankService.edit(bank);
-        return bank.toString();
+    public String testGetBanks() {
+        log.info("test get banks");
+        return bankService.findAll().toString();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBank(@PathParam("id") Long id) {
-        return Response.ok(bankService.findById(id)).build();
+    public Response testGetBankById(@PathParam("id") Long id) {
+        log.info("test get bank by id: {}", id);
+        Bank bank = bankService.findById(id);
+        return Response.ok().entity(bank).build();
     }
 
     @GET
     @Path("/account/{accountNumber}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBankByAccountNumber(@PathParam("accountNumber") String accountNumber) {
-        try {
-            return Response.ok(bankService.findByAccountNumber(accountNumber)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-        }
+    public Response testGetBankByAccountNumber(@PathParam("accountNumber") String accountNumber) {
+        log.info("test get bank by account number: {}", accountNumber);
+        Bank bank = bankService.findByAccountNumber(accountNumber);
+        return Response.ok().entity(bank).build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response testAddBank(Bank bank) {
+        log.info("test add bank: {}", bank);
+        bankService.save(bank);
+        return Response.ok().entity(bank).build();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response testUpdateBank(Bank bank) {
+        log.info("test update bank: {}", bank);
+        bankService.edit(bank);
+        return Response.ok().entity(bank).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response testDeleteBank(@PathParam("id") Long id) {
+        log.info("test delete bank with id: {}", id);
+        bankService.remove(id);
+        return Response.ok().entity(id).build();
     }
 }

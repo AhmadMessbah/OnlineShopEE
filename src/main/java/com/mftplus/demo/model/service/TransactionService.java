@@ -36,7 +36,9 @@ public class TransactionService implements Service<Transaction, Long> {
     @Override
     public void remove(Long id) {
         Transaction transaction = entityManager.find(Transaction.class, id);
-        entityManager.remove(transaction);
+        if (transaction != null) {
+            entityManager.remove(transaction);
+        }
     }
 
     @Transactional
@@ -53,6 +55,13 @@ public class TransactionService implements Service<Transaction, Long> {
     }
 
     @Transactional
+    public Transaction findByTrackingCode(Long trackingCode) {
+        Query query = entityManager.createQuery("select t from transactionEntity t where t.trackingCode = :trackingCode", Transaction.class);
+        query.setParameter("trackingCode", trackingCode);
+        return (Transaction) query.getSingleResult();
+    }
+
+    @Transactional
     public List<Transaction> findByDate(LocalDate date) {
         Query query = entityManager.createQuery("select t from transactionEntity t where t.date = :date", Transaction.class);
         query.setParameter("date", date);
@@ -60,9 +69,9 @@ public class TransactionService implements Service<Transaction, Long> {
     }
 
     @Transactional
-    public Transaction findByTrackingCode(Long trackingCode) {
-        Query query = entityManager.createQuery("select t from transactionEntity t where t.trackingCode = :trackingCode", Transaction.class);
-        query.setParameter("trackingCode", trackingCode);
-        return (Transaction) query.getSingleResult();
+    public List<Transaction> findByBankId(Long bankId) {
+        Query query = entityManager.createQuery("select t from transactionEntity t where t.bank.id = :bankId", Transaction.class);
+        query.setParameter("bankId", bankId);
+        return query.getResultList();
     }
 }

@@ -1,9 +1,9 @@
 package com.mftplus.demo.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mftplus.demo.model.entity.enums.PaymentMethod;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +28,6 @@ public class Payment {
 
     @Column(name = "doc_number", nullable = false, unique = true)
     @NotNull(message = "Document number is required!")
-    @Pattern(regexp = "^[0-9]{1,15}$", message = "Invalid document number!")
     @JsonProperty("Document Number")
     private Long docNumber;
 
@@ -38,7 +37,14 @@ public class Payment {
     private LocalDate date;
 
     @Column(name = "description", length = 255)
-    @Pattern(regexp = "^[A-Za-z0-9\\s]{0,255}$", message = "Invalid description!")
     @JsonProperty("Description")
     private String description;
+
+    @Column(name = "payment_method", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+
+    @OneToOne
+    @JoinColumn(name = "transaction_id", referencedColumnName = "id")
+    private Transaction transaction;
 }

@@ -35,7 +35,9 @@ public class BankService implements Service<Bank, Long> {
     @Override
     public void remove(Long id) {
         Bank bank = entityManager.find(Bank.class, id);
-        entityManager.remove(bank);
+        if (bank != null) {
+            entityManager.remove(bank);
+        }
     }
 
     @Transactional
@@ -56,5 +58,12 @@ public class BankService implements Service<Bank, Long> {
         Query query = entityManager.createQuery("select b from bankEntity b where b.accountNumber = :accountNumber", Bank.class);
         query.setParameter("accountNumber", accountNumber);
         return (Bank) query.getSingleResult();
+    }
+
+    @Transactional
+    public List<Bank> findByBranchCode(Long branchCode) {
+        Query query = entityManager.createQuery("select b from bankEntity b where b.branchCode = :branchCode", Bank.class);
+        query.setParameter("branchCode", branchCode);
+        return query.getResultList();
     }
 }
