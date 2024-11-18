@@ -52,4 +52,29 @@ public class MessageService implements Service<Message, Long> {
         return query.getResultList();
 
     }
+    @Transactional
+    public List<Message> findByTitle(String title) {
+        Query query=entityManager.createQuery("select m from messageEntity m where m.title=:title", Message.class);
+       query.setParameter("title", title);
+       return query.getResultList();
+    }
+    @Transactional
+    public List<Message> findByText(String text) {
+        Query query=entityManager.createQuery("select m from messageEntity m where m.text=:text", Message.class);
+        query.setParameter("text", text);
+        return query.getResultList();
+    }
+    @Transactional
+    public Message findByUsername(String username) {
+        Query query=entityManager.createQuery("select m from messageEntity m where m.user.username=:username", Message.class);
+        query.setParameter("username", username);
+        return (Message) query.getSingleResult();
+    }
+
+    @Transactional
+    public Message findByUserEmail(String email) {
+        Query query=entityManager.createQuery("select m from messageEntity m where m.user.email=:email", Message.class);
+        query.setParameter("email", email);
+        return (Message) query.getSingleResult();
+    }
 }

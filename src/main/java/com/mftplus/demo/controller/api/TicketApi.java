@@ -32,6 +32,63 @@ public class TicketApi {
         log.info("Get Ticket by id : {}", id);
         return Response.ok().entity(ticketService.findById(id)).build();
     }
+    @GET
+    @Path("/title/{title}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketByTitle(@PathParam("title") String title) {
+        log.info("Get Ticket by title : {}", title);
+        return Response.ok().entity(ticketService.findByTitle(title)).build();
+    }
+    @GET
+    @Path("/text/{text}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketByText(@PathParam("text") String text) {
+        log.info("Get Ticket by text : {}", text);
+        return Response.ok().entity(ticketService.findByText(text)).build();
+    }
+    @GET
+    @Path("/response/{response}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketByRespType(@PathParam("response") String responseType) {
+        log.info("Get Ticket by response type : {}", responseType);
+        return Response.ok().entity(ticketService.findByResponseType(responseType)).build();
+    }
+    @GET
+    @Path("/username/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketByUsername(@PathParam("username") String username) {
+        log.info("Get Ticket by username : {}", username);
+        return Response.ok().entity(ticketService.findByUsername(username)).build();
+    }
+    @GET
+    @Path("/email/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketByUserEmail(@PathParam("email") String email) {
+        log.info("Get Ticket by Email : {}", email);
+        return Response.ok().entity(ticketService.findByUserEmail(email)).build();
+    }
+    @GET
+    @Path("/mTitle/{mTitle}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketByMessageTitle(@PathParam("mTitle") String title) {
+        log.info("Get Ticket by Message Title : {}", title);
+        return Response.ok().entity(ticketService.findByMessageTitle(title)).build();
+    }
+    @GET
+    @Path("/mText/{mText}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketByMessageText(@PathParam("mText") String text) {
+        log.info("Get Ticket by Message Text : {}", text);
+        return Response.ok().entity(ticketService.findByMessageText(text)).build();
+    }
+    @GET
+    @Path("/groupName/{groupName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketByGroupName(@PathParam("groupName") String name) {
+        log.info("Get Ticket by Group Name : {}", name);
+        return Response.ok().entity(ticketService.findByTicketGroupName(name)).build();
+    }
+
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)

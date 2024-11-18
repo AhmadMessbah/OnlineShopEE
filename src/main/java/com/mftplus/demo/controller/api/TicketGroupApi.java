@@ -31,6 +31,13 @@ public class TicketGroupApi {
         log.info("Get TicketGroup by id : {}", id);
         return Response.ok().entity(ticketGroupService.findById(id)).build();
     }
+    @GET
+    @Path("/name/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketGroupByName(@PathParam("name") String name) {
+        log.info("Get TicketGroup by name : {}", name);
+        return Response.ok().entity(ticketGroupService.findByName(name)).build();
+    }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)

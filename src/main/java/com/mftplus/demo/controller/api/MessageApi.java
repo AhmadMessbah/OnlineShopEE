@@ -32,6 +32,38 @@ public class MessageApi {
         return Response.ok().entity(messageService.findById(id)).build();
     }
 
+    @GET
+    @Path("/title/{title}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMessageByTitle(@PathParam("title") String title) {
+        log.info("Get Message by title : {}", title);
+        return Response.ok().entity(messageService.findByTitle(title)).build();
+    }
+
+    @GET
+    @Path("/text/{text}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMessageByText(@PathParam("text") String text) {
+        log.info("Get Message by text : {}", text);
+        return Response.ok().entity(messageService.findByText(text)).build();
+    }
+
+    @GET
+    @Path("/username/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMessageByUsername(@PathParam("username") String username) {
+        log.info("Get Message by Username : {}", username);
+        return Response.ok().entity(messageService.findByUsername(username)).build();
+    }
+
+    @GET
+    @Path("/email/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMessageByUserEmail(@PathParam("email") String email) {
+        log.info("Get Message by Email : {}", email);
+        return Response.ok().entity(messageService.findByUserEmail(email)).build();
+    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

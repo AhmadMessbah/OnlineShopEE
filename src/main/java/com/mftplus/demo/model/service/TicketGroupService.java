@@ -8,7 +8,6 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
-
 import java.util.List;
 
 @ApplicationScoped
@@ -16,6 +15,7 @@ import java.util.List;
 public class TicketGroupService implements Service<TicketGroup, Long> {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
+
 
     @Transactional
     @Override
@@ -34,7 +34,7 @@ public class TicketGroupService implements Service<TicketGroup, Long> {
     @Transactional
     @Override
     public void remove(Long id) {
-        TicketGroup ticketGroup=entityManager.find(TicketGroup.class, id);
+        TicketGroup ticketGroup = entityManager.find(TicketGroup.class, id);
         entityManager.remove(ticketGroup);
 
     }
@@ -49,6 +49,25 @@ public class TicketGroupService implements Service<TicketGroup, Long> {
     @Override
     public List<TicketGroup> findAll() {
         Query query = entityManager.createQuery("select g from tGroupEntity g", TicketGroup.class);
+        return query.getResultList();
+    }
+
+    @Transactional
+    public List<TicketGroup> findByName(String name) {
+        Query query = entityManager.createQuery("select g from tGroupEntity g where g.name =:name", TicketGroup.class);
+        query.setParameter("name", name);
+        return query.getResultList();
+    }
+    @Transactional
+    public List<TicketGroup> findByChild(String name) {
+        Query query = entityManager.createQuery("select g from tGroupEntity g where g.childList =:name", TicketGroup.class);
+        query.setParameter("name", name);
+        return query.getResultList();
+    }
+    @Transactional
+    public List<TicketGroup> findByParent(String name) {
+        Query query = entityManager.createQuery("select g from tGroupEntity g where g.parent =:name", TicketGroup.class);
+        query.setParameter("name", name);
         return query.getResultList();
     }
 }
