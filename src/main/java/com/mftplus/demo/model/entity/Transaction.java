@@ -3,7 +3,6 @@ package com.mftplus.demo.model.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +27,6 @@ public class Transaction {
 
     @Column(name = "tracking_code", nullable = false, unique = true)
     @NotNull(message = "Tracking code is required!")
-    @Pattern(regexp = "^[0-9]{5,20}$", message = "Invalid tracking code!")
     @JsonProperty("Tracking Code")
     private Long trackingCode;
 
@@ -36,4 +34,11 @@ public class Transaction {
     @NotNull(message = "Transaction date is required!")
     @JsonProperty("Transaction Date")
     private LocalDate date;
+
+    @ManyToOne
+    @JoinColumn(name = "bank_id", referencedColumnName = "id")
+    private Bank bank;
+
+    @OneToOne(mappedBy = "transaction", cascade = CascadeType.ALL)
+    private Payment payment;
 }

@@ -9,7 +9,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Path("/payments")
 @Slf4j
@@ -29,15 +29,24 @@ public class PaymentApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public Response getPaymentById(@PathParam("id") Long id) {
-        return Response.ok().entity(paymentService.findById(id)).build();
+        Payment payment = paymentService.findById(id); // اصلاح شده
+        return Response.ok().entity(payment).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/date/{date}")
-    public Response getPaymentsByDate(@PathParam("date") String date) {
-        LocalDate parsedDate = LocalDate.parse(date);
-        return Response.ok().entity(paymentService.findByDate(parsedDate)).build();
+    @Path("/doc/{docNumber}")
+    public Response getPaymentByDocNumber(@PathParam("docNumber") Long docNumber) {
+        Payment payment = paymentService.findByDocNumber(docNumber);
+        return Response.ok().entity(payment).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/method/{paymentMethod}")
+    public Response getPaymentByMethod(@PathParam("paymentMethod") String paymentMethod) {
+        List<Payment> payments = paymentService.findByPaymentMethod(paymentMethod);
+        return Response.ok().entity(payments).build();
     }
 
     @POST

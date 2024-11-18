@@ -9,8 +9,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDate;
-
 @Path("/transactions")
 @Slf4j
 public class TransactionApi {
@@ -30,14 +28,6 @@ public class TransactionApi {
     @Path("{id}")
     public Response getTransactionById(@PathParam("id") Long id) {
         return Response.ok().entity(transactionService.findById(id)).build();
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/date/{date}")
-    public Response getTransactionsByDate(@PathParam("date") String date) {
-        LocalDate parsedDate = LocalDate.parse(date);
-        return Response.ok().entity(transactionService.findByDate(parsedDate)).build();
     }
 
     @GET

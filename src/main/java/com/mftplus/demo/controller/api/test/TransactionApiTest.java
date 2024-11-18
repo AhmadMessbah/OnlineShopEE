@@ -8,54 +8,61 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDate;
-
 @Slf4j
-@Path("/transaction_test")
+@Path("/test_transactions")
 public class TransactionApiTest {
 
     @Inject
     private TransactionService transactionService;
 
     @GET
-    public String test() {
-        log.info("Testing Transaction API");
-        Transaction transaction = Transaction.builder()
-                .trackingCode(987654321L)
-                .date(LocalDate.now())
-                .build();
-        transactionService.save(transaction);
-
-        transaction.setTrackingCode(123456789L);
-        transactionService.edit(transaction);
-
-        return transaction.toString();
-    }
-
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String updateTransaction(Transaction transaction) {
-        transaction.setTrackingCode(555555555L);
-        transactionService.edit(transaction);
-        return transaction.toString();
+    public String testGetTransactions() {
+        log.info("test get transactions");
+        // فرض می‌کنیم تراکنش‌ها در حال حاضر در پایگاه داده موجودند
+        return transactionService.findAll().toString();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTransaction(@PathParam("id") Long id) {
-        return Response.ok(transactionService.findById(id)).build();
+    public Response testGetTransactionById(@PathParam("id") Long id) {
+        log.info("test get transaction by id: {}", id);
+        Transaction transaction = transactionService.findById(id);
+        return Response.ok().entity(transaction).build();
     }
 
     @GET
     @Path("/tracking/{trackingCode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTransactionByTrackingCode(@PathParam("trackingCode") Long trackingCode) {
-        try {
-            return Response.ok(transactionService.findByTrackingCode(trackingCode)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-        }
+    public Response testGetTransactionByTrackingCode(@PathParam("trackingCode") Long trackingCode) {
+        log.info("test get transaction by tracking code: {}", trackingCode);
+        Transaction transaction = transactionService.findByTrackingCode(trackingCode);
+        return Response.ok().entity(transaction).build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response testAddTransaction(Transaction transaction) {
+        log.info("test add transaction: {}", transaction);
+        transactionService.save(transaction);
+        return Response.ok().entity(transaction).build();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response testUpdateTransaction(Transaction transaction) {
+        log.info("test update transaction: {}", transaction);
+        transactionService.edit(transaction);
+        return Response.ok().entity(transaction).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response testDeleteTransaction(@PathParam("id") Long id) {
+        log.info("test delete transaction with id: {}", id);
+        transactionService.remove(id);
+        return Response.ok().entity(id).build();
     }
 }

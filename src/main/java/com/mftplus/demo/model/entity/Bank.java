@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -40,4 +42,7 @@ public class Bank {
     @NotNull(message = "Branch code is required!")
     @JsonProperty("Branch Code")
     private Long branchCode;
+
+    @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> transactions;
 }
