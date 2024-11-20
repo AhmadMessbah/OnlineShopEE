@@ -9,14 +9,9 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
-
-
 @Path("/persons")
-
 @Slf4j
 public class PersonApi{
-
-
     @Inject
     private PersonService personService;
 

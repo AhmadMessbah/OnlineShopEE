@@ -27,7 +27,7 @@ public class User extends Base {
     @JsonProperty("ردیف :")
     private Long id;
 
-    @Column(name = "username", length = 30, unique = true)
+    @Column(name = "username", length = 30)
     @Pattern(regexp = "^[a-zA-Z0-9]{3,30}$", message = "invalid username !")
     @JsonProperty("نام کاربری :")
     private String username;
