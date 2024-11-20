@@ -1,46 +1,44 @@
 package com.mftplus.demo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
-import java.util.List;
+
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-@ToString
-@Entity(name = "TransactionEntity")
-@Table(name = "transactions_tbl")
+
+@Entity(name = "transactionEntity")
+@Table(name = "transaction_tbl")
 public class Transaction {
+
     @Id
+    @SequenceGenerator(name = "transactionSeq", sequenceName = "transaction_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transactionSeq")
-    @Column(name = "transaction_id")
-    private long id;
+    @JsonProperty("Transaction ID")
+    private Long id;
 
-    //@Pattern(regexp = "^[0-9]{1,10}$", message = "Invalid amount!")
-    @Column(name = "amount")
-    private Double amount;
+    @Column(name = "tracking_code", nullable = false, unique = true)
+    @NotNull(message = "Tracking code is required!")
+    @JsonProperty("Tracking Code")
+    private Long trackingCode;
+
+    @Column(name = "transaction_date", nullable = false)
+    @NotNull(message = "Transaction date is required!")
+    @JsonProperty("Transaction Date")
+    private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "payment_method_id")
-    private PaymentMethod paymentMethod;
-
-    @ManyToOne
-    @JoinColumn(name = "bank_id")
+    @JoinColumn(name = "bank_id", referencedColumnName = "id")
     private Bank bank;
 
-    @ManyToOne
-    @JoinColumn(name = "doc_id")
-    private FinancialDoc financialDoc;
-
-    @OneToOne(mappedBy = "transaction")
-    private Refund refund;
-
-    @OneToMany(mappedBy = "transaction",cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    private List<Report> reports;
+    @OneToOne(mappedBy = "transaction", cascade = CascadeType.ALL)
+    private Payment payment;
 }

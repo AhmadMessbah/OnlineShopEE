@@ -1,4 +1,4 @@
-package com.mftplus.demo.controller.api;
+package com.mftplus.demo.controller.api.test;
 
 import com.mftplus.demo.model.entity.Product;
 import com.mftplus.demo.model.service.ProductService;
