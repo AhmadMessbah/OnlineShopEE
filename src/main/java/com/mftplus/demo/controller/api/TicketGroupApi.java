@@ -31,12 +31,21 @@ public class TicketGroupApi {
         log.info("Get TicketGroup by id : {}", id);
         return Response.ok().entity(ticketGroupService.findById(id)).build();
     }
+
     @GET
     @Path("/name/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTicketGroupByName(@PathParam("name") String name) {
         log.info("Get TicketGroup by name : {}", name);
         return Response.ok().entity(ticketGroupService.findByName(name)).build();
+    }
+
+    @GET
+    @Path("/parent/{parent}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketGroupByParent(@PathParam("parent") String name) {
+        log.info("Get TicketGroup by parent : {}", name);
+        return Response.ok().entity(ticketGroupService.findByParent(name)).build();
     }
 
     @POST
