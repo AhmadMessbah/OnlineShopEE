@@ -10,7 +10,7 @@ import jakarta.transaction.Transactional;
 
 import java.util.List;
 
-@ApplicationScoped
+@ApplicationScoped  //todo
 @Loggable
 public class TicketGroupService implements Service<TicketGroup, Long> {
     @PersistenceContext(unitName = "mft")

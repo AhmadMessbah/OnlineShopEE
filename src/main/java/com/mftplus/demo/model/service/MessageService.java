@@ -11,7 +11,7 @@ import jakarta.transaction.Transactional;
 
 import java.util.List;
 
-@ApplicationScoped
+@ApplicationScoped //todo
 @Loggable
 public class MessageService implements Service<Message, Long> {
     @PersistenceContext(unitName = "mft")

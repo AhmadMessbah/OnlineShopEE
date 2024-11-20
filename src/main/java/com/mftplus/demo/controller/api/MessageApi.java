@@ -10,9 +10,10 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
-@Path("/messages")
+@Path("/messages")  //todo
 @Loggable
 @Slf4j
+
 public class MessageApi {
     @Inject
     private MessageService messageService;
