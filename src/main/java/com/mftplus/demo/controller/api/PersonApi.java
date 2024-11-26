@@ -1,5 +1,7 @@
 package com.mftplus.demo.controller.api;
 
+import com.mftplus.demo.controller.interceptor.annotation.Loggable;
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.service.PersonService;
 import jakarta.inject.Inject;
@@ -11,115 +13,142 @@ import lombok.extern.slf4j.Slf4j;
 
 @Path("/persons")
 @Slf4j
-public class PersonApi{
+public class PersonApi {
     @Inject
     private PersonService personService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPerson() {
+    @Loggable
+    @ResponseMaker
+    public Object getPerson() {
         log.info("Get Admin Info");
-        return Response.ok().entity(personService.findAll()).build();
+        return personService.findAll();
     }
-    //todo--->>>message to show the wrongs
-
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPersonById(@PathParam("id") Long id) {
-        return Response.ok().entity(personService.findById(id)).build();
+    @Loggable
+    @ResponseMaker
+    public Object getPersonById(@PathParam("id") Long id) {
+        return personService.findById(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/nationalId/{nationalId}")
-    public Response getPersonByNationalId(@PathParam("nationalId") String nationalId) {
-        return Response.ok().entity(personService.findByNationalId(nationalId)).build();
+    @Loggable
+    @ResponseMaker
+    public Object getPersonByNationalId(@PathParam("nationalId") String nationalId) {
+        return personService.findByNationalId(nationalId);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/fullName/{fullName}")
-    public Response getPersonFullName(@PathParam("fullName") String fullName){
-        String[]parts = fullName.split(" ");
-        if(parts.length == 2){
-            String name = parts[0];
-            String family = parts[1];
-            return Response.ok().entity(personService.findByFirstNameAndLastName(name,family)).build();
-        }else {
-            throw new IllegalArgumentException("input name & family !");
-        }
+    @Loggable
+    @ResponseMaker
+    public Object getPersonFullName(@PathParam("fullName") String name , String family) {
+        return personService.findByFirstNameAndLastName(name, family);
+//        String[] parts = fullName.split(" ");
+//        if (parts.length == 2) {
+//            String name = parts[0];
+//            String family = parts[1];
+//            return Response.ok().entity(personService.findByFirstNameAndLastName(name, family)).build();
+//        } else {
+//            throw new IllegalArgumentException("input name & family !");
+//        }
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/loginData/{loginData}")
-    public Response getPersonByUsernameAndPassword(@PathParam("loginData") String loginData) {
+    @Loggable
+    @ResponseMaker
+    public Object getPersonByUsernameAndPassword(@PathParam("loginData") String username,String password) {
+        return personService.findByUsernameAndPassword(username, password);
 
-        String[]parts = loginData.split(" ");
-        if(parts.length == 2){
-            String username = parts[0];
-            String password = parts[1];
-            return Response.ok().entity(personService.findByUsernameAndPassword(username,password)).build();
-        }else {
-            throw new IllegalArgumentException("input username & password !");
-        }
+//        String[] parts = loginData.split(" ");
+//        if (parts.length == 2) {
+//            String username = parts[0];
+//            String password = parts[1];
+//            return Response.ok().entity(personService.findByUsernameAndPassword(username, password)).build();
+//        } else {
+//            throw new IllegalArgumentException("input username & password !");
+//        }
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path(value = "/username/{username}")
-    public Response getPersonByUsername(@PathParam("username") String username) {
-        try {
-            return Response.ok().entity(personService.findByUsername(username)).build();
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-        }
+    @ResponseMaker
+    @Loggable
+    public Object getPersonByUsername(@PathParam("username") String username) {
+        return personService.findByUsername(username);
+//        try {
+//            return Response.ok().entity(personService.findByUsername(username)).build();
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+//        }
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/phone/{phone}")
-    public Response getPersonByPhoneNumber(@PathParam("phone") String phoneNumber) {
-        return Response.ok().entity(personService.findByPhoneNumber(phoneNumber)).build();
+    @Loggable
+    @ResponseMaker
+    public Object getPersonByPhoneNumber(@PathParam("phone") String phoneNumber) {
+return personService.findByPhoneNumber(phoneNumber);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/postCode/{postCode}")
-    public Response getPersonByPostalCode(@PathParam("postCode") String postalCode) {
-        return Response.ok().entity(personService.findByPostalCode(postalCode)).build();
+    @Loggable
+    @ResponseMaker
+    public Object getPersonByPostalCode(@PathParam("postCode") String postalCode) {
+return personService.findByPostalCode(postalCode);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/address/{address}")
-    public Response getPersonByAddress(@PathParam("address") String address) {
-        return Response.ok().entity(personService.findByAddress(address)).build();
+    @Loggable
+    @ResponseMaker
+    public Object getPersonByAddress(@PathParam("address") String address) {
+return personService.findByAddress(address);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addPerson(@Valid Person person) {
+    @Loggable
+    @ResponseMaker
+    public Object addPerson(@Valid Person person) {
         personService.save(person);
-        return Response.ok().entity(person).build();
+        return person;
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updatePerson(@Valid Person person) {
+    @Loggable
+    @ResponseMaker
+    public Object updatePerson(@Valid Person person) {
         personService.edit(person);
-        return Response.ok().entity(person).build();
+return person;
     }
 
     @DELETE
     @Path("{id}")
-    public Response deletePerson(@PathParam("id") Long id) {
+    @Loggable
+    @ResponseMaker
+                //todo
+    public Object deletePerson(@PathParam("id") Long id) {
         personService.remove(id);
-        return Response.ok().entity(id).build();
+        return id;
+//      return Response.ok().entity(id).build();
     }
 }

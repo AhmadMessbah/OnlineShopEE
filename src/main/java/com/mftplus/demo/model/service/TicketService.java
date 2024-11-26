@@ -60,6 +60,12 @@ public class TicketService implements Service<Ticket,Long> {
         return query.getResultList();
     }
     @Transactional
+    public Ticket findByDateTime(String dateTime) {
+        Query query=entityManager.createQuery("select t from ticketEntity t where t.dateTime=:dateTime", Ticket.class);
+        query.setParameter("dateTime", dateTime);
+        return (Ticket) query.getSingleResult();
+    }
+    @Transactional
     public List<Ticket> findByText(String text) {
         Query query=entityManager.createQuery("select t from ticketEntity t where t.text=:text", Ticket.class);
         query.setParameter("text", text);

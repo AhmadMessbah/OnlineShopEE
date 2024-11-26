@@ -9,7 +9,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-
 @NoArgsConstructor
 @SuperBuilder
 @Getter
@@ -25,6 +24,6 @@ public class Base  {
     private boolean editing = false;
     @JsonbTransient
     private boolean deleted = false;
-    @JsonbTransient
-    private boolean locked;
+//    @JsonbTransient
+//    private boolean locked;
 }

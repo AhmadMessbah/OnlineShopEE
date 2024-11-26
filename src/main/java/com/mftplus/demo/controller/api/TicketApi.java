@@ -1,9 +1,10 @@
 package com.mftplus.demo.controller.api;
 
 
+import com.mftplus.demo.controller.interceptor.annotation.Loggable;
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Ticket;
 import com.mftplus.demo.model.service.TicketService;
-import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -12,7 +13,6 @@ import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/tickets")
-@Loggable
 @Slf4j
 public class TicketApi {
     @Inject
@@ -20,100 +20,136 @@ public class TicketApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllTickets() {
+    @Loggable
+    @ResponseMaker
+    public Object getAllTickets() {
         log.info("All Tickets :");
-        return Response.ok().entity(ticketService.findAll()).build();
+        return ticketService.findAll();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketById(@PathParam("id") Long id) {
+    @Loggable
+    @ResponseMaker
+    public Object getTicketById(@PathParam("id") Long id) {
         log.info("Get Ticket by id : {}", id);
-        return Response.ok().entity(ticketService.findById(id)).build();
+        return ticketService.findById(id);
     }
 
     @GET
     @Path("/title/{title}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketByTitle(@PathParam("title") String title) {
+    @Loggable
+    @ResponseMaker
+    public Object getTicketByTitle(@PathParam("title") String title) {
         log.info("Get Ticket by title : {}", title);
-        return Response.ok().entity(ticketService.findByTitle(title)).build();
+        return ticketService.findByTitle(title);
     }
 
     @GET
     @Path("/text/{text}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketByText(@PathParam("text") String text) {
+    @Loggable
+    @ResponseMaker
+    public Object getTicketByText(@PathParam("text") String text) {
         log.info("Get Ticket by text : {}", text);
-        return Response.ok().entity(ticketService.findByText(text)).build();
+        return ticketService.findByText(text);
     }
 
     @GET
     @Path("/response/{response}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketByRespType(@PathParam("response") String responseType) {
+    @Loggable
+    @ResponseMaker
+    public Object getTicketByRespType(@PathParam("response") String responseType) {
         log.info("Get Ticket by response type : {}", responseType);
-        return Response.ok().entity(ticketService.findByResponseType(responseType)).build();
+        return ticketService.findByResponseType(responseType);
     }
 
     @GET
     @Path("/username/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketByUsername(@PathParam("username") String username) {
+    @Loggable
+    @ResponseMaker
+    public Object getTicketByUsername(@PathParam("username") String username) {
         log.info("Get Ticket by username : {}", username);
-        return Response.ok().entity(ticketService.findByUsername(username)).build();
+        return ticketService.findByUsername(username);
     }
 
     @GET
     @Path("/email/{email}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketByUserEmail(@PathParam("email") String email) {
+    @Loggable
+    @ResponseMaker
+    public Object getTicketByUserEmail(@PathParam("email") String email) {
         log.info("Get Ticket by Email : {}", email);
-        return Response.ok().entity(ticketService.findByUserEmail(email)).build();
+        return ticketService.findByUserEmail(email);
     }
 
     @GET
     @Path("/mTitle/{mTitle}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketByMessageTitle(@PathParam("mTitle") String title) {
+    @Loggable
+    @ResponseMaker
+    public Object getTicketByMessageTitle(@PathParam("mTitle") String title) {
         log.info("Get Ticket by Message Title : {}", title);
-        return Response.ok().entity(ticketService.findByMessageTitle(title)).build();
+        return ticketService.findByMessageTitle(title);
+    }
+
+    @GET
+    @Path("/history/{history}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Loggable
+    @ResponseMaker
+    public Object getTicketByDateTime(@PathParam("history") String dateTime) {
+        log.info("Get Ticket by date time : {}", dateTime);
+        return ticketService.findByDateTime(dateTime);
     }
 
     @GET
     @Path("/mText/{mText}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketByMessageText(@PathParam("mText") String text) {
+    @Loggable
+    @ResponseMaker
+    public Object getTicketByMessageText(@PathParam("mText") String text) {
         log.info("Get Ticket by Message Text : {}", text);
-        return Response.ok().entity(ticketService.findByMessageText(text)).build();
+        return ticketService.findByMessageText(text);
     }
 
     @GET
     @Path("/groupName/{groupName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketByGroupName(@PathParam("groupName") String name) {
+    @Loggable
+    @ResponseMaker
+    public Object getTicketByGroupName(@PathParam("groupName") String name) {
         log.info("Get Ticket by Group Name : {}", name);
-        return Response.ok().entity(ticketService.findByTicketGroupName(name)).build();
+        return ticketService.findByTicketGroupName(name);
     }
 
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createTicket(@Valid Ticket ticket) {
+    @Loggable
+    @ResponseMaker
+    public Object createTicket(@Valid Ticket ticket) {
         log.info("Create Ticket : {}", ticket);
         ticketService.save(ticket);
-        return Response.ok().entity(ticket).build();
+        return ticket;
+//        ticketService.save(ticket);
+//        return Response.ok().entity(ticket).build();
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateTicket(@Valid Ticket ticket) {
+    @Loggable
+    @ResponseMaker
+    public Object updateTicket(@Valid Ticket ticket) {
         log.info("Update Ticket : {}", ticket);
         ticketService.edit(ticket);
-        return Response.ok().entity(ticket).build();
+        return ticket;
     }
 
     @DELETE
@@ -123,5 +159,4 @@ public class TicketApi {
         ticketService.remove(id);
         return Response.ok().entity(id).build();
     }
-
 }

@@ -1,24 +1,26 @@
 package com.mftplus.demo.model.service;
 
+import com.mftplus.demo.controller.exception.NoPersonException;
 import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.Serializable;
 import java.util.List;
 
 @ApplicationScoped
 @Loggable
 @Slf4j
 public class PersonService implements Service<Person, Long> {
-
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
+
+    @Inject
+    private UserService userService;
 
     @Transactional
     @Override
@@ -31,6 +33,7 @@ public class PersonService implements Service<Person, Long> {
     public void edit(Person person) {
         entityManager.merge(person);
     }
+
     @Transactional
     @Override
     public void remove(Long id) {
@@ -68,19 +71,26 @@ public class PersonService implements Service<Person, Long> {
     }
 
     @Transactional
-    public Person findByUsernameAndPassword(String username, String password) {
+    public Person findByUsernameAndPassword(String username, String password)  {
+//        if (userService.findByUsernameAndPassword(username, password) != null) {
             Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = : username and p.user.password = : password", Person.class);
             query.setParameter("username", username);
             query.setParameter("password", password);
             return (Person) query.getSingleResult();
+//        }else {
+//            throw new NoPersonException();
+//        }
     }
 
     @Transactional
-    public Person findByUsername(String username) {
-        Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = :username", Person.class);
-        query.setParameter("username", username);
-        return (Person) query.getSingleResult();
-
+    public Person findByUsername(String username){
+//        if (userService.findByUsername(username) != null ) {
+                Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = :username", Person.class);
+                query.setParameter("username", username);
+                return (Person) query.getSingleResult();
+//        } else {
+//            throw new NoPersonException();
+//        }
     }
 
     @Transactional

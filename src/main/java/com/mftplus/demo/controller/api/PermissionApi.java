@@ -1,5 +1,7 @@
 package com.mftplus.demo.controller.api;
 
+import com.mftplus.demo.controller.interceptor.annotation.Loggable;
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.service.PermissionService;
 import jakarta.inject.Inject;
@@ -17,40 +19,49 @@ public class PermissionApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPermissions() {
-            log.info("get Permissions:");
-            return Response.ok().entity(permissionService.findAll()).build();
+    @Loggable
+    @ResponseMaker
+    public Object getPermissions() {
+        log.info("get Permissions:");
+        return permissionService.findAll();
     }
-    //todo--->>>message to show the wrongs
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getPermissionById(@PathParam("id") Long id) {
-        return Response.ok().entity(permissionService.findById(id)).build();
+    @Loggable
+    @ResponseMaker
+    public Object getPermissionById(@PathParam("id") Long id) {
+        return permissionService.findById(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/name/{name}")
-    public Response getPermissionByName(@PathParam("name") String permissionName) {
-        return Response.ok().entity(permissionService.findByName(permissionName)).build();
+    @Loggable
+    @ResponseMaker
+    public Object getPermissionByName(@PathParam("name") String permissionName) {
+        return permissionService.findByName(permissionName);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addPermission(@Valid Permission permission) {
+    @Loggable
+    @ResponseMaker
+    public Object addPermission(@Valid Permission permission) {
         permissionService.save(permission);
-        return Response.ok().entity(permission).build();
+        return permission;
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updatePermission(@Valid Permission permission) {
+    @Loggable
+    @ResponseMaker
+    public Object updatePermission(@Valid Permission permission) {
         permissionService.edit(permission);
-        return Response.ok().entity(permission).build();
+        return permission;
     }
 
     @DELETE

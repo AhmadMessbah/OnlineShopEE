@@ -7,48 +7,49 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @ApplicationScoped
-@Loggable
+//@Loggable //todo
 @Slf4j
-public class UserService implements Service<User, Long> {
-
+public class UserService  {    // implements Service<User, Long>
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
+//    @Inject
+//    private RoleService roleService;
 
 
     @Transactional
-    @Override
+//    @Override
     public void save(User user) {
         entityManager.persist(user);
     }
 
     @Transactional
-    @Override
+//    @Override
     public void edit(User user) {
         entityManager.merge(user);
     }
 
     @Transactional
-    @Override
-    public void remove(Long id) {
-        User user = entityManager.find(User.class, id);
-        entityManager.remove(user);
+//    @Override
+    public User remove(String username) {
+         User user=entityManager.find(User.class, username);
+         entityManager.remove(user);
+        return user;
     }
 
     @Transactional
-    @Override
+//    @Override
     public User findById(Long id) {
         return entityManager.find(User.class, id);
 
     }
 
     @Transactional
-    @Override
+//    @Override
     public List<User> findAll() {
         Query query = entityManager.createQuery("select u from userEntity u", User.class);
         return query.getResultList();
@@ -56,9 +57,11 @@ public class UserService implements Service<User, Long> {
 
     @Transactional
     public User findByUsername(String username) {
-        Query query = entityManager.createQuery("select u from userEntity u where u.username = :username", User.class);
-        query.setParameter("username", username);
-        return (User) query.getSingleResult();
+        List<User> userList = entityManager
+                .createQuery("select u from userEntity u where u.username = :username", User.class)
+                .setParameter("username", username)
+                .getResultList();
+        return (userList.isEmpty()) ? null : userList.get(0);
     }
 
     @Transactional
@@ -85,9 +88,20 @@ public class UserService implements Service<User, Long> {
 
     @Transactional
     public List<User> findByRoleName(String roleName) {
-            Query query = entityManager.createQuery("select u from userEntity u cross join roleEntity r where r.roleName=:roleName", User.class);
-            query.setParameter("roleName", roleName);
-            return query.getResultList();
+        Query query = entityManager.createQuery("select u from userEntity u cross join roleEntity r where r.roleName=:roleName", User.class);
+        query.setParameter("roleName", roleName);
+        return query.getResultList();
 
+//        if (roleService.findByRoleName(roleName) != null && findByUsername(roleName) != null) {
+//            Query query = entityManager.createQuery("select u from userEntity u cross join roleEntity r where r.roleName=:roleName", User.class);
+//            query.setParameter("roleName", roleName);
+//            return query.getResultList();
+//        } else {
+//            try {
+//                throw new NoRoleException();
+//            } catch (NoRoleException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
     }
 }

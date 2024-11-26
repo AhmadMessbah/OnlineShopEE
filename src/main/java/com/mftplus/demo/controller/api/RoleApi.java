@@ -1,5 +1,7 @@
 package com.mftplus.demo.controller.api;
 
+import com.mftplus.demo.controller.interceptor.annotation.Loggable;
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Role;
 import com.mftplus.demo.model.service.RoleService;
 import jakarta.inject.Inject;
@@ -17,52 +19,66 @@ public class RoleApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRoles() {
+    @Loggable
+    @ResponseMaker
+    public Object getRoles() {
         log.info("get roles");
-        return Response.ok().entity(roleService.findAll()).build();
+        return roleService.findAll();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getRoleById(@PathParam("id") Long id) {
-        return Response.ok().entity(roleService.findById(id)).build();
+    @Loggable
+    @ResponseMaker
+    public Object getRoleById(@PathParam("id") Long id) {
+        return roleService.findById(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/type/{type}")
-    public Response getRoleByName(@PathParam("type") String roleName) {
-        return Response.ok().entity(roleService.findByRoleName(roleName)).build();
+    @Loggable
+    @ResponseMaker
+    public Object getRoleByName(@PathParam("type") String roleName) {
+        return roleService.findByRoleName(roleName);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/permission/{permission}")
-    public Response getRoleByPermissionName(@PathParam("permission") String permissionName) {
-        return Response.ok().entity(roleService.findByPermission(permissionName)).build();
+    @Loggable
+    @ResponseMaker
+
+    public Object getRoleByPermissionName(@PathParam("permission") String permissionName) {
+        return roleService.findByPermission(permissionName);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addRole(@Valid Role role)  {
+    @Loggable
+    @ResponseMaker
+    public Object addRole(@Valid Role role) {
         roleService.save(role);
-        return Response.ok().entity(roleService).build();
+        return role;
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateRole(@Valid Role role)  {
+    @Loggable
+    @ResponseMaker
+    public Object updateRole(@Valid Role role) {
         roleService.edit(role);
-        return Response.ok().entity(roleService).build();
+        return role;
     }
+
     @DELETE
     @Path("{id}")
+    //todo
     public Response deleteRole(@PathParam("id") Long id) {
         roleService.remove(id);
         return Response.ok().entity(id).build();
     }
-
 }

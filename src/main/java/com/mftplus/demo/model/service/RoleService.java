@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @ApplicationScoped
-@Loggable
+//@Loggable
 @Slf4j
 public class RoleService implements Service<Role, Long> {
     @PersistenceContext(unitName = "mft")

@@ -2,6 +2,7 @@ package com.mftplus.demo.model.service;
 
 
 import com.mftplus.demo.model.entity.Message;
+import com.mftplus.demo.model.entity.Ticket;
 import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
@@ -57,6 +58,12 @@ public class MessageService implements Service<Message, Long> {
         Query query=entityManager.createQuery("select m from messageEntity m where m.title=:title", Message.class);
        query.setParameter("title", title);
        return query.getResultList();
+    }
+    @Transactional
+    public Message findByDateTime(String dateTime) {
+        Query query=entityManager.createQuery("select m from messageEntity m where m.dateTime=:dateTime", Message.class);
+        query.setParameter("dateTime", dateTime);
+        return (Message) query.getSingleResult();
     }
     @Transactional
     public List<Message> findByText(String text) {
