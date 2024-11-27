@@ -8,6 +8,6 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
-</body>
+<a href="/admin/panel.jsp">Admin Panel</a>
+<a href="/customer/panel.jsp">Customer Panel</a></body>
 </html>
