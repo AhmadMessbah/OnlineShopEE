@@ -33,7 +33,7 @@ public class ResponseMakerInterceptor {
     public Object responseMaker(InvocationContext context) throws Exception {
         try {
             String authority = context.getMethod().getAnnotation(ResponseMaker.class).authority();
-            if (! authority.equals("")) {
+            if (!authority.equals("")) {
                 String username = securityContext.getCallerPrincipal().getName();
                 Set<Permission> permissionSet = userService.findPermissionsByUsername(username);
                 if (permissionSet != null && permissionSet.contains(authority)) {
@@ -53,7 +53,10 @@ public class ResponseMakerInterceptor {
                     throw new AccessDeniedException("You Have Not Access To This Method !!!");
                 }
             }
-            return null;
+            return Response
+                    .status(Response.Status.FORBIDDEN)
+                    .entity(Map.of("Error-Type :", "AUTHORITY", "Message :", "You Have Not Access To This Method !!!"))
+                    .build();
         } catch (
                 Throwable e) {
             return Response
