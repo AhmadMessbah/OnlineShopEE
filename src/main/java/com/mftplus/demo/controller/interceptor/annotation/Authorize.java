@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 @InterceptorBinding
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ResponseMaker {
+public @interface Authorize {
     String authority() default "";
 }

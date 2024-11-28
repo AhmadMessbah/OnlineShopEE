@@ -1,8 +1,11 @@
 package com.mftplus.demo.model.service;
 
+import com.mftplus.demo.model.entity.Permission;
+import com.mftplus.demo.model.entity.Role;
 import com.mftplus.demo.model.entity.User;
 import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -10,11 +13,16 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Set;
 
 @ApplicationScoped
 //@Loggable //todo
 @Slf4j
-public class UserService  {    // implements Service<User, Long>
+public class UserService {    // implements Service<User, Long>
+    @Inject
+    private RoleService roleService;
+
+
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 //    @Inject
@@ -36,8 +44,8 @@ public class UserService  {    // implements Service<User, Long>
     @Transactional
 //    @Override
     public User remove(String username) {
-         User user=entityManager.find(User.class, username);
-         entityManager.remove(user);
+        User user = entityManager.find(User.class, username);
+        entityManager.remove(user);
         return user;
     }
 
@@ -103,5 +111,13 @@ public class UserService  {    // implements Service<User, Long>
 //                throw new RuntimeException(e);
 //            }
 //        }
+    }
+
+    @Transactional
+    public Set<Permission> findPermissionsByUsername(String username) {
+//        Set<Role> roleSet = roleService.findByUsername(username);
+//        SecurityContextHolder
+        Role role = Role.builder().roleName("admin").build();
+        return role.getPermissionSet();
     }
 }

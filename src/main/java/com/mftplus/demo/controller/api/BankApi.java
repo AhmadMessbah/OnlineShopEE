@@ -1,5 +1,7 @@
 package com.mftplus.demo.controller.api;
 
+import com.mftplus.demo.controller.interceptor.annotation.Authorize;
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Bank;
 import com.mftplus.demo.model.service.BankService;
 import jakarta.inject.Inject;
@@ -18,6 +20,7 @@ public class BankApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_BANKS")
     public Response getBanks() {
         log.info("get banks");
         return Response.ok().entity(bankService.findAll()).build();
@@ -25,6 +28,7 @@ public class BankApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority="GET_BANK_BY_ID")
     @Path("{id}")
     public Response getBankById(@PathParam("id") Long id) {
         return Response.ok().entity(bankService.findById(id)).build();

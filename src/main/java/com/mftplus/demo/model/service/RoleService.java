@@ -61,6 +61,14 @@ public class RoleService implements Service<Role, Long> {
     }
 
     @Transactional
+    public List<Role> findByUsername(String username) {
+        Query query = entityManager.createQuery("select u.roleList from  userEntity  u where u.username=:username", Role.class);
+        query.setParameter("username", username);
+        return query.getResultList();
+
+    }
+
+    @Transactional
     public List<Role> findByPermission(String permissionName) {
         Query query = entityManager.createQuery("select r from roleEntity r cross join permissionEntity pp where pp.permissionName = : permissionName", Role.class);
         query.setParameter("permissionName", permissionName);
