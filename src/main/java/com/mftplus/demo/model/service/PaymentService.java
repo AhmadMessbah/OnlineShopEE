@@ -62,23 +62,9 @@ public class PaymentService implements Service<Payment, Long> {
     }
 
     @Transactional
-    public List<Payment> findByPaymentDate(LocalDate paymentDate) {
-        Query query = entityManager.createQuery("select p from paymentEntity p where p.date = :paymentDate", Payment.class);
-        query.setParameter("paymentDate", paymentDate);
-        return query.getResultList();
-    }
-
-    @Transactional
     public List<Payment> findByPaymentMethod(String paymentMethod) {
         Query query = entityManager.createQuery("select p from paymentEntity p where p.paymentMethod = :paymentMethod", Payment.class);
         query.setParameter("paymentMethod", paymentMethod);
         return query.getResultList(); // اصلاح شده
-    }
-
-    @Transactional
-    public List<Payment> findByTransactionId(Long transactionId) {
-        Query query = entityManager.createQuery("select p from paymentEntity p where p.transaction.id = :transactionId", Payment.class);
-        query.setParameter("transactionId", transactionId);
-        return query.getResultList();
     }
 }

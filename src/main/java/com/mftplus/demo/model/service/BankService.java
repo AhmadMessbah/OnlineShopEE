@@ -59,11 +59,4 @@ public class BankService implements Service<Bank, Long> {
         query.setParameter("accountNumber", accountNumber);
         return (Bank) query.getSingleResult();
     }
-
-    @Transactional
-    public List<Bank> findByBranchCode(Long branchCode) {
-        Query query = entityManager.createQuery("select b from bankEntity b where b.branchCode = :branchCode", Bank.class);
-        query.setParameter("branchCode", branchCode);
-        return query.getResultList();
-    }
 }

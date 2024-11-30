@@ -9,7 +9,6 @@ import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @ApplicationScoped
@@ -59,19 +58,5 @@ public class TransactionService implements Service<Transaction, Long> {
         Query query = entityManager.createQuery("select t from transactionEntity t where t.trackingCode = :trackingCode", Transaction.class);
         query.setParameter("trackingCode", trackingCode);
         return (Transaction) query.getSingleResult();
-    }
-
-    @Transactional
-    public List<Transaction> findByDate(LocalDate date) {
-        Query query = entityManager.createQuery("select t from transactionEntity t where t.date = :date", Transaction.class);
-        query.setParameter("date", date);
-        return query.getResultList();
-    }
-
-    @Transactional
-    public List<Transaction> findByBankId(Long bankId) {
-        Query query = entityManager.createQuery("select t from transactionEntity t where t.bank.id = :bankId", Transaction.class);
-        query.setParameter("bankId", bankId);
-        return query.getResultList();
     }
 }

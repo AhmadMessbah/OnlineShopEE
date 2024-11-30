@@ -1,5 +1,6 @@
 package com.mftplus.demo.controller.api;
 
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Payment;
 import com.mftplus.demo.model.service.PaymentService;
 import jakarta.inject.Inject;
@@ -20,6 +21,7 @@ public class PaymentApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_PAYMENTS")
     public Response getPayments() {
         log.info("get payments");
         return Response.ok().entity(paymentService.findAll()).build();
@@ -27,6 +29,7 @@ public class PaymentApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority="GET_PAYMENT_BY_ID")
     @Path("{id}")
     public Response getPaymentById(@PathParam("id") Long id) {
         Payment payment = paymentService.findById(id); // اصلاح شده

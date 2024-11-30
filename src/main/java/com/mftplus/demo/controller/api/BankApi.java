@@ -1,6 +1,5 @@
 package com.mftplus.demo.controller.api;
 
-import com.mftplus.demo.controller.interceptor.annotation.Authorize;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Bank;
 import com.mftplus.demo.model.service.BankService;

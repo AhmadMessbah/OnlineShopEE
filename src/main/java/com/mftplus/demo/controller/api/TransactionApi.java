@@ -1,5 +1,6 @@
 package com.mftplus.demo.controller.api;
 
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Transaction;
 import com.mftplus.demo.model.service.TransactionService;
 import jakarta.inject.Inject;
@@ -18,6 +19,7 @@ public class TransactionApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_TRANSACTIONS")
     public Response getTransactions() {
         log.info("get transactions");
         return Response.ok().entity(transactionService.findAll()).build();
@@ -25,6 +27,7 @@ public class TransactionApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority="GET_TRANSACTION_BY_ID")
     @Path("{id}")
     public Response getTransactionById(@PathParam("id") Long id) {
         return Response.ok().entity(transactionService.findById(id)).build();

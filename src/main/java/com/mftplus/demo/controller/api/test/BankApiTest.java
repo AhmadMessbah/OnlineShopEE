@@ -15,7 +15,6 @@ public class BankApiTest {
     @Inject
     private BankService bankService;
 
-
     @GET
     public String testGetBanks() {
         log.info("test get banks");
