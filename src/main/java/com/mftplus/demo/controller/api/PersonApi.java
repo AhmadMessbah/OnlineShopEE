@@ -19,8 +19,8 @@ public class PersonApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERSONS")
     public Object getPerson() {
         log.info("Get Admin Info");
         return personService.findAll();
@@ -29,8 +29,8 @@ public class PersonApi {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERSON_BY_ID")
     public Object getPersonById(@PathParam("id") Long id) {
         return personService.findById(id);
     }
@@ -38,8 +38,8 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/nationalId/{nationalId}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERSON_BY_NATIONAL_ID")
     public Object getPersonByNationalId(@PathParam("nationalId") String nationalId) {
         return personService.findByNationalId(nationalId);
     }
@@ -47,8 +47,8 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/fullName/{fullName}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERSON_BY_FULL_NAME")
     public Object getPersonFullName(@PathParam("fullName") String name , String family) {
         return personService.findByFirstNameAndLastName(name, family);
 //        String[] parts = fullName.split(" ");
@@ -64,8 +64,8 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/loginData/{loginData}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERSON_BY_LOGIN_DATA")
     public Object getPersonByUsernameAndPassword(@PathParam("loginData") String username,String password) {
         return personService.findByUsernameAndPassword(username, password);
 
@@ -82,8 +82,8 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path(value = "/username/{username}")
-    @ResponseMaker
-    @Loggable
+    @ResponseMaker(authority = "GET_PERSON_BY_USERNAME")
+//    @Loggable
     public Object getPersonByUsername(@PathParam("username") String username) {
         return personService.findByUsername(username);
 //        try {
@@ -97,8 +97,8 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/phone/{phone}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERSON_BY_PHONE")
     public Object getPersonByPhoneNumber(@PathParam("phone") String phoneNumber) {
 return personService.findByPhoneNumber(phoneNumber);
     }
@@ -106,8 +106,8 @@ return personService.findByPhoneNumber(phoneNumber);
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/postCode/{postCode}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERSON_BY_POSTAL_CODE")
     public Object getPersonByPostalCode(@PathParam("postCode") String postalCode) {
 return personService.findByPostalCode(postalCode);
     }
@@ -115,8 +115,8 @@ return personService.findByPostalCode(postalCode);
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/address/{address}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERSON_BY_ADDRESS")
     public Object getPersonByAddress(@PathParam("address") String address) {
 return personService.findByAddress(address);
     }
@@ -124,8 +124,8 @@ return personService.findByAddress(address);
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "SAVE_PERSON")
     public Object addPerson(@Valid Person person) {
         personService.save(person);
         return person;
@@ -134,8 +134,8 @@ return personService.findByAddress(address);
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "EDIT_PERSON")
     public Object updatePerson(@Valid Person person) {
         personService.edit(person);
 return person;
@@ -143,9 +143,9 @@ return person;
 
     @DELETE
     @Path("{id}")
-    @Loggable
-    @ResponseMaker
-                //todo
+//    @Loggable
+    @ResponseMaker(authority = "DELETE_PERSON")
+    //todo
     public Object deletePerson(@PathParam("id") Long id) {
         personService.remove(id);
         return id;

@@ -19,8 +19,8 @@ public class RoleApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_ROLES")
     public Object getRoles() {
         log.info("get roles");
         return roleService.findAll();
@@ -29,8 +29,8 @@ public class RoleApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_ROLES_BY_ID")
     public Object getRoleById(@PathParam("id") Long id) {
         return roleService.findById(id);
     }
@@ -38,8 +38,8 @@ public class RoleApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/type/{type}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_ROLES_BY_TYPE")
     public Object getRoleByName(@PathParam("type") String roleName) {
         return roleService.findByRoleName(roleName);
     }
@@ -47,9 +47,8 @@ public class RoleApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/permission/{permission}")
-    @Loggable
-    @ResponseMaker
-
+//    @Loggable
+    @ResponseMaker(authority = "GET_ROLES_BY_PERMISSION_NAME")
     public Object getRoleByPermissionName(@PathParam("permission") String permissionName) {
         return roleService.findByPermission(permissionName);
     }
@@ -57,8 +56,8 @@ public class RoleApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "SAVE_ROLE")
     public Object addRole(@Valid Role role) {
         roleService.save(role);
         return role;
@@ -67,8 +66,8 @@ public class RoleApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "EDIT_ROLE")
     public Object updateRole(@Valid Role role) {
         roleService.edit(role);
         return role;
@@ -76,8 +75,9 @@ public class RoleApi {
 
     @DELETE
     @Path("{id}")
+    @ResponseMaker(authority = "REMOVE_ROLE")
     //todo
-    public Response deleteRole(@PathParam("id") Long id) {
+    public Object deleteRole(@PathParam("id") Long id) {
         roleService.remove(id);
         return Response.ok().entity(id).build();
     }

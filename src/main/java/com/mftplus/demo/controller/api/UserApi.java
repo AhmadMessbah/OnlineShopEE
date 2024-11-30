@@ -1,6 +1,5 @@
 package com.mftplus.demo.controller.api;
 
-import com.mftplus.demo.controller.interceptor.annotation.Loggable;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.User;
 import com.mftplus.demo.model.service.UserService;
@@ -18,8 +17,8 @@ public class UserApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_USERS")
     public Object getUsers() {
         log.info("get users");
         return userService.findAll();
@@ -28,8 +27,8 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_USERS_BY_ID")
     public Object getUserById(@PathParam("id") Long id) {
         return userService.findById(id);
     }
@@ -37,8 +36,8 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/username/{username}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_USERS_BY_USERNAME")
     public Object getUserByUsername(@PathParam("username") String username) {
         return userService.findByUsername(username);
     }
@@ -46,8 +45,8 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/password/{password}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_USERS_BY_PASSWORD")
     public Object getUserByPassword(@PathParam("password") String password) {
         return userService.findByPassword(password);
     }
@@ -55,8 +54,8 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/loginData/{loginData}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_USERS_BY_USERNAME_AND_PASSWORD")
     public Object getUserByUsernameAndPassword(@PathParam("loginData") String username, String password) {
         return userService.findByUsernameAndPassword(username, password);
 //        String[] parts = loginData.split(" ");
@@ -72,8 +71,8 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/email/{email}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_USERS_BY_EMAIL")
     public Object getUserByEmail(@PathParam("email") String email) {
         return userService.findByEmail(email);
 
@@ -83,8 +82,8 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/role/{role}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_USERS_BY_ROLE")
     public Object getUserByRoleName(@PathParam("role") String roleName) {
         return userService.findByRoleName(roleName);
     }
@@ -92,8 +91,8 @@ public class UserApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "SAVE_USER")
     public Object addUser(@Valid User user) {
         userService.save(user);
         return user;
@@ -102,8 +101,8 @@ public class UserApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "EDIT_USER")
     public Object updateUser(@Valid User user) {
         userService.edit(user);
         return user;
@@ -111,8 +110,8 @@ public class UserApi {
 
     @DELETE
     @Path("{id}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "REMOVE_USER")
     //todo
     public Object deleteUser(@PathParam("id") String username) {
       User user =   userService.remove(username);

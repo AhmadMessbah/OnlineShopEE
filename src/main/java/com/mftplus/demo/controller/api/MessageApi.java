@@ -20,8 +20,8 @@ public class MessageApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_MESSAGES")
     public Object getAllMessages() {
         log.info("All Messages :");
         return messageService.findAll();
@@ -30,8 +30,8 @@ public class MessageApi {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_MESSAGES_BY_ID")
     public Object getMessageById(@PathParam("id") Long id) {
         log.info("Get Message by id : {}", id);
         return messageService.findById(id);
@@ -40,8 +40,8 @@ public class MessageApi {
     @GET
     @Path("/title/{title}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_MESSAGES_BY_TITLE")
     public Object getMessageByTitle(@PathParam("title") String title) {
         log.info("Get Message by title : {}", title);
         return messageService.findByTitle(title);
@@ -50,8 +50,8 @@ public class MessageApi {
     @GET
     @Path("/text/{text}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_MESSAGES_BY_TEXT")
     public Object getMessageByText(@PathParam("text") String text) {
         log.info("Get Message by text : {}", text);
         return messageService.findByText(text);
@@ -60,8 +60,8 @@ public class MessageApi {
     @GET
     @Path("/username/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_MESSAGES_BY_USERNAME")
     public Object getMessageByUsername(@PathParam("username") String username) {
         log.info("Get Message by Username : {}", username);
         return messageService.findByUsername(username);
@@ -70,8 +70,8 @@ public class MessageApi {
     @GET
     @Path("/email/{email}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_MESSAGES_BY_EMAIL")
     public Object getMessageByUserEmail(@PathParam("email") String email) {
         log.info("Get Message by Email : {}", email);
         return messageService.findByUserEmail(email);
@@ -80,8 +80,8 @@ public class MessageApi {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "SAVE_MESSAGE")
     public Object createMessage(@Valid Message message) {
         log.info("Create Message : {}", message);
         messageService.save(message);
@@ -91,8 +91,8 @@ public class MessageApi {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "EDIT_MESSAGE")
     public Object updateMessage(@Valid Message message) {
         log.info("Update Message : {}", message);
         messageService.edit(message);
@@ -101,7 +101,8 @@ public class MessageApi {
 
     @DELETE
     @Path("{id}")
-    public Response deleteMessage(@PathParam("id") Long id) {
+    @ResponseMaker(authority = "REMOVE_MESSAGE")
+    public Object deleteMessage(@PathParam("id") Long id) {
         log.info("Delete Message : {}", id);
         messageService.remove(id);
         return Response.ok().entity(id).build();

@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Set;
 
 @ApplicationScoped
 //@Loggable
@@ -61,10 +62,10 @@ public class RoleService implements Service<Role, Long> {
     }
 
     @Transactional
-    public List<Role> findByUsername(String username) {
+    public Set<Role> findByUsername(String username) {
         Query query = entityManager.createQuery("select u.roleList from  userEntity  u where u.username=:username", Role.class);
         query.setParameter("username", username);
-        return query.getResultList();
+        return (Set<Role>) query.getResultList();
 
     }
 

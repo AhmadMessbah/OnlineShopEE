@@ -19,8 +19,8 @@ public class PermissionApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERMISSIONS")
     public Object getPermissions() {
         log.info("get Permissions:");
         return permissionService.findAll();
@@ -29,8 +29,8 @@ public class PermissionApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERMISSIONS_BY_ID")
     public Object getPermissionById(@PathParam("id") Long id) {
         return permissionService.findById(id);
     }
@@ -38,8 +38,8 @@ public class PermissionApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/name/{name}")
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "GET_PERMISSIONS_BY_NAME")
     public Object getPermissionByName(@PathParam("name") String permissionName) {
         return permissionService.findByName(permissionName);
     }
@@ -47,8 +47,8 @@ public class PermissionApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "SAVE_PERMISSION")
     public Object addPermission(@Valid Permission permission) {
         permissionService.save(permission);
         return permission;
@@ -57,8 +57,8 @@ public class PermissionApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Loggable
-    @ResponseMaker
+//    @Loggable
+    @ResponseMaker(authority = "EDIT_PERMISSION")
     public Object updatePermission(@Valid Permission permission) {
         permissionService.edit(permission);
         return permission;
@@ -66,7 +66,8 @@ public class PermissionApi {
 
     @DELETE
     @Path("{id}")
-    public Response deletePermission(@PathParam("id") Long id) {
+    @ResponseMaker(authority = "REMOVE_PERMISSION")
+    public Object deletePermission(@PathParam("id") Long id) {
         permissionService.remove(id);
         return Response.ok().entity(id).build();
     }
