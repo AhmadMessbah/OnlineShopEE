@@ -1,6 +1,4 @@
 package com.mftplus.demo.model.service;
-
-import com.mftplus.demo.model.entity.GroupProperty;
 import com.mftplus.demo.model.entity.ProductPropertyValue;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;

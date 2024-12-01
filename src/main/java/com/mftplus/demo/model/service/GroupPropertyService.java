@@ -1,7 +1,6 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.GroupProperty;
-import com.mftplus.demo.model.entity.Product;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

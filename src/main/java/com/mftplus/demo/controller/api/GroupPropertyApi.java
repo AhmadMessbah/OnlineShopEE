@@ -1,7 +1,6 @@
 package com.mftplus.demo.controller.api;
 
 import com.mftplus.demo.model.entity.GroupProperty;
-import com.mftplus.demo.model.entity.Product;
 import com.mftplus.demo.model.service.GroupPropertyService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;

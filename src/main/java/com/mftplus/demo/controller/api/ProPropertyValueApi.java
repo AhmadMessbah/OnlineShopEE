@@ -1,6 +1,4 @@
 package com.mftplus.demo.controller.api;
-
-import com.mftplus.demo.model.entity.GroupProperty;
 import com.mftplus.demo.model.entity.ProductPropertyValue;
 import com.mftplus.demo.model.service.ProductPropertyValueService;
 import jakarta.inject.Inject;
