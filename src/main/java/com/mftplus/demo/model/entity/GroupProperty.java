@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Getter
 @SuperBuilder
-@ToString
+
 
 @Entity(name = "groupProEntity")
 @Table(name = "group_properties")
