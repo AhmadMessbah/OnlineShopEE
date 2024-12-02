@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 
@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
+@ToString
 
 
 @Entity(name = "inventoryEntity")
@@ -27,26 +28,26 @@ public class Inventory extends Base {
     @JsonProperty("ردیف")
     private Long id;
 
-  //  @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$",message = "نام اشتباه است!!")
+    @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$",message = "نام اشتباه است!!")
     @Column(name = "title", length = 30)
-    @NotNull(message = "نام انبار را وارد نکرده اید!!")
+//    @NotNull(message = "نام انبار را وارد نکرده اید!!")
     @JsonProperty("نام")
     private String title;
 
-  //  @Pattern(regexp = "^[a-zA-Z0-9]{3,300}$",message = "آدرس اشتباه است!!")
+    @Pattern(regexp = "^[a-zA-Z0-9]{3,300}$",message = "آدرس اشتباه است!!")
     @Column(name = "address", length = 200)
-    @NotNull(message = "آدرس را وارد نکرده اید!!")
+//    @NotNull(message = "آدرس را وارد نکرده اید!!")
     @JsonProperty("آدرس")
     private String address;
 
-  //  @Pattern(regexp = "[\\d]{11}",message = "شماره تماس اشتباه است!!")
+    @Pattern(regexp = "^[0-9]{3,13}$",message = "شماره تماس اشتباه است!!")
     @Column(name = "phone", length = 14)
-    @NotNull(message = "شماره تماس را وارد نکرده اید!!")
+//    @NotNull(message = "شماره تماس را وارد نکرده اید!!")
     @JsonProperty("شماره تماس")
     private String phone;
 
-    @ManyToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
-    @JoinColumn(name = "inventory_product", foreignKey = @ForeignKey(name="fk-inventory_product"))
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH} , fetch = FetchType.EAGER)
+    @JoinColumn(name = "inventoryProduct_inventory", foreignKey = @ForeignKey(name="fk_inventory_product"))
     @JsonProperty("کالا های انبار")
     private InventoryProduct inventoryProduct;
 
