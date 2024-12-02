@@ -1,7 +1,6 @@
 package com.mftplus.demo.controller.interceptor;
 
 import com.mftplus.demo.controller.interceptor.annotation.Authorize;
-import com.mftplus.demo.controller.interceptor.annotation.Loggable;
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.service.UserService;
 import jakarta.annotation.Priority;
@@ -13,7 +12,6 @@ import jakarta.security.enterprise.SecurityContext;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.AccessDeniedException;
-import java.security.Principal;
 import java.util.Set;
 
 @Authorize
@@ -40,7 +38,7 @@ public class AuthorizeInterceptor {
                 throw new AccessDeniedException("You Have Not Access To This Method !!!");
             }
         } finally {
-            log.info(String.format("Method %s Finished -", context.getMethod().getName()));
+            log.info("Method {} Finished -", context.getMethod().getName());
         }
     }
 }
