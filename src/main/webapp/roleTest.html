@@ -9,18 +9,9 @@
 
 </head>
 <body>
-<form id="person-form" action="/api/persons">
-    <input type="text" name="name">
-    <input type="text" name="family">
-    <input type="text" name="nationalId">
-    <input type="date" name="birthDate">
-    <input type="text" name="phoneNumber">
-    <input type="text" name="address">
-    <input type="text" name="postalCode">
-    <input type="checkbox" name="male">
-    <input type="checkbox" name="female">
-
-
+<form id="role-form" action="/api/roles">
+    <input type="text" name="roleName">
+    <input type="text" name="permission to:">
     <button>Save</button>
 </form>
 <button onclick=testIt()>Test</button>
@@ -28,7 +19,7 @@
 <div id="toast-container"></div>
 
 <script>
-    document.getElementById("person-form").addEventListener("submit", async function (event) {
+    document.getElementById("role-form").addEventListener("submit", async function (event) {
         event.preventDefault();
 
         var form = event.target;
@@ -54,7 +45,7 @@
 
     async function testIt() {
         const response = await fetch(
-            "http://localhost/api/persons",
+            "http://localhost/api/roles",
             {
                 method: "GET"
             }
