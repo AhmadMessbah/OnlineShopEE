@@ -1,6 +1,5 @@
 package com.mftplus.demo.controller.api;
 
-import com.mftplus.demo.controller.interceptor.annotation.Loggable;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Role;
 import com.mftplus.demo.model.service.RoleService;
@@ -53,12 +52,21 @@ public class RoleApi {
         return roleService.findByPermission(permissionName);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/username/{username}")
+//    @Loggable
+    @ResponseMaker(authority = "GET_ROLES_BY_USERNAME")
+    public Object getByUsername(@PathParam("username") String username) {
+        return roleService.findByUsername(username);
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 //    @Loggable
     @ResponseMaker(authority = "SAVE_ROLE")
-    public Object addRole(@Valid Role role) {
+    public Object addRole( Role role) {
         roleService.save(role);
         return role;
     }
@@ -78,7 +86,9 @@ public class RoleApi {
     @ResponseMaker(authority = "REMOVE_ROLE")
     //todo
     public Object deleteRole(@PathParam("id") Long id) {
-        roleService.remove(id);
-        return Response.ok().entity(id).build();
+        Role role = roleService.remove(id);
+        return role.getId();
+
+//        return Response.ok().entity(id).build();
     }
 }

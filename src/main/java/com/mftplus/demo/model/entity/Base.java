@@ -24,6 +24,12 @@ public class Base  {
     private boolean editing = false;
     @JsonbTransient
     private boolean deleted = false;
+    @JsonbTransient
+    private String createdBy;
+    @JsonbTransient
+    private String updatedBy;
+    @JsonbTransient
+    private String createdDate;
 //    @JsonbTransient
 //    private boolean locked;
 }

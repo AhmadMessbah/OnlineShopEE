@@ -1,6 +1,5 @@
 package com.mftplus.demo.controller.api;
 
-import com.mftplus.demo.controller.interceptor.annotation.Loggable;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Message;
 import com.mftplus.demo.model.service.MessageService;
@@ -8,7 +7,6 @@ import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/messages")
@@ -80,7 +78,6 @@ public class MessageApi {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-//    @Loggable
     @ResponseMaker(authority = "SAVE_MESSAGE")
     public Object createMessage(@Valid Message message) {
         log.info("Create Message : {}", message);
@@ -104,7 +101,8 @@ public class MessageApi {
     @ResponseMaker(authority = "REMOVE_MESSAGE")
     public Object deleteMessage(@PathParam("id") Long id) {
         log.info("Delete Message : {}", id);
-        messageService.remove(id);
-        return Response.ok().entity(id).build();
+        Message message = messageService.remove(id);
+        return message.getId();
+//        return Response.ok().entity(id).build();
     }
 }

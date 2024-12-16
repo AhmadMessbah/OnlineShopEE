@@ -1,10 +1,13 @@
 package com.mftplus.demo.model.service;
 
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.entity.Role;
 import com.mftplus.demo.model.entity.User;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.interceptor.Interceptor;
+import jakarta.interceptor.InterceptorBinding;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -21,8 +24,10 @@ import java.util.Set;
 public class UserService {    // implements Service<User, Long>
     @Inject
     private RoleService roleService;
+
     @Inject
     private SecurityContext securityContext;
+
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 //    @Inject
@@ -30,9 +35,11 @@ public class UserService {    // implements Service<User, Long>
 
 
     @Transactional
+    @ResponseMaker(authority = "create_user")
 //    @Override
-    public void save(User user) {
+    public Object save(User user) {
         entityManager.persist(user);
+        return "this is for admin"+user;
     }
 
     @Transactional
@@ -113,16 +120,19 @@ public class UserService {    // implements Service<User, Long>
 //        }
     }
 
-    @Transactional
+    @Transactional      //todo
     public Set<Permission> findPermissionsByUsername(String username) {
-//        username = securityContext.getCallerPrincipal().getName();
-        Set<Role> roleSet = roleService.findByUsername(username);
+//      securityContext.getCallerPrincipal().getName();
+        List<Role> roleList = roleService.findByUsername(username);
         Role role = new Role();
         //  Role role = roleSet.get(0);
+
+//        securityContext.isCallerInRole("admin");todo
 
 //        Set<Role> roleSet = roleService.findByUsername(username);
 //        SecurityContextHolder
 //        Role role = Role.builder().roleName("admin").build();
+
         return role.getPermissionSet();
     }
 }

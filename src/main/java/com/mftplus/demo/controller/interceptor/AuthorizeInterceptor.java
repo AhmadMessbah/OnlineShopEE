@@ -1,7 +1,6 @@
 package com.mftplus.demo.controller.interceptor;
 
 import com.mftplus.demo.controller.interceptor.annotation.Authorize;
-import com.mftplus.demo.controller.interceptor.annotation.Loggable;
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.service.UserService;
 import jakarta.annotation.Priority;
@@ -11,9 +10,9 @@ import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
 import jakarta.security.enterprise.SecurityContext;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.webbeans.spi.SecurityService;
 
 import java.nio.file.AccessDeniedException;
-import java.security.Principal;
 import java.util.Set;
 
 @Authorize
@@ -23,6 +22,10 @@ import java.util.Set;
 public class AuthorizeInterceptor {
     @Inject
     private SecurityContext securityContext;
+//    @Inject
+//    private SecurityService securityService;
+//    @Inject
+//    private ResponseMakerInterceptor responseMakerInterceptor;
 
     @Inject
     private UserService userService;
@@ -33,10 +36,12 @@ public class AuthorizeInterceptor {
             String authority = context.getMethod().getAnnotation(Authorize.class).authority();
             String username = securityContext.getCallerPrincipal().getName();
             Set<Permission> permissionSet = userService.findPermissionsByUsername(username);
-            if(permissionSet != null && permissionSet.contains(authority)) {
+            if (permissionSet != null && permissionSet.contains(authority)) {
+//                responseMakerInterceptor.responseMaker(context.);
+//                securityContext.isCallerInRole(authority);
+
                 return context.proceed();
-            }
-            else{
+            } else {
                 throw new AccessDeniedException("You Have Not Access To This Method !!!");
             }
         } finally {

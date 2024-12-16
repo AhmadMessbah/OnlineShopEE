@@ -1,5 +1,6 @@
 package com.mftplus.demo.controller.api;
 
+import com.mftplus.demo.controller.interceptor.annotation.Authorize;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.User;
 import com.mftplus.demo.model.service.UserService;
@@ -8,6 +9,8 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import lombok.extern.slf4j.Slf4j;
+
+import static com.mftplus.demo.controller.interceptor.annotation.Authorize.REMOVE_USER;
 
 @Path("/users")
 @Slf4j
@@ -56,16 +59,17 @@ public class UserApi {
     @Path("/loginData/{loginData}")
 //    @Loggable
     @ResponseMaker(authority = "GET_USERS_BY_USERNAME_AND_PASSWORD")
-    public Object getUserByUsernameAndPassword(@PathParam("loginData") String username, String password) {
-        return userService.findByUsernameAndPassword(username, password);
-//        String[] parts = loginData.split(" ");
-//        if (parts.length == 2) {
-//            String username = parts[0];
-//            String password = parts[1];
+    public Object getUserByUsernameAndPassword(@PathParam("loginData") String loginData) {
+        String[] parts = loginData.split(" ");
+        if (parts.length == 2) {
+            String username = parts[0];
+            String password = parts[1];
+            return userService.findByUsernameAndPassword(username, password);
+
 //            return Response.ok().entity(userService.findByUsernameAndPassword(username, password)).build();
-//        } else {
-//            throw new IllegalArgumentException("input username && password !!");
-//        }
+        } else {
+            throw new IllegalArgumentException("input username && password !!");
+        }
     }
 
     @GET
@@ -87,12 +91,20 @@ public class UserApi {
     public Object getUserByRoleName(@PathParam("role") String roleName) {
         return userService.findByRoleName(roleName);
     }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/perUser/{perUser}")
+//    @Loggable
+    @ResponseMaker(authority = "GET_USERS_PERMISSION_BY_USERNAME")
+    public Object getPermissionsByUsername(@PathParam("perUser") String username) {
+        return userService.findPermissionsByUsername(username);
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 //    @Loggable
-    @ResponseMaker(authority = "SAVE_USER")
+    @ResponseMaker(authority = "create_user")
     public Object addUser(@Valid User user) {
         userService.save(user);
         return user;
@@ -109,11 +121,12 @@ public class UserApi {
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("{userRemove}")
 //    @Loggable
     @ResponseMaker(authority = "REMOVE_USER")
+    @Authorize(authority = REMOVE_USER)
     //todo
-    public Object deleteUser(@PathParam("id") String username) {
+    public Object deleteUser(@PathParam("userRemove") String username) {
       User user =   userService.remove(username);
       return user.getId();
   //      return id;

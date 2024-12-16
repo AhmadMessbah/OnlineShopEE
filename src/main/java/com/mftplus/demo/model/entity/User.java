@@ -49,8 +49,7 @@ public class User extends Base {
     @JsonProperty(": ایمیل")
     private String email;
 
-
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
             name = "my_user_role",
             joinColumns = @JoinColumn(name = "username"),

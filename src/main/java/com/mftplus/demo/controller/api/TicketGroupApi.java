@@ -86,7 +86,7 @@ public class TicketGroupApi {
                     //todo
     public Object deleteTicketGroup(@PathParam("id") Long id) {
         log.info("Delete ticketGroupGroupGroup : {}", id);
-        ticketGroupService.remove(id);
-        return Response.ok().entity(id).build();
+       TicketGroup ticketGroup = ticketGroupService.remove(id);
+        return ticketGroup.getId();
     }
 }

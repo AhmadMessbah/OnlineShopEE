@@ -15,7 +15,7 @@ import java.util.List;
 @ApplicationScoped
 @Loggable
 @Slf4j
-public class PersonService implements Service<Person, Long> {
+public class PersonService{
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 
@@ -23,33 +23,30 @@ public class PersonService implements Service<Person, Long> {
     private UserService userService;
 
     @Transactional
-    @Override
     public void save(Person person)  {
         entityManager.persist(person);
     }
 
     @Transactional
-    @Override
     public void edit(Person person) {
         entityManager.merge(person);
     }
 
     @Transactional
-    @Override
-    public void remove(Long id) {
+    public Person remove(Long id) {
         Person person = entityManager.find(Person.class, id);
         entityManager.remove(person);
+        return person;
+
     }
 
     @Transactional
-    @Override
     public Person findById(Long id) {
         return entityManager.find(Person.class, id);
 
     }
 
     @Transactional
-    @Override
     public List<Person> findAll() {
         Query query = entityManager.createQuery("select p from personEntity p", Person.class);
         return query.getResultList();
@@ -59,6 +56,12 @@ public class PersonService implements Service<Person, Long> {
     public List<Person> findByNationalId(String nationalId) {
         Query query = entityManager.createQuery("select p from personEntity p where p.nationalId = :nationalId", Person.class);
         query.setParameter("nationalId", nationalId);
+        return query.getResultList();
+    }
+    @Transactional
+    public List<Person> findByName(String name) {
+        Query query = entityManager.createQuery("select p from personEntity p where p.name like :name", Person.class);
+        query.setParameter("name", name);
         return query.getResultList();
     }
 

@@ -14,40 +14,41 @@ import java.util.List;
 
 @ApplicationScoped //todo
 @Loggable
-public class MessageService implements Service<Message, Long> {
+public class MessageService {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 
     @Transactional
-    @Override
+
     public void save(Message message) {
         entityManager.persist(message);
 
     }
 
     @Transactional
-    @Override
+
     public void edit(Message message) {
         entityManager.merge(message);
 
     }
 
     @Transactional
-    @Override
-    public void remove(Long id) {
+
+    public Message remove(Long id) {
         Message message = entityManager.find(Message.class, id);
         entityManager.remove(message);
+        return message;
 
     }
 
     @Transactional
-    @Override
+
     public Message findById(Long id) {
         return entityManager.find(Message.class, id);
     }
 
     @Transactional
-    @Override
+
     public List<Message> findAll() {
         Query query = entityManager.createQuery("select m from messageEntity m", Message.class);
         return query.getResultList();

@@ -158,7 +158,7 @@ public class TicketApi {
     //todo for object
     public Object deleteTicket(@PathParam("id") Long id) {
         log.info("Delete Ticket : {}", id);
-        ticketService.remove(id);
-        return Response.ok().entity(id).build();
+        Ticket ticket=ticketService.remove(id);
+        return ticket.getId();
     }
 }

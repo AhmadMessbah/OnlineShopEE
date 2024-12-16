@@ -1,6 +1,5 @@
 package com.mftplus.demo.controller.interceptor;
 
-import com.mftplus.demo.controller.interceptor.annotation.Authorize;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.service.UserService;

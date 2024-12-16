@@ -1,6 +1,4 @@
 package com.mftplus.demo.controller.api;
-
-import com.mftplus.demo.controller.interceptor.annotation.Loggable;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.service.PersonService;
@@ -8,7 +6,6 @@ import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/persons")
@@ -49,16 +46,15 @@ public class PersonApi {
     @Path("/fullName/{fullName}")
 //    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_FULL_NAME")
-    public Object getPersonFullName(@PathParam("fullName") String name , String family) {
-        return personService.findByFirstNameAndLastName(name, family);
-//        String[] parts = fullName.split(" ");
-//        if (parts.length == 2) {
-//            String name = parts[0];
-//            String family = parts[1];
-//            return Response.ok().entity(personService.findByFirstNameAndLastName(name, family)).build();
-//        } else {
-//            throw new IllegalArgumentException("input name & family !");
-//        }
+    public Object getPersonFullName(@PathParam("fullName") String fullName) {
+        String[] parts = fullName.split(" ");
+        if (parts.length == 2) {
+            String name = parts[0];
+            String family = parts[1];
+            return personService.findByFirstNameAndLastName(name, family);
+        } else {
+            throw new IllegalArgumentException("input name & family !");
+        }
     }
 
     @GET
@@ -66,17 +62,16 @@ public class PersonApi {
     @Path("/loginData/{loginData}")
 //    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_LOGIN_DATA")
-    public Object getPersonByUsernameAndPassword(@PathParam("loginData") String username,String password) {
-        return personService.findByUsernameAndPassword(username, password);
+    public Object getPersonByUsernameAndPassword(@PathParam("loginData") String loginData) {
+//        return personService.findByUsernameAndPassword(username, password);
 
-//        String[] parts = loginData.split(" ");
-//        if (parts.length == 2) {
-//            String username = parts[0];
-//            String password = parts[1];
-//            return Response.ok().entity(personService.findByUsernameAndPassword(username, password)).build();
-//        } else {
-//            throw new IllegalArgumentException("input username & password !");
-//        }
+        String[] parts = loginData.split(" ");
+        if (parts.length == 2) {
+            String username = parts[0];
+            String password = parts[1];
+        return personService.findByUsernameAndPassword(username, password);        } else {
+            throw new IllegalArgumentException("input username & password !");
+        }
     }
 
     @GET
@@ -100,7 +95,7 @@ public class PersonApi {
 //    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_PHONE")
     public Object getPersonByPhoneNumber(@PathParam("phone") String phoneNumber) {
-return personService.findByPhoneNumber(phoneNumber);
+        return personService.findByPhoneNumber(phoneNumber);
     }
 
     @GET
@@ -109,7 +104,7 @@ return personService.findByPhoneNumber(phoneNumber);
 //    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_POSTAL_CODE")
     public Object getPersonByPostalCode(@PathParam("postCode") String postalCode) {
-return personService.findByPostalCode(postalCode);
+        return personService.findByPostalCode(postalCode);
     }
 
     @GET
@@ -118,7 +113,7 @@ return personService.findByPostalCode(postalCode);
 //    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_ADDRESS")
     public Object getPersonByAddress(@PathParam("address") String address) {
-return personService.findByAddress(address);
+        return personService.findByAddress(address);
     }
 
     @POST
@@ -138,7 +133,7 @@ return personService.findByAddress(address);
     @ResponseMaker(authority = "EDIT_PERSON")
     public Object updatePerson(@Valid Person person) {
         personService.edit(person);
-return person;
+        return person;
     }
 
     @DELETE
@@ -147,8 +142,8 @@ return person;
     @ResponseMaker(authority = "DELETE_PERSON")
     //todo
     public Object deletePerson(@PathParam("id") Long id) {
-        personService.remove(id);
-        return id;
+        Person person = personService.remove(id);
+        return person.getId();
 //      return Response.ok().entity(id).build();
     }
 }

@@ -12,4 +12,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Authorize {
     String authority() default "";
+    String REMOVE_USER="REMOVE_USER";
 }
