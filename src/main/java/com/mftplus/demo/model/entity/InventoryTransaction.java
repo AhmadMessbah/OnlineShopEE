@@ -25,33 +25,35 @@ import java.util.List;
 public class InventoryTransaction extends Base {
 
     @Id
-    @SequenceGenerator(name = "inventory_t_seq", sequenceName = "inventory_t_seq", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "inventory_t_seq", sequenceName = "inventory_t_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inventory_t_seq")
     @JsonProperty("ردیف")
     private Long id;
 
 
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    @JoinColumn(name=("inventory_product"), foreignKey = @ForeignKey(name="fk-Transaction_inventory_p"))
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH} , fetch = FetchType.EAGER)
+    @JoinColumn(name=("inv_product_transaction_inv"), foreignKey = @ForeignKey(name="fk-inv_product_transaction_inv"))
     @JsonProperty("کالا های انبار")
     private InventoryProduct inventoryProduct;
 
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    @JoinColumn(name=("order_item"), foreignKey = @ForeignKey(name="fk-Trans_inventory_order"))
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH} , fetch = FetchType.EAGER)
+    @JoinColumn(name=("order_item_transaction_inventory"), foreignKey = @ForeignKey(name="fk-transaction_inventory_order_item"))
     @JsonProperty("فاکتور")
     private OrderItem orderItem;
 
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    @JoinColumn(name=("product"), foreignKey = @ForeignKey(name="fk-Trans_inventory_product"))
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH} , fetch = FetchType.EAGER)
+    @JoinColumn(name=("transaction_inventory_product"), foreignKey = @ForeignKey(name="fk-transaction_inventory_product"))
     @JsonProperty("کالا")
     private Product product;
 
-    @NotNull(message = "تعداد را وارد نکرده اید!!")
+//    @NotNull(message = "تعداد را وارد نکرده اید!!")
     @Column(name = "count", length = 10)
     @JsonProperty("تعداد")
     private Double count;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "inventory_status")
+    @JsonProperty("وضعیت")
     private InventoryStatus status;
 
 }

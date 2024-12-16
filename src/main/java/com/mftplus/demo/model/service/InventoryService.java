@@ -1,6 +1,8 @@
 package com.mftplus.demo.model.service;
 
+import com.mftplus.demo.controller.interceptor.annotation.Authorize;
 import com.mftplus.demo.model.entity.Inventory;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -12,34 +14,44 @@ import java.util.List;
 
 
 @ApplicationScoped
+@Loggable
 @Slf4j
-public class InventoryService {
+public class InventoryService implements Service<Inventory, Long> {
 
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 
+
+    @Override
     @Transactional
+    @Authorize(authority = "ADMIN")
     public void save(Inventory inventory) {
         entityManager.persist(inventory);
     }
 
     @Transactional
+    @Override
+    @Authorize(authority = "ADMIN")
     public void edit(Inventory inventory) {
         entityManager.merge(inventory);
     }
 
     @Transactional
+    @Override
+    @Authorize(authority = "ADMIN")
     public void remove(Long id) {
         Inventory inventory = entityManager.find(Inventory.class, id);
         entityManager.remove(inventory);
     }
 
     @Transactional
+    @Override
     public Inventory findById(Long id) {
         return entityManager.find(Inventory.class, id);
     }
 
     @Transactional
+    @Override
     public List<Inventory> findAll() {
         Query query = entityManager.createQuery("select oo from inventoryEntity oo", Inventory.class);
         return query.getResultList();
@@ -68,31 +80,19 @@ public class InventoryService {
     }
 
     @Transactional
-    public Inventory findByTransactionId(Long id) {
-        Query query = entityManager.createQuery("select oo from inventoryEntity oo cross join inventoryTransactionEntity i where i.id=:id", Inventory.class);
+    public Inventory findByInventoryProductId(Long id) {
+        Query query = entityManager.createQuery("select oo from inventoryEntity oo cross join inventory_product i where i.id=:id", Inventory.class);
         query.setParameter("id", id);
         return (Inventory) query.getSingleResult();
     }
 
+
     @Transactional
-    public List<Inventory> findByTransactionCount(Long count) {
-        Query query = entityManager.createQuery("select oo from inventoryEntity oo cross join inventoryTransactionEntity i where i.count=:count", Inventory.class);
-        query.setParameter("count", count);
-        return query.getResultList();
+    public Inventory findByProductName(String name) {
+        Query query = entityManager.createQuery("select oo from inventoryEntity oo cross join inventory_product i where i.product.name=:Product_Name", Inventory.class);
+        query.setParameter("Product_Name", name);
+        return (Inventory) query.getResultList();
     }
 
-    //todo->> one sample for getting the inventoryTransactions relation objects!
-    @Transactional
-    public List<Inventory> findByProduct(String name) {
-        Query query = entityManager.createQuery("select oo from inventoryEntity oo cross join inventoryTransactionEntity i where i.product.name=:name", Inventory.class);
-        query.setParameter("name", name);
-        return query.getResultList();
-    }
-    @Transactional
-    public Inventory findByOrderId(Long id) {
-        Query query = entityManager.createQuery("select oo from inventoryEntity oo  where oo.inventoryTransaction.order.id=:id", Inventory.class);
-        query.setParameter("id", id);
-        return (Inventory) query.getSingleResult();
-    }
 
 }

@@ -45,7 +45,7 @@ public class AuthorizeInterceptor {
                 throw new AccessDeniedException("You Have Not Access To This Method !!!");
             }
         } finally {
-            log.info(String.format("Method %s Finished -", context.getMethod().getName()));
+            log.info("Method {} Finished -", context.getMethod().getName());
         }
     }
 }

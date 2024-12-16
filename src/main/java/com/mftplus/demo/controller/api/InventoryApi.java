@@ -1,11 +1,12 @@
 package com.mftplus.demo.controller.api;
 
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Inventory;
 import com.mftplus.demo.model.service.InventoryService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import  jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -18,63 +19,81 @@ public class InventoryApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInventories(){
+    @ResponseMaker(authority = "GET_INVENTORIES")
+    public Object getInventories(){
         log.info("Get Inventories Info");
-        return Response.ok().entity(inventoryService.findAll()).build();
+        return inventoryService.findAll();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORIES_BY_ID")
     @Path("{id}")
-    public Response getInventoriesById(@PathParam("id") Long id){
-        return Response.ok().entity(inventoryService.findById(id)).build();
+    public Object getInventoriesById(@PathParam("id") Long id){
+        return inventoryService.findById(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORIES_BY_TITLE")
     @Path("/title/{title}")
-    public Response getInventoriesByTitle(@PathParam("title") String title){
-        return Response.ok().entity(inventoryService.findByTitle(title)).build();
+    public Object getInventoriesByTitle(@PathParam("title") String title){
+        return inventoryService.findByTitle(title);
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORIES_BY_ADDRESS")
     @Path("/address/{address}")
-    public Response getInventoriesByAddress(@PathParam("address") String address){
-        return Response.ok().entity(inventoryService.findByAddress(address)).build();
+    public Object getInventoriesByAddress(@PathParam("address") String address){
+        return inventoryService.findByAddress(address);
     }
 
-    //todo->> one sample for getting the inventoryTransactions relation objects!
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/name/{name}")
-    public Response getInventoriesProduct(@PathParam("name") String name){
-        return Response.ok().entity(inventoryService.findByProduct(name)).build();
-    }
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORIES_BY_PHONE")
     @Path("/phone/{phone}")
-    public Response getInventoriesByPhone(@PathParam("phone") String phone){
-        return Response.ok().entity(inventoryService.findByPhone(phone)).build();
+    public Object getInventoriesByPhone(@PathParam("phone") String phone){
+        return inventoryService.findByPhone(phone);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORIES_BY_PRODUCT_ID")
+    @Path("/InventoryProduct/{InventoryProduct}")
+    public Object getInventoryByInventoryProductId(@PathParam("InventoryProduct") Long id){
+        return inventoryService.findByInventoryProductId(id);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORIES_BY_PRODUCT_NAME")
+    @Path("/product/{product}")
+    public Object getInventoryByProductName(@PathParam("product") String name){
+        return inventoryService.findByProductName(name);
     }
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addInventory(Inventory inventory){
+    @ResponseMaker(authority = "SAVE_INVENTORY")
+    public Object addInventory(@Valid Inventory inventory){
         inventoryService.save(inventory);
-        return Response.ok().entity(inventory).build();
+        return inventory;
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateInventory(Inventory inventory){
+    @ResponseMaker(authority = "EDIT_INVENTORY")
+    public Object updateInventory(@Valid Inventory inventory){
         inventoryService.edit(inventory);
-        return Response.ok().entity(inventory).build();
+        return inventory;
     }
     @DELETE
     @Path("{id}")
-    public Response removeInventory(@PathParam("id") Long id) {
+    @ResponseMaker(authority = "DELETE_INVENTORY")
+    public Object removeInventory(@PathParam("id") Long id) {
         inventoryService.remove(id);
-        return Response.ok().entity(id).build();
+        return id;
     }
 }

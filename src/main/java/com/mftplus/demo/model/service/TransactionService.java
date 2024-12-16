@@ -1,5 +1,6 @@
 package com.mftplus.demo.model.service;
 
+import com.mftplus.demo.controller.interceptor.annotation.Authorize;
 import com.mftplus.demo.model.entity.Transaction;
 import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -21,18 +22,21 @@ public class TransactionService implements Service<Transaction, Long> {
 
     @Transactional
     @Override
+    @Authorize(authority = "ADMIN")
     public void save(Transaction transaction) {
         entityManager.persist(transaction);
     }
 
     @Transactional
     @Override
+    @Authorize(authority = "ADMIN")
     public void edit(Transaction transaction) {
         entityManager.merge(transaction);
     }
 
     @Transactional
     @Override
+    @Authorize(authority = "ADMIN")
     public void remove(Long id) {
         Transaction transaction = entityManager.find(Transaction.class, id);
         if (transaction != null) {
@@ -54,6 +58,7 @@ public class TransactionService implements Service<Transaction, Long> {
     }
 
     @Transactional
+    @Authorize(authority = "USER")
     public Transaction findByTrackingCode(Long trackingCode) {
         Query query = entityManager.createQuery("select t from transactionEntity t where t.trackingCode = :trackingCode", Transaction.class);
         query.setParameter("trackingCode", trackingCode);

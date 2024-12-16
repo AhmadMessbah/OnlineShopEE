@@ -1,5 +1,6 @@
 package com.mftplus.demo.model.service;
 
+import com.mftplus.demo.controller.interceptor.annotation.Authorize;
 import com.mftplus.demo.model.entity.Bank;
 import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -26,12 +27,14 @@ public class BankService implements Service<Bank, Long> {
     }
 
     @Transactional
+    @Authorize(authority = "ADMIN")
     @Override
     public void edit(Bank bank) {
         entityManager.merge(bank);
     }
 
     @Transactional
+    @Authorize(authority = "ADMIN")
     @Override
     public void remove(Long id) {
         Bank bank = entityManager.find(Bank.class, id);
@@ -54,6 +57,7 @@ public class BankService implements Service<Bank, Long> {
     }
 
     @Transactional
+    @Authorize(authority = "USER")
     public Bank findByAccountNumber(String accountNumber) {
         Query query = entityManager.createQuery("select b from bankEntity b where b.accountNumber = :accountNumber", Bank.class);
         query.setParameter("accountNumber", accountNumber);

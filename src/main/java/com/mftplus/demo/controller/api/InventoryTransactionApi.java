@@ -1,9 +1,10 @@
 package com.mftplus.demo.controller.api;
 
-import com.mftplus.demo.model.entity.Inventory;
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.InventoryTransaction;
 import com.mftplus.demo.model.service.InventoryTransactionService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import  jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -18,60 +19,95 @@ public class InventoryTransactionApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInventoryTransaction(){
-        log.info("Get Inventories' Transactions Info");
-        return Response.ok().entity(inventoryTransactionService.findAll()).build();
+    @ResponseMaker(authority = "GET_INVENTORY_TRANSACTION")
+    public Object getInventoryTransaction(){
+        log.info("Get Inventory Transactions Info");
+        return inventoryTransactionService.findAll();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getInventoryTransactionById(@PathParam("id") Long id){
-        return Response.ok().entity(inventoryTransactionService.findById(id)).build();
+    @ResponseMaker(authority = "GET_INVENTORY_TRANSACTION_BY_ID")
+    public Object getInventoryTransactionById(@PathParam("id") Long id){
+        return inventoryTransactionService.findById(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORY_TRANSACTION_BY_INVENTORY")
     @Path("/inventory/{inventory}")
-    public Response getInventoryTransactionByInventory(@PathParam("inventory") Long id){
+    public Object getInventoryTransactionByInventory(@PathParam("inventory") Long id){
         log.info("get inventory id");
-        return Response.ok().entity(inventoryTransactionService.findByInventoryId(id)).build();
+        return inventoryTransactionService.findByInventoryId(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORY_TRANSACTION_BY_INVENTORY_TITLE")
+    @Path("/inventory/{inventory}")
+    public Object getInventoryTransactionByInventory(@PathParam("inventory") String title) {
+        log.info("get inventory title");
+        return inventoryTransactionService.findByInventoryTitle(title);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORY_TRANSACTION_BY_INVENTORY_TITLE")
     @Path("/product/{product}")
-    public Response getInventoryTransactionByProduct(@PathParam("product") Long id){
-        return Response.ok().entity(inventoryTransactionService.findByProductId(id)).build();
+    public Object getInventoryTransactionByProduct(@PathParam("product") Long id){
+        return inventoryTransactionService.findByProductId(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/order/{order}")
-    public Response getInventoryTransactionByOrder(@PathParam("order") Long id){
-        return Response.ok().entity(inventoryTransactionService.findByOrderId(id)).build();
+    @ResponseMaker(authority = "GET_INVENTORY_TRANSACTION_BY_PRODUCT")
+    @Path("/product/{product}")
+    public Object getInventoryTransactionByProductName(@PathParam("product") String name){
+        return inventoryTransactionService.findByProductName(name);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORY_TRANSACTION_BY_INVENTORY_PRODUCT")
+    @Path("/inventoryProduct/{inventoryProduct}")
+    public Object getInventoryTransactionByInventoryProduct(@PathParam("inventoryProduct") Long id){
+        return inventoryTransactionService.findByInventoryProductId(id);
+    }
+
+
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @ResponseMaker(authority = "GET_INVENTORY_TRANSACTION_BY_ORDER_ITEM")
+    @Path("/orderItem/{orderItem}")
+    public Object getInventoryTransactionByOrderItem(@PathParam("orderItem") Long id){
+        return inventoryTransactionService.findByOrderItemId(id);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addInventoryTransaction(InventoryTransaction inventoryTransaction){
+    @ResponseMaker(authority = "SAVE_INVENTORY_TRANSACTION")
+    public Object addInventoryTransaction( @Valid InventoryTransaction inventoryTransaction){
         inventoryTransactionService.save(inventoryTransaction);
-        return Response.ok().entity(inventoryTransaction).build();
+        return inventoryTransaction;
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateInventoryTransaction(InventoryTransaction inventoryTransaction){
+    @ResponseMaker(authority = "EDIT_INVENTORY_TRANSACTION")
+    public Object updateInventoryTransaction(InventoryTransaction inventoryTransaction){
         inventoryTransactionService.edit(inventoryTransaction);
-        return Response.ok().entity(inventoryTransaction).build();
+        return inventoryTransaction;
     }
 
     @DELETE
     @Path("{id}")
-    public Response removeInventoryTransaction(@PathParam("id") Long id) {
+    @ResponseMaker(authority = "DELETE_INVENTORY_TRANSACTION")
+    public Object removeInventoryTransaction(@PathParam("id") Long id) {
         inventoryTransactionService.remove(id);
-        return Response.ok().entity(id).build();
+        return id;
     }
 }
