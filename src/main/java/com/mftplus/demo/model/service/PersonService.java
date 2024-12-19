@@ -19,16 +19,19 @@ public class PersonService {
     private EntityManager entityManager;
 
     @Transactional
+    @Loggable
     public void save(Person person) {
         entityManager.persist(person);
     }
 
     @Transactional
+    @Loggable
     public void edit(Person person) {
         entityManager.merge(person);
     }
 
     @Transactional
+    @Loggable
     public Person remove(Long id) {
         Person person = entityManager.find(Person.class, id);
         entityManager.remove(person);
@@ -36,11 +39,13 @@ public class PersonService {
     }
 
     @Transactional
+    @Loggable
     public Person findById(Long id) {
         return entityManager.find(Person.class, id);
     }
 
     @Transactional
+    @Loggable
     public List<Person> findAll() {
         Query query = entityManager.createQuery("select p from personEntity p", Person.class);
         return query.getResultList();
@@ -54,6 +59,7 @@ public class PersonService {
     }
 
     @Transactional
+    @Loggable
     public List<Person> findByName(String name) {
         Query query = entityManager.createQuery("select p from personEntity p where p.name like :name", Person.class);
         query.setParameter("name", name);
@@ -61,6 +67,7 @@ public class PersonService {
     }
 
     @Transactional
+    @Loggable
     public List<Person> findByFirstNameAndLastName(String name, String family) {
         Query query = entityManager.createQuery("select p from  personEntity p where p.name = : name and p.family = : family", Person.class);
         query.setParameter("name", name);
@@ -69,6 +76,7 @@ public class PersonService {
     }
 
     @Transactional
+    @Loggable
     public Person findByUsernameAndPassword(String username, String password) {
 //        if (userService.findByUsernameAndPassword(username, password) != null) {
         Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = : username and p.user.password = : password", Person.class);
@@ -81,6 +89,7 @@ public class PersonService {
     }
 
     @Transactional
+    @Loggable
     public Person findByUsername(String username) {
         Query query = entityManager.createQuery("select u.username from  userEntity u where u.username = :username", Person.class);
         query.setParameter("username", username);
@@ -88,6 +97,7 @@ public class PersonService {
     }
 
     @Transactional
+    @Loggable
     public List<Person> findByPhoneNumber(String phoneNumber) {
         Query query = entityManager.createQuery("select p from  personEntity p where p.phoneNumber = :phoneNumber", Person.class);
         query.setParameter("phoneNumber", phoneNumber);
@@ -96,6 +106,7 @@ public class PersonService {
     }
 
     @Transactional
+    @Loggable
     public List<Person> findByPostalCode(String postalCode) {
         Query query = entityManager.createQuery("select p from personEntity p where p.postalCode = :postalCode", Person.class);
         query.setParameter("postalCode", postalCode);
@@ -103,6 +114,7 @@ public class PersonService {
     }
 
     @Transactional
+    @Loggable
     public List<Person> findByAddress(String address) {
         Query query = entityManager.createQuery("select p from personEntity p where p.address = :address", Person.class);
         query.setParameter("address", address);
