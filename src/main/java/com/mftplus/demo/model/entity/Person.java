@@ -32,17 +32,17 @@ public class Person extends Base {
     private Long id;
 
     @Column(name = "person_firstName", length = 30)
-    @Pattern(regexp = "^[a-zA-Z]{2,30}$", message = "invalid name !")
+//    @Pattern(regexp = "^[a-zA-Z]{2,30}$", message = "invalid name !")
     @JsonProperty("نام :") //todo --> not work!
     private String name;
 
     @Column(name = "person_lastName", length = 40)
-    @Pattern(regexp = "^[a-zA-Z]{2,40}$", message = "invalid family")
+//    @Pattern(regexp = "^[a-zA-Z]{2,40}$", message = "invalid family")
     @JsonProperty("نام خانوادگی :")
     private String family;
 
     @Column(name = "person_national_id", length = 10)
-    @Pattern(regexp = "^[0-9]{3,10}$", message = "invalid national id !")
+//    @Pattern(regexp = "^[0-9]{3,10}$", message = "invalid national id !")
     @JsonProperty("کد ملی :")
     private String nationalId;
 
@@ -51,17 +51,17 @@ public class Person extends Base {
     private LocalDate birthDate;
 
     @Column(name = "person_phone_number", length = 13)
-    @Pattern(regexp = "^[0-9]{3,13}$", message = "invalid phone number !")
+//    @Pattern(regexp = "^[0-9]{3,13}$", message = "invalid phone number !")
     @JsonProperty("شماره تماس :")
     private String phoneNumber;
 
     @Column(name = "person_address", length = 200)
-    @Pattern(regexp = "^[a-zA-Z\\s]{5,200}$", message = "invalid address text !")
+//    @Pattern(regexp = "^[a-zA-Z\\s]{5,200}$", message = "invalid address text !")
     @JsonProperty("ادرس :")
     private String address;
 
     @Column(name = "person_postal_code", length = 30)
-    @Pattern(regexp = "^[0-9]{1,30}$", message = "invalid postalCode !")
+//    @Pattern(regexp = "^[0-9]{1,30}$", message = "invalid postalCode !")
     @JsonProperty("کد پستی :")
     private String postalCode;
 

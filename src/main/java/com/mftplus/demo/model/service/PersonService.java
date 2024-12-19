@@ -1,29 +1,25 @@
 package com.mftplus.demo.model.service;
 
-import com.mftplus.demo.controller.exception.NoPersonException;
 import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.utils.Loggable;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 
-@ApplicationScoped
+@RequestScoped
 @Loggable
 @Slf4j
-public class PersonService{
+public class PersonService {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 
-    @Inject
-    private UserService userService;
-
     @Transactional
-    public void save(Person person)  {
+    public void save(Person person) {
         entityManager.persist(person);
     }
 
@@ -37,13 +33,11 @@ public class PersonService{
         Person person = entityManager.find(Person.class, id);
         entityManager.remove(person);
         return person;
-
     }
 
     @Transactional
     public Person findById(Long id) {
         return entityManager.find(Person.class, id);
-
     }
 
     @Transactional
@@ -58,6 +52,7 @@ public class PersonService{
         query.setParameter("nationalId", nationalId);
         return query.getResultList();
     }
+
     @Transactional
     public List<Person> findByName(String name) {
         Query query = entityManager.createQuery("select p from personEntity p where p.name like :name", Person.class);
@@ -67,30 +62,30 @@ public class PersonService{
 
     @Transactional
     public List<Person> findByFirstNameAndLastName(String name, String family) {
-           Query query = entityManager.createQuery("select p from  personEntity p where p.name = : name and p.family = : family", Person.class);
-           query.setParameter("name", name);
-           query.setParameter("family", family);
-           return query.getResultList();
+        Query query = entityManager.createQuery("select p from  personEntity p where p.name = : name and p.family = : family", Person.class);
+        query.setParameter("name", name);
+        query.setParameter("family", family);
+        return query.getResultList();
     }
 
     @Transactional
-    public Person findByUsernameAndPassword(String username, String password)  {
+    public Person findByUsernameAndPassword(String username, String password) {
 //        if (userService.findByUsernameAndPassword(username, password) != null) {
-            Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = : username and p.user.password = : password", Person.class);
-            query.setParameter("username", username);
-            query.setParameter("password", password);
-            return (Person) query.getSingleResult();
+        Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = : username and p.user.password = : password", Person.class);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        return (Person) query.getSingleResult();
 //        }else {
 //            throw new NoPersonException();
 //        }
     }
 
     @Transactional
-    public Person findByUsername(String username){
+    public Person findByUsername(String username) {
 //        if (userService.findByUsername(username) != null ) {
-                Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = :username", Person.class);
-                query.setParameter("username", username);
-                return (Person) query.getSingleResult();
+        Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = :username", Person.class);
+        query.setParameter("username", username);
+        return (Person) query.getSingleResult();
 //        } else {
 //            throw new NoPersonException();
 //        }

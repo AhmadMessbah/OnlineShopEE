@@ -25,8 +25,8 @@ import java.util.Set;
 public class User extends Base {
     @Id
     @JsonProperty(" : ردیف")
-//    @SequenceGenerator(name = "userSeq", sequenceName = "user_seq", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
+    @SequenceGenerator(name = "userSeq", sequenceName = "user_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
     @Column(name = "user_id", length = 19)
     private Long id;
 
@@ -56,7 +56,7 @@ public class User extends Base {
             joinColumns = @JoinColumn(name = "username"),
             inverseJoinColumns = @JoinColumn(name = "role_name"))
     @JsonProperty(": عنوان کاربر")
-    private Set<Role> roleList;
+    private Set<Role> roleSet;
 
     @Column(name = "locked", length = 1)
     @JsonbTransient
