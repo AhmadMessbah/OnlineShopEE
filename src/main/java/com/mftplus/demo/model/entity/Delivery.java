@@ -2,15 +2,12 @@ package com.mftplus.demo.model.entity;
 import com.mftplus.demo.model.entity.enums.DeliveryMethod;
 import com.mftplus.demo.model.entity.enums.DeliveryStatus;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDateTime;
 
@@ -29,10 +26,6 @@ public class Delivery {
     @SequenceGenerator(name = "deliverySeq", sequenceName = "delivery_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deliverySeq")
     private Long id;
-
-
-//    @OneToOne(mappedBy = "delivery")
-//    private Order order;
 
     @Column(name = "delivery_address")//, nullable = false
     private String deliveryAddress;
@@ -61,4 +54,8 @@ public class Delivery {
 
     @Column(name = "d_date")
     private LocalDateTime deliveredDate;
+
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    private Order order;
+
 }

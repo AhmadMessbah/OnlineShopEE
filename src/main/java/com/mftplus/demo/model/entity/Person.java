@@ -3,7 +3,6 @@ package com.mftplus.demo.model.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mftplus.demo.model.entity.enums.Gender;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -72,7 +71,7 @@ public class Person extends Base {
 
 
     @OneToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "person_users", foreignKey = @ForeignKey(name = "user_fk"))
+    @JoinTable(name = "person_users", foreignKey = @ForeignKey(name = "user_fk"))
     @JsonProperty("اطلاعات کاربر :")
     private User user;
 

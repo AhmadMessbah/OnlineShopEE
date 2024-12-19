@@ -32,7 +32,7 @@ public class Role extends Base {
     private Long id;
 
     @Column(name = "role_name", length = 20)
-    @Pattern(regexp = "^[a-zA-Z\\d\\s]{2,20}$", message = "Invalid role name")
+//    @Pattern(regexp = "^[a-zA-Z\\d\\s]{2,20}$", message = "Invalid role name")
     @NotBlank(message = "RoleName cant be Empty!")
     @JsonProperty("نقش کاربر :")
     private String roleName;

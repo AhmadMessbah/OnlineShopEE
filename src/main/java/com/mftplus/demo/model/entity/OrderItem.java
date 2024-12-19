@@ -2,14 +2,12 @@ package com.mftplus.demo.model.entity;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDate;
 
 
 @NoArgsConstructor
@@ -27,8 +25,8 @@ public class OrderItem {
     @Column(name = "order_Id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinTable(name = "orderItem_pro")
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "orderItem_pro")
     private Product product;
 
     @Column(name = "product_quantity")
@@ -39,6 +37,7 @@ public class OrderItem {
 
     @Transient
     private double totalPrice;
+
 
     public double getTotalPrice() {
         totalPrice = quantity * unitPrice;

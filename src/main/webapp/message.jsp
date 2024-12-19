@@ -4,8 +4,8 @@
     <title>Message</title>
     <style>
       .badge {
-        background-color: red;
-        color: white;
+        background-color: aquamarine;
+        color: mediumpurple;
         padding: 3px 8px;
         border-radius: 50%;
         font-size: 0.9em;
@@ -50,7 +50,7 @@
     </script>
   </head>
   <body>
-  <h1>Message Board</h1>
+  <h1>Message inbox</h1>
 
   <!-- Button with Badge -->
   <button onclick="showAllMessages()">

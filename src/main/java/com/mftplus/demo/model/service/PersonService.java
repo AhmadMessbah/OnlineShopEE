@@ -82,13 +82,9 @@ public class PersonService {
 
     @Transactional
     public Person findByUsername(String username) {
-//        if (userService.findByUsername(username) != null ) {
-        Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = :username", Person.class);
+        Query query = entityManager.createQuery("select u.username from  userEntity u where u.username = :username", Person.class);
         query.setParameter("username", username);
         return (Person) query.getSingleResult();
-//        } else {
-//            throw new NoPersonException();
-//        }
     }
 
     @Transactional

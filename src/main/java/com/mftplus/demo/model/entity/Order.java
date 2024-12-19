@@ -22,9 +22,9 @@ import java.util.List;
 @ToString
 
 
-@Entity(name = "OrderEntity")
+@Entity(name = "orderEntity")
 @Table(name = "order_tbl")
-public class Order {
+public class Order extends Base {
     @Id
     @SequenceGenerator(name = "orderSeq", sequenceName = "order_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderSeq")
@@ -57,11 +57,11 @@ public class Order {
     @JoinTable(name = "order_orderItem", foreignKey = @ForeignKey(name = "my_fk"))
     private List<OrderItem> orderItems=new ArrayList<>();
 
-//    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//    @OneToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
 //    @JoinColumn(name = "delivery_id")
-//    private Delivery delivery;
+//    private List<Delivery> delivery;
 
-    @Column(name = "bill_addr")//, nullable = false
+    @Column(name = "bill_address")//, nullable = false
     private String billingAddress;
 
     @Column(name = "created_at")//, nullable = false
@@ -70,8 +70,8 @@ public class Order {
     @Column(name = "updated_at")//, nullable = false
     private LocalDateTime updatedAt;
 
-    public void updateOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
+//    public void updateOrderStatus(OrderStatus orderStatus) {
+//        this.orderStatus = orderStatus;
+//    }
 
 }

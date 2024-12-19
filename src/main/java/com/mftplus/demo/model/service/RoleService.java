@@ -66,7 +66,7 @@ public List<Role> findByRoleName(String roleName) {
 
 @Transactional
 public List<Role> findByUsername(String username) {
-    Query query = entityManager.createQuery("select u.roleList from  userEntity  u where u.username=:username", Role.class);
+    Query query = entityManager.createQuery("select u.roleSet from  userEntity  u where u.username=:username", Role.class);
     query.setParameter("username", username);
     return query.getResultList();
 

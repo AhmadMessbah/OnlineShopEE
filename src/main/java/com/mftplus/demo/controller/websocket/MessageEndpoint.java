@@ -55,7 +55,6 @@ public class MessageEndpoint {
             }
         }
     }
-
     public static void send(Session session, Message message) {
         if (session.isOpen()) {
             session.getAsyncRemote().sendObject(message);
