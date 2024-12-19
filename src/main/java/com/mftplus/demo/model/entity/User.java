@@ -34,7 +34,7 @@ public class User extends Base {
     @JsonProperty(" : ردیف")
 //    @SequenceGenerator(name = "userSeq", sequenceName = "user_seq", allocationSize = 1)
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
-    @Column(name = "user_id", length = 22)
+    @Column(name = "user_id", length = 19)
     private Long id;
 
     @Column(name = "password", length = 30)
@@ -51,7 +51,7 @@ public class User extends Base {
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "my_user_role",
+            name = "user_roles",
             joinColumns = @JoinColumn(name = "username"),
             inverseJoinColumns = @JoinColumn(name = "role_name"))
     @JsonProperty(": عنوان کاربر")
