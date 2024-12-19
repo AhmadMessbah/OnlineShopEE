@@ -27,7 +27,7 @@ import lombok.experimental.SuperBuilder;
 @Entity(name = "permissionEntity")
 @Table(name = "permission_tbl")
 
-public class Permission extends PermissionCenter {
+public class Permission  {
 
     @Id
     @Column(name = "permission_name", length = 30)

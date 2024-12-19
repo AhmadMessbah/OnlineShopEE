@@ -1,4 +1,5 @@
 package com.mftplus.demo.model.entity;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,17 +14,20 @@ import lombok.experimental.SuperBuilder;
 
 
 @Entity(name = "productProEntity")
-@Table(name = "pro_propertieValues")
+@Table(name = "product_properties_values")
 
 public class ProductPropertyValue {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "productPropertiesGroupSeq", sequenceName = "product_properties_group_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_properties_group_seq")
     private Long id;
+
     @Column(name = "name")
     private String name;
-//    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    //    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
 //    private Product product;
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private GroupProperty groupProperty;
 
 }

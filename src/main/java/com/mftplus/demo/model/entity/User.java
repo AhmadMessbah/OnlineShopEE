@@ -24,18 +24,19 @@ import java.util.Set;
 
 public class User extends Base {
     @Id
-    @Column(name = "username", length = 30)
-//    @Pattern(regexp = "^[a-zA-Z\\d\\s]{2,20}$", message = "Invalid Username")
-    @NotBlank(message = "Username cant be Empty!")
-    @JsonProperty(" : نام کاربری")
-    private String username;
-
-
     @JsonProperty(" : ردیف")
 //    @SequenceGenerator(name = "userSeq", sequenceName = "user_seq", allocationSize = 1)
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
     @Column(name = "user_id", length = 19)
     private Long id;
+
+
+    @Column(name = "username", length = 30, unique = true)
+//    @Pattern(regexp = "^[a-zA-Z\\d\\s]{2,20}$", message = "Invalid Username")
+    @NotBlank(message = "Username cant be Empty!")
+    @JsonProperty(" : نام کاربری")
+    private String username;
+
 
     @Column(name = "password", length = 30)
     @NotBlank(message = "Password cant be Empty")
@@ -44,7 +45,7 @@ public class User extends Base {
 //    @JsonbTransient
     private String password;
 
-    @Column(name = "user_email", length = 30)
+    @Column(name = "user_email", length = 30, unique = true)
 //    @Pattern(regexp = "^[a-zA-Z\\d\\s]{8,50}$", message = "Invalid Email")
     @JsonProperty(": ایمیل")
     private String email;
