@@ -1,13 +1,16 @@
 package com.mftplus.demo.model.service;
+
+import com.mftplus.demo.model.entity.Product;
 import com.mftplus.demo.model.entity.ProductPropertyValue;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+
 import java.util.List;
 
-@ApplicationScoped
+@RequestScoped
 public class ProductPropertyValueService implements Service<ProductPropertyValue, Long> {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
@@ -38,6 +41,12 @@ public class ProductPropertyValueService implements Service<ProductPropertyValue
     @Override
     public ProductPropertyValue findById(Long id) {
         return entityManager.find(ProductPropertyValue.class, id);
+    }
+    @Transactional
+    public ProductPropertyValue findByName(String name) {
+        Query query = entityManager.createQuery("select p from productProEntity p where p.name = : name", Product.class);
+        query.setParameter("name", name);
+        return (ProductPropertyValue) query.getSingleResult();
     }
 
     @Transactional

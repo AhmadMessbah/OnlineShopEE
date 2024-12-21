@@ -1,7 +1,7 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.Product;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -10,8 +10,7 @@ import jakarta.transaction.Transactional;
 
 import java.util.List;
 
-@ApplicationScoped
-
+@RequestScoped
 public class ProductService implements Service<Product, Long> {
 
     @PersistenceContext(unitName = "mft")
