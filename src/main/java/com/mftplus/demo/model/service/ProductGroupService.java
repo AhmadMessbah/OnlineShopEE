@@ -1,7 +1,7 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.ProductGroup;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -11,9 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 
-@ApplicationScoped
-@Slf4j
-
+@RequestScoped
 public class ProductGroupService implements Service<ProductGroup, Long> {
 
     @PersistenceContext(unitName = "mft")
@@ -61,17 +59,17 @@ public class ProductGroupService implements Service<ProductGroup, Long> {
         return query.getResultList();
     }
 
-    @Transactional
-    public List<ProductGroup> findByChild(String child) {
-        Query query = entityManager.createQuery("select p from productGroupEntity p where p.child = : child", ProductGroup.class);
-        query.setParameter("child", child);
-        return query.getResultList();
-    }
+//    @Transactional
+//    public List<ProductGroup> findByChild(ProductGroup childList) {
+//        Query query = entityManager.createQuery("select p from productGroupEntity p where p.childList = : childList", ProductGroup.class);
+//        query.setParameter("childList", childList);
+//        return query.getResultList();
+//    }
 
     @Transactional
-    public List<ProductGroup> findByParent(String parent) {
-        Query query = entityManager.createQuery("select p from productGroupEntity p where p.parent = : parent", ProductGroup.class);
-        query.setParameter("parent", parent);
+    public List<ProductGroup> findByParent(String name) {
+        Query query = entityManager.createQuery("select p from productGroupEntity p where p.parent.name = : name", ProductGroup.class);
+        query.setParameter("name", name);
         return query.getResultList();
     }
 

@@ -1,12 +1,12 @@
 package com.mftplus.demo.controller.api;
 
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.ProductGroup;
 import com.mftplus.demo.model.service.ProductGroupService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/ProductsGroups")
@@ -18,68 +18,77 @@ public class ProductGroupApi {
 
     @GET
     @Produces
-    public Response getProductGroups() {
+    @ResponseMaker(authority = "GET_ALL_PRODUCT_GROUPS")
+    public Object getProductGroups() {
         log.info("getProductGroups");
-        return Response.ok().entity(productGroupService.findAll()).build();
+        return productGroupService.findAll();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductGroupById(@PathParam("id") Long id) {
+    @ResponseMaker(authority = "GET_PRODUCT_GROUP_BY_ID")
+    public Object getProductGroupById(@PathParam("id") Long id) {
         log.info("getProductGroupById");
-        return Response.ok().entity(productGroupService.findById(id)).build();
+        return productGroupService.findById(id);
     }
+
     @GET
     @Path("/name/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductGroupByName(@PathParam("name") String name) {
+    @ResponseMaker(authority = "GET_PRODUCT_GROUP_BY_NAME")
+    public Object getProductGroupByName(@PathParam("name") String name) {
         log.info("getProductGroupByName");
-        return Response.ok().entity(productGroupService.findByName(name)).build();
+        return productGroupService.findByName(name);
     }
-    @GET
-    @Path("/child/{child}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductGroupByChild(@PathParam("child") String child) {
-        log.info("getProductGroupByChild");
-        return Response .ok().entity(productGroupService.findByChild(child)).build();
-    }
+
+//    @GET
+//    @Path("/child/{child}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @ResponseMaker(authority = "GET_PRODUCT_GROUP_BY_ID")
+//    public Response getProductGroupByChild(@PathParam("child") String child) {
+//        log.info("getProductGroupByChild");
+//        return Response.ok().entity(productGroupService.findByChild(child)).build();
+//    }
+
     @GET
     @Path("/parent/{parent}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductGroupByParent(@PathParam("parent") String parent) {
+    @ResponseMaker(authority = "GET_PRODUCT_GROUP_BY_PARENT_NAME")
+    public Object getProductGroupByParent(@PathParam("parent") String name) {
         log.info("getProductGroupByParent");
-        return Response.ok().entity(productGroupService.findByParent(parent)).build();
-
+        return productGroupService.findByParent(name);
     }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addProductGroup(@Valid ProductGroup productGroup) {
+    @ResponseMaker(authority = "SAVE_PRODUCT_GROUP")
+    public Object addProductGroup(@Valid ProductGroup productGroup) {
         log.info("addProductGroup");
         productGroupService.save(productGroup);
-        return Response.ok().entity(productGroup).build();
-
+        return productGroup;
 
     }
+
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editProductGroup(@Valid ProductGroup productGroup) {
+    @ResponseMaker(authority = "UPDATE_PRODUCT_GROUP")
+    public Object editProductGroup(@Valid ProductGroup productGroup) {
         log.info("edit ProductGroup");
         productGroupService.edit(productGroup);
-        return Response.ok().entity(productGroup).build();
-
-
+        return productGroup;
     }
+
     @DELETE
     @Path("{id}")
-    public Response removeProductGroupById(@PathParam("id") Long id) {
+    @ResponseMaker(authority = "DELETE_PRODUCT_GROUP")
+    public Object removeProductGroupById(@PathParam("id") Long id) {
         log.info("remove ProductGroupById");
+        ProductGroup productGroup = productGroupService.findById(id);
         productGroupService.remove(id);
-        return Response.ok().entity(id).build();
+        return productGroup.getId();
     }
-
-
 
 }
