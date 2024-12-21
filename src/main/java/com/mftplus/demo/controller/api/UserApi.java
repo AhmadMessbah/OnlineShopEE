@@ -1,16 +1,14 @@
 package com.mftplus.demo.controller.api;
 
-import com.mftplus.demo.controller.interceptor.annotation.Authorize;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.User;
 import com.mftplus.demo.model.service.UserService;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import lombok.extern.slf4j.Slf4j;
-
-import static com.mftplus.demo.controller.interceptor.annotation.Authorize.REMOVE_USER;
 
 @Path("/users")
 @Slf4j
@@ -20,7 +18,7 @@ public class UserApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_USERS")
     public Object getUsers() {
         log.info("get users");
@@ -30,7 +28,7 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_USERS_BY_ID")
     public Object getUserById(@PathParam("id") Long id) {
         return userService.findById(id);
@@ -39,7 +37,7 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/username/{username}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_USERS_BY_USERNAME")
     public Object getUserByUsername(@PathParam("username") String username) {
         return userService.findByUsername(username);
@@ -48,7 +46,7 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/password/{password}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_USERS_BY_PASSWORD")
     public Object getUserByPassword(@PathParam("password") String password) {
         return userService.findByPassword(password);
@@ -57,7 +55,7 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/loginData/{loginData}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_USERS_BY_USERNAME_AND_PASSWORD")
     public Object getUserByUsernameAndPassword(@PathParam("loginData") String loginData) {
         String[] parts = loginData.split(" ");
@@ -75,7 +73,7 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/email/{email}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_USERS_BY_EMAIL")
     public Object getUserByEmail(@PathParam("email") String email) {
         return userService.findByEmail(email);
@@ -86,7 +84,7 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/role/{role}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_USERS_BY_ROLE")
     public Object getUserByRoleName(@PathParam("role") String roleName) {
         return userService.findByRoleName(roleName);
@@ -94,7 +92,7 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/perUser/{perUser}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_USERS_PERMISSION_BY_USERNAME")
     public Object getPermissionsByUsername(@PathParam("perUser") String username) {
         return userService.findPermissionsByUsername(username);
@@ -103,7 +101,7 @@ public class UserApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "create_user")
     public Object addUser(@Valid User user) {
         userService.save(user);
@@ -113,7 +111,7 @@ public class UserApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "EDIT_USER")
     public Object updateUser(@Valid User user) {
         userService.edit(user);
@@ -122,9 +120,8 @@ public class UserApi {
 
     @DELETE
     @Path("{userRemove}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "REMOVE_USER")
-    @Authorize(authority = REMOVE_USER)
     //todo
     public Object deleteUser(@PathParam("userRemove") String username) {
       User user =   userService.remove(username);

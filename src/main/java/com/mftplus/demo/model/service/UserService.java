@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 @RequestScoped
-//@Loggable //todo
 @Slf4j
 public class UserService {    // implements Service<User, Long>
     @Inject
@@ -32,9 +31,8 @@ public class UserService {    // implements Service<User, Long>
 
     @Transactional
     @Loggable
-    public Object save(User user) {
+    public void save(User user) {
         entityManager.persist(user);
-        return "this is for admin" + user;
     }
 
     @Transactional
@@ -44,6 +42,7 @@ public class UserService {    // implements Service<User, Long>
     }
 
     @Transactional
+    @Loggable
     public User remove(String username) {
         User user = entityManager.find(User.class, username);
         entityManager.remove(user);
@@ -51,6 +50,7 @@ public class UserService {    // implements Service<User, Long>
     }
 
     @Transactional
+    @Loggable
     public User findById(Long id) {
         return entityManager.find(User.class, id);
 
@@ -122,18 +122,18 @@ public class UserService {    // implements Service<User, Long>
     @Transactional      //todo
     @Loggable
     public Set<Permission> findPermissionsByUsername(String username) {
-
-        //      securityContext.getCallerPrincipal().getName();
         List<Role> roleList = roleService.findByUsername(username);
-        Role role = new Role();
-        //  Role role = roleSet.get(0);
-
-//        securityContext.isCallerInRole("admin");todo
-
-//        Set<Role> roleSet = roleService.findByUsername(username);
-//        SecurityContextHolder
-//        Role role = Role.builder().roleName("admin").build();
-
+        //SecurityContextHolder
+        Role role = Role.builder().roleName("admin").build();
+        securityContext.getCallerPrincipal().getName();
+        List<Role> roles = roleService.findByRoleName(role.getRoleName());
+        for (Role role1 : roles) {
+            if (role1.getRoleName().equals("admin")) {
+                log.info(securityContext.getCallerPrincipal().getName());
+            } else {
+                log.info("its for admin!!");
+            }
+        }
         return role.getPermissionSet();
     }
 }

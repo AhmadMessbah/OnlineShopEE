@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Set;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -56,7 +55,7 @@ public class User extends Base {
             joinColumns = @JoinColumn(name = "username"),
             inverseJoinColumns = @JoinColumn(name = "role_name"))
     @JsonProperty(": عنوان کاربر")
-    private Set<Role> roleSet;
+    private List<Role> roleList;
 
     @Column(name = "locked", length = 1)
     @JsonbTransient

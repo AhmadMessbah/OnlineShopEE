@@ -1,13 +1,11 @@
 package com.mftplus.demo.controller.interceptor;
 
-import com.mftplus.demo.controller.interceptor.annotation.Loggable;
 import jakarta.annotation.Priority;
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
 import lombok.extern.slf4j.Slf4j;
 
-@Loggable
 @Interceptor
 @Priority(Interceptor.Priority.APPLICATION)
 @Slf4j

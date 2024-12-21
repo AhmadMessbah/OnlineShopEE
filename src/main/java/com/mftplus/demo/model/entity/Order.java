@@ -31,6 +31,7 @@ public class Order extends Base {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "username")
     private User user;
 
     @Column(name = "order_Date") //nullable = false
@@ -53,22 +54,12 @@ public class Order extends Base {
     private double shippingCost;
 
     @OneToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
-//    @JoinColumn(name = "order_items", foreignKey = @ForeignKey(name = "my_fk"))
     @JoinTable(name = "order_orderItem", foreignKey = @ForeignKey(name = "my_fk"))
     private List<OrderItem> orderItems=new ArrayList<>();
 
-//    @OneToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-//    @JoinColumn(name = "delivery_id")
-//    private List<Delivery> delivery;
 
     @Column(name = "bill_address")//, nullable = false
     private String billingAddress;
-
-    @Column(name = "created_at")//, nullable = false
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")//, nullable = false
-    private LocalDateTime updatedAt;
 
 //    public void updateOrderStatus(OrderStatus orderStatus) {
 //        this.orderStatus = orderStatus;

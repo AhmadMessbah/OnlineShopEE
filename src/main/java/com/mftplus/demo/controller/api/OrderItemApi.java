@@ -1,13 +1,14 @@
 package com.mftplus.demo.controller.api;
 
 
+import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.OrderItem;
 import com.mftplus.demo.model.service.OrderItemService;
 
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/orderItems")
@@ -18,44 +19,66 @@ public class OrderItemApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllOrderItems() {
+    @ResponseMaker(authority = "GET_ORDER_ITEMS")
+    @Loggable
+    public Object getAllOrderItems() {
         log.info("Getting all Order Items");
-        return Response.ok().entity(orderItemService.findAll()).build();
+        return orderItemService.findAll();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response getOrderItemById(@PathParam("id") Long id) {
-        OrderItem orderItem = orderItemService.findById(id);
-        if (orderItem == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Order Items not found").build();
-        }
-        return Response.ok().entity(orderItem).build();
+    @ResponseMaker(authority = "GET_ORDER_ITEMS_BY_ID")
+    @Loggable
+    public Object getOrderItemById(@PathParam("id") Long id) {
+        return orderItemService.findById(id);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/proId/{proId}")
+    @ResponseMaker(authority = "GET_ORDER_ITEMS_BY_PRODUCT_ID")
+    @Loggable
+    public Object getOrderItemByProductId(@PathParam("proId") Long id) {
+        return orderItemService.findByProductId(id);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/proName/{proName}")
+    @ResponseMaker(authority = "GET_ORDER_ITEMS_BY_PRODUCT_ID")
+    @Loggable
+    public Object getOrderItemByProductName(@PathParam("proName") String name) {
+        return orderItemService.findByProductName(name);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addOrderItems(OrderItem orderItem) {
+    @ResponseMaker(authority = "SAVE_ORDER_ITEMS")
+    @Loggable
+    public Object addOrderItems(OrderItem orderItem) {
         orderItemService.save(orderItem);
-        return Response.status(Response.Status.CREATED).entity(orderItem).build();
+        return orderItem;
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateOrderItems(OrderItem orderItem) {
+    @ResponseMaker(authority = "UPDATE_ORDER_ITEMS")
+    @Loggable
+    public Object updateOrderItems(OrderItem orderItem) {
         orderItemService.edit(orderItem);
-        return Response.ok().entity(orderItem).build();
+        return orderItem;
     }
 
     @DELETE
     @Path("{id}")
-    public Response deleteOrderItems(@PathParam("id") Long id) {
+    @ResponseMaker(authority = "DELETE_ORDER_ITEMS")
+    @Loggable
+    public Object deleteOrderItems(@PathParam("id") Long id) {
         orderItemService.remove(id);
-        return Response.ok().entity(id).build();
+        return id;
     }
-
-
 }

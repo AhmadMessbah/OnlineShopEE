@@ -2,6 +2,7 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.service.PersonService;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -16,7 +17,7 @@ public class PersonApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERSONS")
     public Object getPerson() {
         log.info("Get Admin Info");
@@ -26,7 +27,7 @@ public class PersonApi {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_ID")
     public Object getPersonById(@PathParam("id") Long id) {
         return personService.findById(id);
@@ -35,7 +36,7 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/nationalId/{nationalId}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_NATIONAL_ID")
     public Object getPersonByNationalId(@PathParam("nationalId") String nationalId) {
         return personService.findByNationalId(nationalId);
@@ -44,7 +45,7 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/fullName/{fullName}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_FULL_NAME")
     public Object getPersonFullName(@PathParam("fullName") String fullName) {
         String[] parts = fullName.split(" ");
@@ -60,7 +61,7 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/loginData/{loginData}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_LOGIN_DATA")
     public Object getPersonByUsernameAndPassword(@PathParam("loginData") String loginData) {
 //        return personService.findByUsernameAndPassword(username, password);
@@ -78,7 +79,7 @@ public class PersonApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path(value = "/username/{username}")
     @ResponseMaker(authority = "GET_PERSON_BY_USERNAME")
-//    @Loggable
+    @Loggable
     public Object getPersonByUsername(@PathParam("username") String username) {
         return personService.findByUsername(username);
 //        try {
@@ -92,7 +93,7 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/phone/{phone}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_PHONE")
     public Object getPersonByPhoneNumber(@PathParam("phone") String phoneNumber) {
         return personService.findByPhoneNumber(phoneNumber);
@@ -101,7 +102,7 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/postCode/{postCode}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_POSTAL_CODE")
     public Object getPersonByPostalCode(@PathParam("postCode") String postalCode) {
         return personService.findByPostalCode(postalCode);
@@ -110,7 +111,7 @@ public class PersonApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/address/{address}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERSON_BY_ADDRESS")
     public Object getPersonByAddress(@PathParam("address") String address) {
         return personService.findByAddress(address);
@@ -119,7 +120,7 @@ public class PersonApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "SAVE_PERSON")
     public Object addPerson(@Valid Person person) {
         personService.save(person);
@@ -129,7 +130,7 @@ public class PersonApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "EDIT_PERSON")
     public Object updatePerson(@Valid Person person) {
         personService.edit(person);
@@ -138,7 +139,7 @@ public class PersonApi {
 
     @DELETE
     @Path("{id}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "DELETE_PERSON")
     //todo
     public Object deletePerson(@PathParam("id") Long id) {

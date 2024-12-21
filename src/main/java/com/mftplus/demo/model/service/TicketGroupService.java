@@ -72,7 +72,7 @@ public class TicketGroupService {
     @Transactional
     @Loggable
     public List<TicketGroup> findByParent(String name) {
-        Query query = entityManager.createQuery("select g from tGroupEntity g where g.parent =:name", TicketGroup.class);
+        Query query = entityManager.createQuery("select g from tGroupEntity g where g.parent.name =:name", TicketGroup.class);
         query.setParameter("name", name);
         return query.getResultList();
     }

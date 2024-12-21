@@ -12,7 +12,6 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 @RequestScoped
-@Loggable
 public class MessageService {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;

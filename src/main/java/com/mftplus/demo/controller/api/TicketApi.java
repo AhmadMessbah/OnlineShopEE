@@ -1,15 +1,14 @@
 package com.mftplus.demo.controller.api;
 
 
-import com.mftplus.demo.controller.interceptor.annotation.Loggable;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Ticket;
 import com.mftplus.demo.model.service.TicketService;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/tickets")
@@ -20,7 +19,7 @@ public class TicketApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKETS")
     public Object getAllTickets() {
         log.info("All Tickets :");
@@ -30,7 +29,7 @@ public class TicketApi {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_BY_ID")
     public Object getTicketById(@PathParam("id") Long id) {
         log.info("Get Ticket by id : {}", id);
@@ -40,7 +39,7 @@ public class TicketApi {
     @GET
     @Path("/title/{title}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_BY_TITLE")
     public Object getTicketByTitle(@PathParam("title") String title) {
         log.info("Get Ticket by title : {}", title);
@@ -50,7 +49,7 @@ public class TicketApi {
     @GET
     @Path("/text/{text}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_BY_TEXT")
     public Object getTicketByText(@PathParam("text") String text) {
         log.info("Get Ticket by text : {}", text);
@@ -60,7 +59,7 @@ public class TicketApi {
     @GET
     @Path("/response/{response}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_BY_RESPONSE")
     public Object getTicketByRespType(@PathParam("response") String responseType) {
         log.info("Get Ticket by response type : {}", responseType);
@@ -70,7 +69,7 @@ public class TicketApi {
     @GET
     @Path("/username/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_BY_USERNAME")
     public Object getTicketByUsername(@PathParam("username") String username) {
         log.info("Get Ticket by username : {}", username);
@@ -80,7 +79,7 @@ public class TicketApi {
     @GET
     @Path("/email/{email}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_BY_EMAIL")
     public Object getTicketByUserEmail(@PathParam("email") String email) {
         log.info("Get Ticket by Email : {}", email);
@@ -90,7 +89,7 @@ public class TicketApi {
     @GET
     @Path("/mTitle/{mTitle}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_BY_TITLE")
     public Object getTicketByMessageTitle(@PathParam("mTitle") String title) {
         log.info("Get Ticket by Message Title : {}", title);
@@ -100,7 +99,7 @@ public class TicketApi {
     @GET
     @Path("/history/{history}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_BY_HISTORY")
     public Object getTicketByDateTime(@PathParam("history") String dateTime) {
         log.info("Get Ticket by date time : {}", dateTime);
@@ -110,7 +109,7 @@ public class TicketApi {
     @GET
     @Path("/mText/{mText}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_BY_TEXT")
     public Object getTicketByMessageText(@PathParam("mText") String text) {
         log.info("Get Ticket by Message Text : {}", text);
@@ -120,7 +119,7 @@ public class TicketApi {
     @GET
     @Path("/groupName/{groupName}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_BY_GROUP_NAME")
     public Object getTicketByGroupName(@PathParam("groupName") String name) {
         log.info("Get Ticket by Group Name : {}", name);
@@ -131,7 +130,7 @@ public class TicketApi {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "SAVE_TICKET")
     public Object createTicket(@Valid Ticket ticket) {
         log.info("Create Ticket : {}", ticket);
@@ -155,6 +154,7 @@ public class TicketApi {
     @DELETE
     @Path("{id}")
     @ResponseMaker(authority = "REMOVE_TICKET")
+    @Loggable
     //todo for object
     public Object deleteTicket(@PathParam("id") Long id) {
         log.info("Delete Ticket : {}", id);

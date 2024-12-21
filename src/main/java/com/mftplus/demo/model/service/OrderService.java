@@ -1,8 +1,11 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.Order;
+import com.mftplus.demo.model.entity.Product;
 import com.mftplus.demo.model.entity.enums.OrderStatus;
-import jakarta.enterprise.context.ApplicationScoped;
+import com.mftplus.demo.model.utils.Loggable;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -11,27 +14,32 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-@ApplicationScoped
+@RequestScoped
 @Slf4j
 public class OrderService implements Service<Order, Long> {
+    @Inject
+    private OrderItemService orderItemService;
 
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 
     @Transactional
     @Override
+    @Loggable
     public void save(Order order) {
         entityManager.persist(order);
     }
 
     @Transactional
     @Override
+    @Loggable
     public void edit(Order order) {
         entityManager.merge(order);
     }
 
     @Transactional
     @Override
+    @Loggable
     public void remove(Long id) {
         Order order = entityManager.find(Order.class, id);
         entityManager.remove(order);
@@ -39,34 +47,56 @@ public class OrderService implements Service<Order, Long> {
 
     @Transactional
     @Override
+    @Loggable
     public Order findById(Long id) {
         return entityManager.find(Order.class, id);
     }
 
     @Transactional
     @Override
+    @Loggable
     public List<Order> findAll() {
-        Query query = entityManager.createQuery("select o from OrderEntity o", Order.class);
+        Query query = entityManager.createQuery("select o from orderEntity o", Order.class);
         return query.getResultList();
     }
 
     @Transactional
-    public Order findByCustomerId(Long id) {
-        Query query = entityManager.createQuery("select o from OrderEntity o where o.user.id = :userId", Order.class);
-        query.setParameter("userId", id);
+    @Loggable
+    public Order findByUserId(Long id) {
+        Query query = entityManager.createQuery("select o from orderEntity o where o.user.id = :id", Order.class);
+        query.setParameter("id", id);
         return (Order) query.getSingleResult();
     }
+
     @Transactional
+    @Loggable
+    public Order findByUsername(String username) {
+        Query query = entityManager.createQuery("select o from orderEntity o where o.user.username = :username", Order.class);
+        query.setParameter("username", username);
+        return (Order) query.getSingleResult();
+    }
+
+    @Transactional
+    @Loggable
     public Order findByOrderStatus(OrderStatus orderStatus) {
-        Query query = entityManager.createQuery("select o from OrderEntity o where o.orderStatus = :orderStatus", Order.class);
+        Query query = entityManager.createQuery("select o from orderEntity o where o.orderStatus = :orderStatus", Order.class);
         query.setParameter("orderStatus", orderStatus);
         return (Order) query.getSingleResult();
     }
 
     @Transactional
+    @Loggable
     public List<Order> findByBillingAddress(String billingAddress) {
-        Query query = entityManager.createQuery("select o from OrderEntity o where o.billingAddress = :billingAddress", Order.class);
+        Query query = entityManager.createQuery("select o from orderEntity o where o.billingAddress = :billingAddress", Order.class);
         query.setParameter("billingAddress", billingAddress);
+        return query.getResultList();
+    }
+
+    @Transactional
+    @Loggable
+    public List<Order> findProductByOrderInItem(String name) {
+        Query query = entityManager.createQuery("select o.orderItems from orderEntity o join productEntity p where p.name = :name", Order.class);
+        query.setParameter("name", name);
         return query.getResultList();
     }
 }

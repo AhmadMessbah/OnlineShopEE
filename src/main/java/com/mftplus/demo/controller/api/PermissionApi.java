@@ -2,11 +2,11 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.service.PermissionService;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/permissions")
@@ -17,7 +17,7 @@ public class PermissionApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERMISSIONS")
     public Object getPermissions() {
         log.info("get Permissions:");
@@ -27,7 +27,7 @@ public class PermissionApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERMISSIONS_BY_ID")
     public Object getPermissionById(@PathParam("id") Long id) {
         return permissionService.findById(id);
@@ -36,7 +36,7 @@ public class PermissionApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/name/{name}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_PERMISSIONS_BY_NAME")
     public Object getPermissionByName(@PathParam("name") String permissionName) {
         return permissionService.findByName(permissionName);
@@ -45,7 +45,7 @@ public class PermissionApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/create/{create}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "CREATE")
     public Object getPermissionByCreate(@PathParam("create") String create) {
         return permissionService.createAnyThing(create);
@@ -54,7 +54,7 @@ public class PermissionApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "SAVE_PERMISSION")
     public Object addPermission(@Valid Permission permission) {
         permissionService.save(permission);
@@ -64,7 +64,7 @@ public class PermissionApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "EDIT_PERMISSION")
     public Object updatePermission(@Valid Permission permission) {
         permissionService.edit(permission);
@@ -74,6 +74,7 @@ public class PermissionApi {
     @DELETE
     @Path("{id}")
     @ResponseMaker(authority = "REMOVE_PERMISSION")
+    @Loggable
     public Object deletePermission(@PathParam("id") Long id) {
     Permission permission=permissionService.remove(id);
     return permission.getId();

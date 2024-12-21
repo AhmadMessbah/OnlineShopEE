@@ -64,10 +64,13 @@ public class RoleService {
     @Transactional
     @Loggable
     public List<Role> findByUsername(String username) {
-        Query query = entityManager.createQuery("select u.roleSet from  userEntity  u where u.username=:username", Role.class);
+//        Query query = entityManager.createQuery("select r from  userEntity  r where r.username=:username", Role.class);
+
+        Query query = entityManager.createQuery("select u.roleList from  userEntity  u where u.username=:username", Role.class);
         query.setParameter("username", username);
         return query.getResultList();
 
+//        return (Set<Role>) query.getResultList().get(0);
     }
 
     @Transactional

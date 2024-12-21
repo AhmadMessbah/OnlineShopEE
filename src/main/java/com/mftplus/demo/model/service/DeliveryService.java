@@ -4,6 +4,7 @@ import com.mftplus.demo.model.entity.Delivery;
 import com.mftplus.demo.model.entity.Order;
 import com.mftplus.demo.model.entity.enums.DeliveryMethod;
 import com.mftplus.demo.model.entity.enums.DeliveryStatus;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -24,18 +25,21 @@ public class DeliveryService implements Service<Delivery, Long> {
 
     @Transactional
     @Override
+    @Loggable
     public void save(Delivery delivery) {
         entityManager.persist(delivery);
     }
 
     @Transactional
     @Override
+    @Loggable
     public void edit(Delivery delivery) {
         entityManager.merge(delivery);
     }
 
     @Transactional
     @Override
+    @Loggable
     public void remove(Long id) {
         Delivery delivery = entityManager.find(Delivery.class, id);
         entityManager.remove(delivery);
@@ -43,18 +47,21 @@ public class DeliveryService implements Service<Delivery, Long> {
 
     @Transactional
     @Override
+    @Loggable
     public Delivery findById(Long id) {
         return entityManager.find(Delivery.class, id);
     }
 
     @Transactional
     @Override
+    @Loggable
     public List<Delivery> findAll() {
         Query query = entityManager.createQuery("select d from deliveryEntity d", Delivery.class);
         return query.getResultList();
     }
 
     @Transactional
+    @Loggable
     public Delivery findByTrackingNumber(String trackingNumber) {
         Query query = entityManager.createQuery("select d from deliveryEntity d where d.trackingNumber = :trackingNumber", Delivery.class);
         query.setParameter("trackingNumber", trackingNumber);
@@ -62,6 +69,7 @@ public class DeliveryService implements Service<Delivery, Long> {
     }
 
     @Transactional
+    @Loggable
     public List<Delivery> findByDeliveryAddress(String deliveryAddress) {
         Query query = entityManager.createQuery("select d from deliveryEntity d where d.deliveryAddress = :deliveryAddress", Delivery.class);
         query.setParameter("deliveryAddress", deliveryAddress);
@@ -69,6 +77,7 @@ public class DeliveryService implements Service<Delivery, Long> {
     }
 
     @Transactional
+    @Loggable
     public List<Delivery> findByCarrier(String carrier) {
         Query query = entityManager.createQuery("select d from deliveryEntity d where d.carrier = :carrier", Delivery.class);
         query.setParameter("carrier", carrier);
@@ -76,6 +85,7 @@ public class DeliveryService implements Service<Delivery, Long> {
     }
 
     @Transactional
+    @Loggable
     public List<Delivery> findByShippingCost(double shippingCost) {
         Query query = entityManager.createQuery("select d from deliveryEntity d where d.shippingCost = :shippingCost", Delivery.class);
         query.setParameter("shippingCost", shippingCost);
@@ -83,6 +93,7 @@ public class DeliveryService implements Service<Delivery, Long> {
     }
 
     @Transactional
+    @Loggable
     public List<Delivery> findByDeliveryStatus(DeliveryStatus deliveryStatus) {
         Query query = entityManager.createQuery("select d from deliveryEntity d where d.deliveryStatus = :deliveryStatus", Delivery.class);
         query.setParameter("deliveryStatus", deliveryStatus);
@@ -90,6 +101,7 @@ public class DeliveryService implements Service<Delivery, Long> {
     }
 
     @Transactional
+    @Loggable
     public List<Delivery> findByDeliveryMethod(DeliveryMethod deliveryMethod) {
         Query query = entityManager.createQuery("select d from deliveryEntity d where d.deliveryMethod = :deliveryMethod", Delivery.class);
         query.setParameter("deliveryMethod", deliveryMethod);
@@ -97,6 +109,7 @@ public class DeliveryService implements Service<Delivery, Long> {
     }
 
     @Transactional
+    @Loggable
     public List<Delivery> findByPhoneNumber(String phoneNumber) {
         Query query = entityManager.createQuery("select d from deliveryEntity d where d.phoneNumber = :phoneNumber", Delivery.class);
         query.setParameter("phoneNumber", phoneNumber);
@@ -104,12 +117,14 @@ public class DeliveryService implements Service<Delivery, Long> {
     }
 
     @Transactional
+    @Loggable
     public Delivery findOrderIdByDelivery(Long id) {
         Query query = entityManager.createQuery("select d from deliveryEntity d join orderEntity o where o.id = :id", Delivery.class);
         query.setParameter("id", id);
         return (Delivery) query.getSingleResult();
     }
     @Transactional
+    @Loggable
     public Delivery findOrderByUsername(String username) {
         Query query = entityManager.createQuery("select d from deliveryEntity d join orderEntity o where o.user.username like:username", Delivery.class);
         query.setParameter("username", username);

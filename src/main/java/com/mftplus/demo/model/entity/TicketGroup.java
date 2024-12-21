@@ -35,7 +35,6 @@ public class TicketGroup extends Base {
     private List<TicketGroup> childList;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JsonbTransient
     private TicketGroup parent;
 
 //    public void addChild(TicketGroup child) {

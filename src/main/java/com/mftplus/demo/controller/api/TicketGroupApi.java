@@ -1,14 +1,13 @@
 package com.mftplus.demo.controller.api;
 
-import com.mftplus.demo.controller.interceptor.annotation.Loggable;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.TicketGroup;
 import com.mftplus.demo.model.service.TicketGroupService;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/groups")
@@ -19,7 +18,7 @@ public class TicketGroupApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_GROUPS")
     public Object getAllTicketGroups() {
         log.info("All TicketGroups :");
@@ -29,7 +28,7 @@ public class TicketGroupApi {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_GROUPS_BY_ID")
     public Object getTicketGroupById(@PathParam("id") Long id) {
         log.info("Get TicketGroup by id : {}", id);
@@ -39,7 +38,7 @@ public class TicketGroupApi {
     @GET
     @Path("/name/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_GROUPS_BY_NAME")
     public Object getTicketGroupByName(@PathParam("name") String name) {
         log.info("Get TicketGroup by name : {}", name);
@@ -49,7 +48,7 @@ public class TicketGroupApi {
     @GET
     @Path("/parent/{parent}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_TICKET_GROUPS_BY_PARENT")
     public Object getTicketGroupByParent(@PathParam("parent") String name) {
         log.info("Get TicketGroup by parent : {}", name);
@@ -59,7 +58,7 @@ public class TicketGroupApi {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "SAVE_TICKET_GROUP")
     public Object createTicketGroup(@Valid TicketGroup ticketGroup) {
         log.info("Create TicketGroup : {}", ticketGroup);
@@ -70,7 +69,7 @@ public class TicketGroupApi {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "EDIT_TICKET_GROUP")
     public Object updateTicketGroup(@Valid TicketGroup ticketGroup) {
         log.info("Update TicketGroup : {}", ticketGroup);
@@ -83,7 +82,8 @@ public class TicketGroupApi {
     @DELETE
     @Path("{id}")
     @ResponseMaker(authority = "EDIT_TICKET_GROUP")
-                    //todo
+    @Loggable
+    //todo
     public Object deleteTicketGroup(@PathParam("id") Long id) {
         log.info("Delete ticketGroupGroupGroup : {}", id);
        TicketGroup ticketGroup = ticketGroupService.remove(id);

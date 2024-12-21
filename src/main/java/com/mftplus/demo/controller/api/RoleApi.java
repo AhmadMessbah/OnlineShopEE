@@ -3,11 +3,11 @@ package com.mftplus.demo.controller.api;
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Role;
 import com.mftplus.demo.model.service.RoleService;
+import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Path("/roles")
@@ -18,7 +18,7 @@ public class RoleApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_ROLES")
     public Object getRoles() {
         log.info("get roles");
@@ -28,7 +28,7 @@ public class RoleApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_ROLES_BY_ID")
     public Object getRoleById(@PathParam("id") Long id) {
         return roleService.findById(id);
@@ -37,7 +37,7 @@ public class RoleApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/type/{type}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_ROLES_BY_TYPE")
     public Object getRoleByName(@PathParam("type") String roleName) {
         return roleService.findByRoleName(roleName);
@@ -46,7 +46,7 @@ public class RoleApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/permission/{permission}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_ROLES_BY_PERMISSION_NAME")
     public Object getRoleByPermissionName(@PathParam("permission") String permissionName) {
         return roleService.findByPermission(permissionName);
@@ -55,7 +55,7 @@ public class RoleApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/username/{username}")
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "GET_ROLES_BY_USERNAME")
     public Object getByUsername(@PathParam("username") String username) {
         return roleService.findByUsername(username);
@@ -64,7 +64,7 @@ public class RoleApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "SAVE_ROLE")
     public Object addRole( Role role) {
         roleService.save(role);
@@ -74,7 +74,7 @@ public class RoleApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-//    @Loggable
+    @Loggable
     @ResponseMaker(authority = "EDIT_ROLE")
     public Object updateRole(@Valid Role role) {
         roleService.edit(role);
@@ -84,6 +84,7 @@ public class RoleApi {
     @DELETE
     @Path("{id}")
     @ResponseMaker(authority = "REMOVE_ROLE")
+    @Loggable
     //todo
     public Object deleteRole(@PathParam("id") Long id) {
         Role role = roleService.remove(id);
