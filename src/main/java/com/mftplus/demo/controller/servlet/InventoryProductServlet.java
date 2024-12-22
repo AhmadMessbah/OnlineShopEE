@@ -8,10 +8,11 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/inventories")
 
-public class InventoryServlet extends HttpServlet {
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServletException {
+public class InventoryProductServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServletException {
 
-            req.getRequestDispatcher("/inventory.html").forward(req, resp);
-        }
+        req.getRequestDispatcher("/inventoryProduct.html").forward(req, resp);
+    }
 }
+

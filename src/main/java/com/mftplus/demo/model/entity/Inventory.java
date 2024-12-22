@@ -1,7 +1,6 @@
 package com.mftplus.demo.model.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,20 +27,20 @@ public class Inventory extends Base {
     @JsonProperty("ردیف")
     private Long id;
 
-    @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$",message = "نام اشتباه است!!")
+//    @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$",message = "نام اشتباه است!!")
     @Column(name = "title", length = 30)
 //    @NotNull(message = "نام انبار را وارد نکرده اید!!")
     @JsonProperty("نام")
     private String title;
 
-    @Pattern(regexp = "^[a-zA-Z0-9]{3,300}$",message = "آدرس اشتباه است!!")
+//    @Pattern(regexp = "^[a-zA-Z0-9]{3,300}$",message = "آدرس اشتباه است!!")
     @Column(name = "address", length = 200)
 //    @NotNull(message = "آدرس را وارد نکرده اید!!")
     @JsonProperty("آدرس")
     private String address;
 
-    @Pattern(regexp = "^[0-9]{3,13}$",message = "شماره تماس اشتباه است!!")
-    @Column(name = "phone", length = 14)
+//    @Pattern(regexp = "^[0-9]{3,13}$",message = "شماره تماس اشتباه است!!")
+    @Column(name = "phone", length = 13)
 //    @NotNull(message = "شماره تماس را وارد نکرده اید!!")
     @JsonProperty("شماره تماس")
     private String phone;
