@@ -6,14 +6,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/inventoryTrans")
+@WebServlet(urlPatterns = "/inventoryPro")
 
-public class InventoryTransactionServlet extends HttpServlet {
+public class InventoryProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServletException {
 
-        req.getRequestDispatcher("/inventoryTransaction.html").forward(req, resp);
+        req.getRequestDispatcher("/inventoryProduct.html").forward(req, resp);
     }
 }
-
 
