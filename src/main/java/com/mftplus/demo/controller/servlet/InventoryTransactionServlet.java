@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/inventories")
+@WebServlet(urlPatterns = "/inventoryTrans")
 
 public class InventoryTransactionServlet extends HttpServlet {
     @Override
