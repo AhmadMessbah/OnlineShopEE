@@ -25,7 +25,7 @@ public class DeliveryApi {
     @ResponseMaker(authority = "GET_ALL_DELIVERIES")
     @Loggable
     public Object getAllDelivery() {
-        log.info("Getting all Deliveries");
+        log.info("Getting-all Deliveries");
         return deliveryService.findAll();
     }
 

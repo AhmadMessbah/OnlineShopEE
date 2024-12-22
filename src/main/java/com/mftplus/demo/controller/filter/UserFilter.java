@@ -1,18 +1,23 @@
 package com.mftplus.demo.controller.filter;
 
+import com.mftplus.demo.model.utils.Loggable;
+import jakarta.interceptor.Interceptor;
+import jakarta.interceptor.InterceptorBinding;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-@WebFilter(urlPatterns = "/person")
-public class PersonFilter implements Filter {
-    public PersonFilter() {
-        System.out.println("PersonFilter constructor");
+@Slf4j
+@WebFilter(urlPatterns = "/user")
+public class UserFilter implements Filter {
+    public UserFilter() {
+        log.info("UserFilter constructor");
     }
     @Override
+    @Loggable
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("PersonFilter doFilter");
+        log.info("UserFilter doFilter");
         filterChain.doFilter(servletRequest, servletResponse);
         servletRequest.getRequestDispatcher("roleTest.html").forward(servletRequest, servletResponse);
 //        ((HttpServletRequest)servletRequest).getSession().getAttribute("user");

@@ -8,10 +8,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @RequestScoped
+@Slf4j
 public class MessageService {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
@@ -20,6 +22,7 @@ public class MessageService {
     @Loggable
     public void save(Message message) {
         entityManager.persist(message);
+        log.info("message-saved");
 
     }
 
@@ -27,6 +30,7 @@ public class MessageService {
     @Loggable
     public void edit(Message message) {
         entityManager.merge(message);
+        log.info("message-updated");
 
     }
 
@@ -35,6 +39,7 @@ public class MessageService {
     public Message remove(Long id) {
         Message message = entityManager.find(Message.class, id);
         entityManager.remove(message);
+        log.info("message-removed");
         return message;
 
     }

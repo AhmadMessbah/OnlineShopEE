@@ -28,6 +28,7 @@ public class DeliveryService implements Service<Delivery, Long> {
     @Loggable
     public void save(Delivery delivery) {
         entityManager.persist(delivery);
+        log.info("delivery-saved");
     }
 
     @Transactional
@@ -35,6 +36,7 @@ public class DeliveryService implements Service<Delivery, Long> {
     @Loggable
     public void edit(Delivery delivery) {
         entityManager.merge(delivery);
+        log.info("delivery-updated");
     }
 
     @Transactional
@@ -43,6 +45,7 @@ public class DeliveryService implements Service<Delivery, Long> {
     public void remove(Long id) {
         Delivery delivery = entityManager.find(Delivery.class, id);
         entityManager.remove(delivery);
+        log.info("delivery-removed");
     }
 
     @Transactional

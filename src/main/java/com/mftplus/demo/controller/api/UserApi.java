@@ -89,6 +89,7 @@ public class UserApi {
     public Object getUserByRoleName(@PathParam("role") String roleName) {
         return userService.findByRoleName(roleName);
     }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/perUser/{perUser}")
@@ -124,9 +125,9 @@ public class UserApi {
     @ResponseMaker(authority = "REMOVE_USER")
     //todo
     public Object deleteUser(@PathParam("userRemove") String username) {
-      User user =   userService.remove(username);
-      return user.getId();
-  //      return id;
+        User user = userService.remove(username);
+        return user.getId();
+        //      return id;
 //        return Response.ok().entity(id).build();
     }
 }

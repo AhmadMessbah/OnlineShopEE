@@ -1,11 +1,9 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.Order;
-import com.mftplus.demo.model.entity.Product;
 import com.mftplus.demo.model.entity.enums.OrderStatus;
 import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -17,8 +15,6 @@ import java.util.List;
 @RequestScoped
 @Slf4j
 public class OrderService implements Service<Order, Long> {
-    @Inject
-    private OrderItemService orderItemService;
 
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
@@ -28,6 +24,7 @@ public class OrderService implements Service<Order, Long> {
     @Loggable
     public void save(Order order) {
         entityManager.persist(order);
+        log.info("order-saved");
     }
 
     @Transactional
@@ -35,6 +32,7 @@ public class OrderService implements Service<Order, Long> {
     @Loggable
     public void edit(Order order) {
         entityManager.merge(order);
+        log.info("order-updated");
     }
 
     @Transactional
@@ -43,6 +41,7 @@ public class OrderService implements Service<Order, Long> {
     public void remove(Long id) {
         Order order = entityManager.find(Order.class, id);
         entityManager.remove(order);
+        log.info("order-removed");
     }
 
     @Transactional

@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @RequestScoped
-@Loggable
 @Slf4j
 public class PermissionService {
     @Inject
@@ -27,12 +26,14 @@ public class PermissionService {
     @Loggable
     public void save(Permission permission) {
         entityManager.persist(permission);
+        log.info("permission-saved");
     }
 
     @Transactional
     @Loggable
     public void edit(Permission permission) {
         entityManager.merge(permission);
+        log.info("permission-updated");
     }
 
     @Transactional
@@ -40,6 +41,7 @@ public class PermissionService {
     public Permission remove(Long id) {
         Permission permission = entityManager.find(Permission.class, id);
         entityManager.remove(permission);
+        log.info("permission-removed");
         return permission;
     }
 

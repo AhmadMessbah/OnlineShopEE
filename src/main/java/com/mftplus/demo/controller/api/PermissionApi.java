@@ -1,4 +1,5 @@
 package com.mftplus.demo.controller.api;
+
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.service.PermissionService;
@@ -20,7 +21,7 @@ public class PermissionApi {
     @Loggable
     @ResponseMaker(authority = "GET_PERMISSIONS")
     public Object getPermissions() {
-        log.info("get Permissions:");
+        log.info("get-Permissions:");
         return permissionService.findAll();
     }
 
@@ -76,8 +77,8 @@ public class PermissionApi {
     @ResponseMaker(authority = "REMOVE_PERMISSION")
     @Loggable
     public Object deletePermission(@PathParam("id") Long id) {
-    Permission permission=permissionService.remove(id);
-    return permission.getId();
+        Permission permission = permissionService.remove(id);
+        return permission.getId();
 //        return Response.ok().entity(id).build();
     }
 }

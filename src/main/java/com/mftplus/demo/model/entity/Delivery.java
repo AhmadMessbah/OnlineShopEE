@@ -56,6 +56,7 @@ public class Delivery {
     private LocalDateTime deliveredDate;
 
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_delivery")
     private Order order;
 
 }

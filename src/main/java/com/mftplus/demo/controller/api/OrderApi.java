@@ -22,7 +22,7 @@ public class OrderApi {
     @ResponseMaker(authority = "GET_ORDERS")
     @Loggable
     public Object getOrders() {
-        log.info("getOrders");
+        log.info("get-Orders");
         return orderService.findAll();
     }
 

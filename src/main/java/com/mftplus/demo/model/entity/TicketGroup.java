@@ -37,21 +37,4 @@ public class TicketGroup extends Base {
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private TicketGroup parent;
 
-//    public void addChild(TicketGroup child) {
-//        if (childList == null) {
-//            childList = new ArrayList<>();
-//        }
-//        childList.add(child);
-//
-//    }
-//    @PrePersist
-//    public void addChild(){         //todo(1)
-//        if(childList == null){
-//            childList = new ArrayList<>();
-//            childList.add(parent);
-//        }
-//
-//
-//    }
-
 }

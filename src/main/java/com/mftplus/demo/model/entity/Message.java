@@ -37,6 +37,7 @@ public class Message extends Base {
     private String dateTime;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_message")
     private User user;
 
 

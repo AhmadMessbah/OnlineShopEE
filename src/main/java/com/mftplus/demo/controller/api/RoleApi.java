@@ -66,7 +66,7 @@ public class RoleApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Loggable
     @ResponseMaker(authority = "SAVE_ROLE")
-    public Object addRole( Role role) {
+    public Object addRole(Role role) {
         roleService.save(role);
         return role;
     }

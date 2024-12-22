@@ -9,19 +9,19 @@
 
 </head>
 <body>
-<form id="user-form" action="/api/users">
-    <input type="text" name="username">
-    <input type="password" name="password">
-    <input type="text" name="email">
+<form id="orderItem-form" action="/api/orderItems">
+    <input type="text" name="product">
+    <input type="number" name="quantity">
+    <input type="number" name="unitPrice">
+    <input type="number" name="totalPrice">
     <button>Save</button>
 </form>
-
 <button onclick=testIt()>Test</button>
 
 <div id="toast-container"></div>
 
 <script>
-    document.getElementById("user-form").addEventListener("submit", async function (event) {
+    document.getElementById("orderItem-form").addEventListener("submit", async function (event) {
         event.preventDefault();
 
         var form = event.target;
@@ -47,7 +47,7 @@
 
     async function testIt() {
         const response = await fetch(
-            "http://localhost/api/users",
+            "http://localhost/api/orderItems",
             {
                 method: "GET"
             }

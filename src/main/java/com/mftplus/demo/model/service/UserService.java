@@ -18,7 +18,7 @@ import java.util.Set;
 
 @RequestScoped
 @Slf4j
-public class UserService {    // implements Service<User, Long>
+public class UserService {
     @Inject
     private RoleService roleService;
 
@@ -33,12 +33,14 @@ public class UserService {    // implements Service<User, Long>
     @Loggable
     public void save(User user) {
         entityManager.persist(user);
+        log.info("user-saved");
     }
 
     @Transactional
     @Loggable
     public void edit(User user) {
         entityManager.merge(user);
+        log.info("user-updated");
     }
 
     @Transactional
@@ -46,6 +48,7 @@ public class UserService {    // implements Service<User, Long>
     public User remove(String username) {
         User user = entityManager.find(User.class, username);
         entityManager.remove(user);
+        log.info("user-removed");
         return user;
     }
 

@@ -1,4 +1,5 @@
 package com.mftplus.demo.controller.api;
+
 import com.mftplus.demo.controller.interceptor.annotation.ResponseMaker;
 import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.service.PersonService;
@@ -20,7 +21,7 @@ public class PersonApi {
     @Loggable
     @ResponseMaker(authority = "GET_PERSONS")
     public Object getPerson() {
-        log.info("Get Admin Info");
+        log.info("Get-Admin Info");
         return personService.findAll();
     }
 
@@ -70,7 +71,8 @@ public class PersonApi {
         if (parts.length == 2) {
             String username = parts[0];
             String password = parts[1];
-        return personService.findByUsernameAndPassword(username, password);        } else {
+            return personService.findByUsernameAndPassword(username, password);
+        } else {
             throw new IllegalArgumentException("input username & password !");
         }
     }

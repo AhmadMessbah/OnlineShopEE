@@ -30,6 +30,6 @@ public class Base  {
     private String updatedBy;
     @JsonbTransient
     private String createdDate;
-//    @JsonbTransient
-//    private boolean locked;
+    @JsonbTransient
+    private boolean locked;
 }

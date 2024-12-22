@@ -7,11 +7,13 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 
 import java.util.List;
 
 @RequestScoped
+@Slf4j
 public class TicketService {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
@@ -20,14 +22,14 @@ public class TicketService {
     @Loggable
     public void save(Ticket ticket) {
         entityManager.persist(ticket);
-
+        log.info("ticket-saved");
     }
 
     @Transactional
     @Loggable
     public void edit(Ticket ticket) {
         entityManager.merge(ticket);
-
+        log.info("ticket-updated");
     }
 
     @Transactional
@@ -35,6 +37,7 @@ public class TicketService {
     public Ticket remove(Long id) {
         Ticket ticket = entityManager.find(Ticket.class, id);
         entityManager.remove(ticket);
+        log.info("ticket-removed");
         return ticket;
     }
 

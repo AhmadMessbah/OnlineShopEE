@@ -9,19 +9,32 @@
 
 </head>
 <body>
-<form id="user-form" action="/api/users">
+<form id="user-form" action="/api/deliveries">
+    <input type="text" name="deliveryAddress">
+    <input type="text" name="trackingNumber">
+    <input type="text" name="carrier">
+    <input type="number" name="shippingCost">
+    <input type="checkbox" name="PENDING">
+    <input type="checkbox" name="IN_TRANSIT">
+    <input type="checkbox" name="OUT_FOR_DELIVERY">
+    <input type="checkbox" name="DELIVERED">
+    <input type="checkbox" name="CANCELED">
+    <input type="checkbox" name="standardShipping">
+    <input type="checkbox" name="expressShipping">
+    <input type="checkbox" name="sameDayShipping">
+    <input type="checkbox" name="pickup">
+    <input type="text" name="phoneNumber">
+    <input type="datetime-local" name="deliveredDate">
     <input type="text" name="username">
-    <input type="password" name="password">
-    <input type="text" name="email">
+
     <button>Save</button>
 </form>
-
 <button onclick=testIt()>Test</button>
 
 <div id="toast-container"></div>
 
 <script>
-    document.getElementById("user-form").addEventListener("submit", async function (event) {
+    document.getElementById("delivery-form").addEventListener("submit", async function (event) {
         event.preventDefault();
 
         var form = event.target;
@@ -47,7 +60,7 @@
 
     async function testIt() {
         const response = await fetch(
-            "http://localhost/api/users",
+            "http://localhost/api/deliveries",
             {
                 method: "GET"
             }

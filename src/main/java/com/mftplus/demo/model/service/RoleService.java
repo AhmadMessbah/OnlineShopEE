@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @RequestScoped
-@Loggable
 @Slf4j
 public class RoleService {
     @PersistenceContext(unitName = "mft")
@@ -23,12 +22,14 @@ public class RoleService {
     @Loggable
     public void save(Role role) {
         entityManager.persist(role);
+        log.info("Role saved: ");
     }
 
     @Transactional
     @Loggable
     public void edit(Role role) {
         entityManager.merge(role);
+        log.info("Role updated");
     }
 
     @Transactional
@@ -36,6 +37,7 @@ public class RoleService {
     public Role remove(Long id) {
         Role role = entityManager.find(Role.class, id);
         entityManager.remove(role);
+        log.info("Role removed");
         return role;
     }
 

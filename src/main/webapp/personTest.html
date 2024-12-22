@@ -50,11 +50,11 @@
 <table class="table table-light table-hover">
     <thead>
     <tr>
-        <th>id</th>
+<!--        <th>id</th>-->
         <th>name</th>
         <th>family</th>
-        <th>nationalId</th>
         <th>birthDate</th>
+        <th>nationalId</th>
         <th>phoneNumber</th>
         <th>address</th>
         <th>postalCode</th>
@@ -79,8 +79,10 @@
 <form id="person-form" action="/api/persons">
     <input type="text" name="name">
     <input type="text" name="family">
-    <input type="text" name="nationalId">
+<!--    <input type="hidden" name="token" value="123abc">-->
+    <!--        <input type="text" name="nationalId">-->
     <input type="date" name="birthDate">
+    <input type="hidden" name="nationalId" value="123abc">
     <input type="text" name="phoneNumber">
     <input type="text" name="address">
     <input type="text" name="postalCode">
@@ -122,6 +124,7 @@
     async function testIt() {
         const response = await fetch(
             "http://localhost/api/persons",
+            "http://localhost/person",
             {
                 method: "GET"
             }

@@ -22,6 +22,7 @@ public class OrderItemService implements Service<OrderItem, Long>{
     @Loggable
     public void save(OrderItem orderItem) {
         entityManager.persist(orderItem);
+        log.info("orderItem-saved");
     }
 
     @Transactional
@@ -29,6 +30,7 @@ public class OrderItemService implements Service<OrderItem, Long>{
     @Loggable
     public void edit(OrderItem orderItem) {
         entityManager.merge(orderItem);
+        log.info("orderItem-updated");
     }
 
     @Transactional
@@ -37,6 +39,7 @@ public class OrderItemService implements Service<OrderItem, Long>{
     public void remove(Long id) {
         OrderItem orderItem = entityManager.find(OrderItem.class, id);
         entityManager.remove(orderItem);
+        log.info("orderItem-removed");
     }
 
     @Transactional

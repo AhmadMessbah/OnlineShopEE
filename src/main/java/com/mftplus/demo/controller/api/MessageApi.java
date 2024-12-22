@@ -22,7 +22,7 @@ public class MessageApi {
     @Loggable
     @ResponseMaker(authority = "GET_MESSAGES")
     public Object getAllMessages() {
-        log.info("All Messages :");
+        log.info("All-Messages :");
         return messageService.findAll();
     }
 

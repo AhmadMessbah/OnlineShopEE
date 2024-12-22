@@ -1,7 +1,6 @@
 package com.mftplus.demo.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -56,9 +55,5 @@ public class User extends Base {
             inverseJoinColumns = @JoinColumn(name = "role_name"))
     @JsonProperty(": عنوان کاربر")
     private List<Role> roleList;
-
-    @Column(name = "locked", length = 1)
-    @JsonbTransient
-    private boolean locked;
 
 }

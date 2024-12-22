@@ -8,11 +8,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @RequestScoped
-@Loggable
+@Slf4j
 public class TicketGroupService {
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
@@ -22,6 +23,7 @@ public class TicketGroupService {
     @Loggable
     public void save(TicketGroup ticketGroup) {
         entityManager.persist(ticketGroup);
+        log.info("save ticket group-saved ");
 
     }
 
@@ -29,6 +31,7 @@ public class TicketGroupService {
     @Loggable
     public void edit(TicketGroup ticketGroup) {
         entityManager.merge(ticketGroup);
+        log.info("save ticket group-updated ");
 
     }
 
@@ -37,6 +40,7 @@ public class TicketGroupService {
     public TicketGroup remove(Long id) {
         TicketGroup ticketGroup = entityManager.find(TicketGroup.class, id);
         entityManager.remove(ticketGroup);
+        log.info("save ticket group-removed ");
         return ticketGroup;
 
     }
