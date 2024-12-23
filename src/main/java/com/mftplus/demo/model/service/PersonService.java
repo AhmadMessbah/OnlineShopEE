@@ -1,8 +1,10 @@
 package com.mftplus.demo.model.service;
 
+import com.mftplus.demo.controller.exception.NoPersonException;
 import com.mftplus.demo.model.entity.Person;
 import com.mftplus.demo.model.utils.Loggable;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -14,22 +16,35 @@ import java.util.List;
 @RequestScoped
 @Slf4j
 public class PersonService {
+
+    @Inject
+    private UserService userService;
+
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
 
     @Transactional
     @Loggable
     public void save(Person person) {
-        entityManager.persist(person);
-        log.info("person-saved");
+        if (person.getId() != null) {
+            entityManager.persist(person);
+            log.info("person-saved");
+        } else {
+            log.error("person-saved-error");
+        }
     }
 
     @Transactional
     @Loggable
     public void edit(Person person) {
-        entityManager.merge(person);
-        log.info("person-updated");
+        if (person.getId() != null) {
+            entityManager.merge(person);
+            log.info("person-updated");
+        } else {
+            log.error("person-update-error");
+        }
     }
+
 
     @Transactional
     @Loggable
@@ -54,6 +69,7 @@ public class PersonService {
     }
 
     @Transactional
+    @Loggable
     public List<Person> findByNationalId(String nationalId) {
         Query query = entityManager.createQuery("select p from personEntity p where p.nationalId = :nationalId", Person.class);
         query.setParameter("nationalId", nationalId);
@@ -77,18 +93,20 @@ public class PersonService {
         return query.getResultList();
     }
 
-    @Transactional
+    @Transactional  //todo
     @Loggable
     public Person findByUsernameAndPassword(String username, String password) {
-//        if (userService.findByUsernameAndPassword(username, password) != null) {
         Query query = entityManager.createQuery("select p from  personEntity p where p.user.username = : username and p.user.password = : password", Person.class);
         query.setParameter("username", username);
         query.setParameter("password", password);
-        return (Person) query.getSingleResult();
-//        }else {
-//            throw new NoPersonException();
-//        }
+        if (userService.findByUsernameAndPassword(username, password) != null) {
+            return (Person) query.getSingleResult();
+        } else {
+            log.error("user-not-found" + new NoPersonException());
+            return null;
+        }
     }
+
 
     @Transactional
     @Loggable
