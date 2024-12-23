@@ -1,5 +1,6 @@
 package com.mftplus.demo.controller.api;
 import com.mftplus.demo.model.entity.*;
+import com.mftplus.demo.model.service.PersonService;
 import com.mftplus.demo.model.service.TicketService;
 import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
@@ -15,8 +16,8 @@ public class TestApiM {
 
     @Inject
 //    private MessageService messageService;
-//    private PersonService personService;
-    private TicketService ticketService;
+    private PersonService personService;
+//    private TicketService ticketService;
 //    private UserService userService;
 
     @GET
@@ -45,31 +46,31 @@ public class TestApiM {
 //        return person.toString();
 
                 //DO
-        TicketGroup child=new TicketGroup();
-        TicketGroup parent=new TicketGroup();
-        child.setName("digital");
-        parent.setName("electronic");
-        TicketGroup ticketGroup=TicketGroup.builder().name("mobile").parent(parent).build();
+//        TicketGroup child=new TicketGroup();
+//        TicketGroup parent=new TicketGroup();
+//        child.setName("digital");
+//        parent.setName("electronic");
+//        TicketGroup ticketGroup=TicketGroup.builder().name("mobile").parent(parent).build();
 
         Permission permission = Permission.builder().permissionName("get").build();
         Role role = Role.builder().permissionSet(Set.of(permission)).roleName("admin").build();
         User user=User.builder().username("eeee").password("234").roleList(List.of(role)).build();
-//        Person person=Person.builder().name("aas").family("ass").user(user).build();
+        Person person=Person.builder().name("aas").family("ass").user(user).build();
 
-        Message message = Message.builder().user(user).title("security requirement").text("please check").dateTime("2024.01.23").build();
-        Ticket ticket=Ticket.builder().messages(List.of(message)).ticketGroup(ticketGroup).title("buy").text("this is your order").build();
+//        Message message = Message.builder().user(user).title("security requirement").text("please check").dateTime("2024.01.23").build();
+//        Ticket ticket=Ticket.builder().messages(List.of(message)).ticketGroup(ticketGroup).title("buy").text("this is your order").build();
 
 //        TicketGroup t =new TicketGroup();
 //        while (t.getParent() !=null){
 //            System.out.println(parent.getChildList());
 //
 //        }
-        ticketService.save(ticket);
-        return ticket.toString();
+//        ticketService.save(ticket);
+//        return ticket.toString();
 //        userService.save(user);
 //        return user.toString();
-//        personService.save(person);
-//        return person.toString();
+        personService.save(person);
+        return person.toString();
 
     }
 }
