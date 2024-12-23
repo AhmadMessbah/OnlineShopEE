@@ -29,7 +29,7 @@
           // Display the new message in the message list
           const messageList = document.getElementById("messageList");
           const listItem = document.createElement("li");
-          listItem.textContent = message.title + ": " + message.text;
+          listItem.textContent = message.title + ": " + message.text + message.dateTime + message.username;
           messageList.appendChild(listItem);
         };
       }
