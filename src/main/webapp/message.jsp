@@ -42,7 +42,10 @@
       function sendMessage() {
         const title = document.getElementById("title").value;
         const text = document.getElementById("text").value;
-        const message = { title, text };
+        const dateTime = document.getElementById("dateTime").value;
+        const username = document.getElementById("username").value;
+
+        const message = { title, text , dateTime , username };
         ws.send(JSON.stringify(message));
       }
 
@@ -62,6 +65,8 @@
 
   <input type="text" id="title" placeholder="Title">
   <input type="text" id="text" placeholder="Text">
+  <input type="datetime-local" id="dateTime" placeholder="dateTime">
+  <input type="text" id="username" placeholder="username">
   <button onclick="sendMessage()">Send</button>
   </body>
 </html>
