@@ -67,8 +67,8 @@ public class InventoryProductService implements Service<InventoryProduct, Long> 
     @Transactional
     @Loggable
     public InventoryProduct findByProductId(Long id) {
-        Query query = entityManager.createQuery("select bb from inventory_product bb where bb.product.id =:Product_Id", InventoryProduct.class);
-        query.setParameter("Product_Id", id);
+        Query query = entityManager.createQuery("select bb from inventory_product bb where bb.product.id =:id", InventoryProduct.class);
+        query.setParameter("id", id);
         return (InventoryProduct) query.getResultList();
     }
 

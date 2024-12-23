@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
-
+@ToString
 
 @Entity(name = "inventoryTransactionEntity")
 @Table(name = "Inventory_transactions_tbl")
