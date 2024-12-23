@@ -1,7 +1,7 @@
 package com.mftplus.demo.controller.api;
 
 import com.mftplus.demo.model.entity.*;
-import com.mftplus.demo.model.service.PersonService;
+import com.mftplus.demo.model.service.ProductService;
 import com.mftplus.demo.model.service.TicketService;
 import com.mftplus.demo.model.utils.Loggable;
 import jakarta.inject.Inject;
@@ -15,12 +15,14 @@ import java.util.Set;
 @Loggable
 public class TestApiM {
 
-//    @Inject
-//    private PersonService personService;
+    @Inject
+    private ProductService productService;
+
     @Inject
     private TicketService ticketService;
 
-    @GET public String test() {
+    @GET
+    public String test() {
 
 //        while (t.getParent() != null) {
 //            System.out.println("ticket group parent: " + t.getParent().getName());
@@ -37,10 +39,25 @@ public class TestApiM {
         parent.setName("electronic");
         TicketGroup ticketGroup = TicketGroup.builder().name("mobile").parent(parent).build();
         Ticket ticket = Ticket.builder().messages(List.of(message)).ticketGroup(ticketGroup).title("buy").user(user).responseType("delivered").text("this is your order").build();
-
-//        personService.save(person);
         ticketService.save(ticket);
-        return ticket.toString();
+//        personService.save(person);
+        ProductGroup child1 = new ProductGroup();
+        ProductGroup parent2 = new ProductGroup();
+        child.setName("digital");
+        parent.setName("electronic");
+        ProductPropertyValue productPropertyValue= ProductPropertyValue.builder().name("64G").build();
+        GroupProperty groupProperty = GroupProperty.builder().name("ram").productPropertyValue(productPropertyValue).build();
+        ProductGroup productGroup =ProductGroup.builder().groupProperty(groupProperty).name("laptop").parent(parent2).build();
+        Product product =Product.builder()
+                .name("laptop")
+                .price(20F)
+                .productGroup(productGroup)
+                .code(1L)
+                .build();
+        productService.save(product);
+//        return ticket.toString();
+        return product.toString();
+
 
     }
 }
