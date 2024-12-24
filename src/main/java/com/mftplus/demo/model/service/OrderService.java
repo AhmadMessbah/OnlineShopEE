@@ -31,8 +31,12 @@ public class OrderService implements Service<Order, Long> {
     @Override
     @Loggable
     public void edit(Order order) {
-        entityManager.merge(order);
-        log.info("order-updated");
+        if (order.getId() != null) {
+            entityManager.merge(order);
+            log.info("order-updated");
+        } else {
+            log.error("order-update-error");
+        }
     }
 
     @Transactional

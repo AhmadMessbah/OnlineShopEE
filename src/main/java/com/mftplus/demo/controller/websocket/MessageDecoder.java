@@ -9,11 +9,11 @@ public class MessageDecoder implements Decoder.Text<Message> {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public Message decode(String stringMessage) throws DecodeException { //cast the String to Message
+    public Message decode(String stringMessage) throws DecodeException {
         try {
             return mapper.readValue(stringMessage, Message.class);
         } catch (Exception e) {
-            throw new DecodeException(stringMessage, "String Messages Decode failed!!",e);
+            throw new DecodeException(stringMessage, "Message Decode Failed !", e);
         }
     }
 
@@ -24,6 +24,6 @@ public class MessageDecoder implements Decoder.Text<Message> {
             return true;
         } catch (Exception e) {
             return false;
-        }
+          }
     }
 }

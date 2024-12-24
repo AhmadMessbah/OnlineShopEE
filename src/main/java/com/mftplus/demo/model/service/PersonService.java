@@ -22,16 +22,14 @@ public class PersonService {
 
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
+    @Inject
+    private PermissionService permissionService;
 
     @Transactional
     @Loggable
     public void save(Person person) {
-        if (person.getId() != null) {
-            entityManager.persist(person);
-            log.info("person-saved");
-        } else {
-            log.error("person-saved-error");
-        }
+        entityManager.persist(person);
+        log.info("person-saved");
     }
 
     @Transactional
@@ -44,7 +42,6 @@ public class PersonService {
             log.error("person-update-error");
         }
     }
-
 
     @Transactional
     @Loggable
@@ -59,6 +56,7 @@ public class PersonService {
     @Loggable
     public Person findById(Long id) {
         return entityManager.find(Person.class, id);
+
     }
 
     @Transactional
@@ -102,7 +100,7 @@ public class PersonService {
         if (userService.findByUsernameAndPassword(username, password) != null) {
             return (Person) query.getSingleResult();
         } else {
-            log.error("user-not-found" + new NoPersonException());
+            log.error("person-not-found", new NoPersonException());
             return null;
         }
     }
@@ -113,7 +111,12 @@ public class PersonService {
     public Person findByUsername(String username) {
         Query query = entityManager.createQuery("select u.username from  userEntity u where u.username = :username", Person.class);
         query.setParameter("username", username);
-        return (Person) query.getSingleResult();
+        if (userService.findByUsername(username) != null) {
+            return (Person) query.getSingleResult();
+        } else {
+            log.error("person-not-found", new NoPersonException());
+            return null;
+        }
     }
 
     @Transactional
@@ -140,4 +143,5 @@ public class PersonService {
         query.setParameter("address", address);
         return query.getResultList();
     }
+
 }

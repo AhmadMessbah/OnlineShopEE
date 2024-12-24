@@ -29,9 +29,12 @@ public class MessageService {
     @Transactional
     @Loggable
     public void edit(Message message) {
-        entityManager.merge(message);
-        log.info("message-updated");
-
+        if (message.getId() != null) {
+            entityManager.merge(message);
+            log.info("message-updated");
+        } else {
+            log.error("message-update-error");
+        }
     }
 
     @Transactional

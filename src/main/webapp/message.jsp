@@ -18,7 +18,7 @@
       let messageCount = 0;
 
       function connect() {
-        ws = new WebSocket("ws://localhost/messages");
+        ws = new WebSocket("ws://localhost/message");
         ws.onmessage = function (event) {
           const message = JSON.parse(event.data);
 

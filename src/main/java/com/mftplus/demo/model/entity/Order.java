@@ -33,18 +33,15 @@ public class Order extends Base {
     @JoinColumn(name = "username")
     private User user;
 
-    @Column(name = "order_Date") //nullable = false
-    private LocalDateTime orderDate;
+    @Column(name = "serial_number", unique = true)
+    private String serial;
+
+    @Column(name = "Date_Time") //nullable = false
+    private LocalDateTime orderDateTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private OrderStatus orderStatus;
-
-    @Column(name = "total_amount") //nullable = false
-    private double totalAmount;
-
-    @Column(name = "discount", length = 10) //nullable = false
-    private double discount;
 
     @Column(name = "tax", length = 10) //nullable = false
     private double tax;
@@ -52,16 +49,37 @@ public class Order extends Base {
     @Column(name = "shipping_cost") //nullable = false
     private double shippingCost;
 
-    @OneToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
-    @JoinTable(name = "order_orderItem", foreignKey = @ForeignKey(name = "my_fk"))
-    private List<OrderItem> orderItems=new ArrayList<>();
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private List<OrderItem> orderItems;
 
+    public void addItem(OrderItem orderItem) {
+        if (orderItems == null) {
+            orderItems = new ArrayList<>();
+        }
+        orderItems.add(orderItem);
+    }
 
     @Column(name = "bill_address")//, nullable = false
     private String billingAddress;
 
-//    public void updateOrderStatus(OrderStatus orderStatus) {
-//        this.orderStatus = orderStatus;
-//    }
+    private double totalAmount;
+    private double pureAmount;
+    private double discount;
+
+    public double getTotalAmount() {
+        orderItems.forEach(item -> totalAmount += item.getAmount());
+        return totalAmount;
+    }
+
+    public double getPureAmount() {
+        pureAmount = getTotalAmount() - discount;
+        return pureAmount;
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void setDateTime() {
+        orderDateTime = LocalDateTime.now();
+    }
 
 }

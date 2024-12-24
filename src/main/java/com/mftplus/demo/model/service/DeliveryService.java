@@ -1,13 +1,10 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.Delivery;
-import com.mftplus.demo.model.entity.Order;
 import com.mftplus.demo.model.entity.enums.DeliveryMethod;
 import com.mftplus.demo.model.entity.enums.DeliveryStatus;
 import com.mftplus.demo.model.utils.Loggable;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -35,9 +32,16 @@ public class DeliveryService implements Service<Delivery, Long> {
     @Override
     @Loggable
     public void edit(Delivery delivery) {
-        entityManager.merge(delivery);
-        log.info("delivery-updated");
+        if (delivery.getId() != null) {
+            entityManager.merge(delivery);
+            log.info("delivery-updated");
+        } else {
+            log.error("delivery-update-error");
+        }
     }
+//        entityManager.merge(delivery);
+//        log.info("delivery-updated");
+//    }
 
     @Transactional
     @Override
@@ -126,6 +130,7 @@ public class DeliveryService implements Service<Delivery, Long> {
         query.setParameter("id", id);
         return (Delivery) query.getSingleResult();
     }
+
     @Transactional
     @Loggable
     public Delivery findOrderByUsername(String username) {

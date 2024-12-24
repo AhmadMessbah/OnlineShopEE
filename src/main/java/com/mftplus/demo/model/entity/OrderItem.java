@@ -9,7 +9,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -22,26 +21,24 @@ public class OrderItem {
     @Id
     @SequenceGenerator(name = "orderItemSeq", sequenceName = "order_item_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderItemSeq")
-    @Column(name = "order_Id")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "orderItem_pro")
+    @JoinColumn(name = "item_product_id")
     private Product product;
 
-    @Column(name = "product_quantity")
-    private double quantity;
-
-    @Column(name = "unit_price")
-    private Long unitPrice;
+    @ManyToOne
+    @JoinColumn(name = "item_order_id")
+    private Order order;
 
     @Transient
-    private double totalPrice;
+    private double amount;
+    private int quantity;
+    private double price;
 
-
-    public double getTotalPrice() {
-        totalPrice = quantity * unitPrice;
-        return totalPrice;
+    public double getAmount() {
+        amount = quantity * price;
+        return amount;
     }
 
 }

@@ -1,8 +1,6 @@
 package com.mftplus.demo.controller.filter;
 
 import com.mftplus.demo.model.utils.Loggable;
-import jakarta.interceptor.Interceptor;
-import jakarta.interceptor.InterceptorBinding;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import lombok.extern.slf4j.Slf4j;

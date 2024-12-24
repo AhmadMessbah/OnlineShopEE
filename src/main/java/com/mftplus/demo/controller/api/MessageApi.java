@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Path("/messages")
 @Slf4j
-
 public class MessageApi {
     @Inject
     private MessageService messageService;
