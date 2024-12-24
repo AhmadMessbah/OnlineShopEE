@@ -10,17 +10,17 @@ import jakarta.ws.rs.Path;
 
 import java.util.List;
 
-@Path("/testOrder")
+//@Path("/testOrder")
 public class TestApiOrder {
-    @Inject
-    private OrderService orderService;
-
-    @GET
-    public String testOrder() {
-        OrderItem orderItem = OrderItem.builder().unitPrice(300L).totalPrice(500).quantity(3).build();
-        Order order = Order.builder().orderItems(List.of(orderItem)).orderStatus(OrderStatus.PENDING).discount(200).build();
-        orderService.save(order);
-        return order.toString();
-    }
+//    @Inject
+//    private OrderService orderService;
+//
+//    @GET
+//    public String testOrder() {
+//        OrderItem orderItem = OrderItem.builder().unitPrice(300L).totalPrice(500).quantity(3).build();
+//        Order order = Order.builder().orderItems(List.of(orderItem)).orderStatus(OrderStatus.PENDING).discount(200).build();
+//        orderService.save(order);
+//        return order.toString();
+//    }
 
 }
