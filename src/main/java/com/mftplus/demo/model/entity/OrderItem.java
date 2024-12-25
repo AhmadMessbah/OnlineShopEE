@@ -9,7 +9,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -26,22 +25,22 @@ public class OrderItem {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "orderItem_pro")
+    @JoinColumn(name = "product", foreignKey = @ForeignKey(name = "fk_ord_item_product"))
     private Product product;
 
-    @Column(name = "product_quantity")
-    private double quantity;
-
-    @Column(name = "unit_price")
-    private Long unitPrice;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @Transient
-    private double totalPrice;
+    private double amount;
 
+    private double quantity;
+    private double price;
 
-    public double getTotalPrice() {
-        totalPrice = quantity * unitPrice;
-        return totalPrice;
+    public double getAmount() {
+        amount = quantity * price;
+        return amount;
     }
 
 }

@@ -1,7 +1,11 @@
 package com.mftplus.demo.controller.api;
 
 import com.mftplus.demo.model.entity.*;
+import com.mftplus.demo.model.entity.enums.OrderStatus;
+import com.mftplus.demo.model.service.PersonService;
+import com.mftplus.demo.model.service.UserService;
 import com.mftplus.demo.model.utils.Loggable;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 
@@ -11,14 +15,14 @@ import java.util.Set;
 @Path("/test")
 @Loggable
 public class TestApi {
-//    @Inject
+    //    @Inject
 //    private ProductService productService;
 //    @Inject
 //    private DeliveryService deliveryService;
 //    @Inject
 //    private TicketService ticketService;
-//    @Inject
-//    private PersonService personService;
+    @Inject
+    private PersonService personService;
 //    @Inject
 //    private UserService userService;
 
@@ -40,7 +44,8 @@ public class TestApi {
         parent.setName("electronic");
         TicketGroup ticketGroup = TicketGroup.builder().name("mobile").parent(parent).build();
         Ticket ticket = Ticket.builder().messages(List.of(message)).ticketGroup(ticketGroup).title("buy").user(user).responseType("delivered").text("this is your order").build();
-//        personService.save(person);
+        personService.save(person);
+        return person.toString();
 //        ticketService.save(ticket);
 //        userService.save(user);
 //        return user.toString();
@@ -59,8 +64,10 @@ public class TestApi {
 //                .code(1L)
 //                .build();
 //        productService.save(product);
-//        OrderItem orderItem = OrderItem.builder().unitPrice(300L).totalPrice(500).quantity(3).build();
+//        OrderItem orderItem = OrderItem.builder().price(300L).quantity(3).build();
 //        Order order = Order.builder().orderItems(List.of(orderItem)).orderStatus(OrderStatus.PENDING).discount(200).build();
+//        order.addItem(orderItem);
+
 //        Delivery delivery = Delivery.builder()
 //                .deliveryAddress("tehran-west")
 //                .deliveryMethod(DeliveryMethod.standardShipping)
@@ -73,7 +80,6 @@ public class TestApi {
 //        deliveryService.save(delivery);
 //
 //        return product.toString();
-        return null;
 
     }
 }
