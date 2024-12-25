@@ -26,12 +26,8 @@ public class PersonService {
     @Transactional
     @Loggable
     public void save(Person person) {
-        if (person.getId() != null) {
-            entityManager.persist(person);
-            log.info("person-saved");
-        } else {
-            log.error("person-saved-error");
-        }
+        entityManager.persist(person);
+        log.info("person-saved");
     }
 
     @Transactional
@@ -49,11 +45,23 @@ public class PersonService {
     @Transactional
     @Loggable
     public Person remove(Long id) {
-        Person person = entityManager.find(Person.class, id);
-        entityManager.remove(person);
-        log.info("person-removed");
-        return person;
+        Person person = new Person();
+        if (person.getId() != null) {
+            entityManager.remove(id);
+            log.info("person-removed--");
+            return person;
+
+        } else {
+            log.error("person-remove-error");
+            return null;
+        }
+
     }
+//        Person person = entityManager.find(Person.class, id);
+//        entityManager.remove(person);
+//        log.info("person-removed");
+//        return person;
+//    }
 
     @Transactional
     @Loggable
@@ -102,7 +110,7 @@ public class PersonService {
         if (userService.findByUsernameAndPassword(username, password) != null) {
             return (Person) query.getSingleResult();
         } else {
-            log.error("user-not-found" + new NoPersonException());
+            log.error("user-not-found", new NoPersonException());
             return null;
         }
     }
