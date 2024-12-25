@@ -31,7 +31,7 @@ public class TestApi {
 
         Permission permission = Permission.builder().permissionName("get").build();
         Role role = Role.builder().permissionSet(Set.of(permission)).roleName("admin").build();
-        User user = User.builder().username("eeee").password("234").roleList(List.of(role)).build();
+        User user = User.builder().username("e").password("234").roleList(List.of(role)).build();
         Person person = Person.builder().name("aas").family("ass").user(user).build();
         Message message = Message.builder().text("hello").title("say-hello").user(user).build();
         TicketGroup child = new TicketGroup();

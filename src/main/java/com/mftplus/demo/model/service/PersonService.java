@@ -61,7 +61,7 @@ public class PersonService {
 //        entityManager.remove(person);
 //        log.info("person-removed");
 //        return person;
-//    }
+//
 
     @Transactional
     @Loggable
@@ -148,4 +148,5 @@ public class PersonService {
         query.setParameter("address", address);
         return query.getResultList();
     }
+
 }
