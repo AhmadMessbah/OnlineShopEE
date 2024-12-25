@@ -28,8 +28,12 @@ public class RoleService {
     @Transactional
     @Loggable
     public void edit(Role role) {
-        entityManager.merge(role);
-        log.info("Role updated");
+        if (role.getId() != null) {
+            entityManager.merge(role);
+            log.info("role-updated");
+        } else {
+            log.error("role-update-error");
+        }
     }
 
     @Transactional

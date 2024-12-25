@@ -32,8 +32,13 @@ public class PermissionService {
     @Transactional
     @Loggable
     public void edit(Permission permission) {
-        entityManager.merge(permission);
-        log.info("permission-updated");
+        if (permission.getId() != null) {
+            entityManager.merge(permission);
+            log.info("permission-updated");
+        } else {
+            log.error("permission-update-error");
+        }
+
     }
 
     @Transactional
@@ -66,15 +71,4 @@ public class PermissionService {
         return query.getResultList();
     }
 
-    @Transactional
-    @Loggable
-    public List<Permission> createAnyThing(String create) {
-        if (!roleService.findByRoleName("admin").isEmpty() && findByName("admin").contains(create)) {
-            Query query = entityManager.createQuery("select r.roleName from roleEntity r cross join permissionEntity p where p.create=:create_save", Permission.class);
-            query.setParameter("create_save", create);
-            return query.getResultList();
-        } else {
-            return findAll();
-        }
-    }
 }

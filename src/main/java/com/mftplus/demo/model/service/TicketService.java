@@ -28,8 +28,12 @@ public class TicketService {
     @Transactional
     @Loggable
     public void edit(Ticket ticket) {
-        entityManager.merge(ticket);
-        log.info("ticket-updated");
+        if (ticket.getId() != null) {
+            entityManager.merge(ticket);
+            log.info("ticket-updated");
+        } else {
+            log.error("ticket-update-error");
+        }
     }
 
     @Transactional

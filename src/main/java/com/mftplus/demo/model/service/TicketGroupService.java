@@ -2,7 +2,6 @@ package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.TicketGroup;
 import com.mftplus.demo.model.utils.Loggable;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -30,9 +29,12 @@ public class TicketGroupService {
     @Transactional
     @Loggable
     public void edit(TicketGroup ticketGroup) {
-        entityManager.merge(ticketGroup);
-        log.info("save ticket group-updated ");
-
+        if (ticketGroup.getId() != null) {
+            entityManager.merge(ticketGroup);
+            log.info("ticketGroup-updated");
+        } else {
+            log.error("ticketGroup-update-error");
+        }
     }
 
     @Transactional
