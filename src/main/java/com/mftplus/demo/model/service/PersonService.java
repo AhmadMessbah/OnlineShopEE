@@ -22,6 +22,8 @@ public class PersonService {
 
     @PersistenceContext(unitName = "mft")
     private EntityManager entityManager;
+    @Inject
+    private PermissionService permissionService;
 
     @Transactional
     @Loggable
@@ -41,32 +43,20 @@ public class PersonService {
         }
     }
 
-
     @Transactional
     @Loggable
     public Person remove(Long id) {
-        Person person = new Person();
-        if (person.getId() != null) {
-            entityManager.remove(id);
-            log.info("person-removed--");
-            return person;
-
-        } else {
-            log.error("person-remove-error");
-            return null;
-        }
-
+        Person person = entityManager.find(Person.class, id);
+        entityManager.remove(person);
+        log.info("person-removed");
+        return person;
     }
-//        Person person = entityManager.find(Person.class, id);
-//        entityManager.remove(person);
-//        log.info("person-removed");
-//        return person;
-//
 
     @Transactional
     @Loggable
     public Person findById(Long id) {
         return entityManager.find(Person.class, id);
+
     }
 
     @Transactional
