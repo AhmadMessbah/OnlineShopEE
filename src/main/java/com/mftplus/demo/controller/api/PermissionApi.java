@@ -43,14 +43,6 @@ public class PermissionApi {
         return permissionService.findByName(permissionName);
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/create/{create}")
-    @Loggable
-    @ResponseMaker(authority = "CREATE")
-    public Object getPermissionByCreate(@PathParam("create") String create) {
-        return permissionService.createAnyThing(create);
-    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

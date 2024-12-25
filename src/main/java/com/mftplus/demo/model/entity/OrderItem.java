@@ -21,21 +21,19 @@ public class OrderItem {
     @Id
     @SequenceGenerator(name = "orderItemSeq", sequenceName = "order_item_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderItemSeq")
-    @Column(name = "order_Id")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "product", foreignKey = @ForeignKey(name = "fk_ord_item_product"))
+    @JoinColumn(name = "item_product_id")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "item_order_id")
     private Order order;
 
     @Transient
     private double amount;
-
-    private double quantity;
+    private int quantity;
     private double price;
 
     public double getAmount() {

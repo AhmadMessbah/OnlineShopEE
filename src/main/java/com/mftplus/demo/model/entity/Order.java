@@ -50,7 +50,6 @@ public class Order extends Base {
     private double shippingCost;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinTable(name = "order_orderItem", foreignKey = @ForeignKey(name = "my_fk"))
     private List<OrderItem> orderItems;
 
     public void addItem(OrderItem orderItem) {
