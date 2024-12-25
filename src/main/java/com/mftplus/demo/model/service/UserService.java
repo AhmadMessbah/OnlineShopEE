@@ -1,5 +1,6 @@
 package com.mftplus.demo.model.service;
 
+import com.mftplus.demo.controller.exception.NoUserException;
 import com.mftplus.demo.model.entity.Permission;
 import com.mftplus.demo.model.entity.Role;
 import com.mftplus.demo.model.entity.User;
@@ -39,8 +40,12 @@ public class UserService {
     @Transactional
     @Loggable
     public void edit(User user) {
-        entityManager.merge(user);
-        log.info("user-updated");
+        if (user.getId() != null) {
+            entityManager.merge(user);
+            log.info("user-updated");
+        } else {
+            log.error("user-update-error");
+        }
     }
 
     @Transactional
@@ -107,7 +112,13 @@ public class UserService {
     public List<User> findByRoleName(String roleName) {
         Query query = entityManager.createQuery("select u from userEntity u cross join roleEntity r where r.roleName=:roleName", User.class);
         query.setParameter("roleName", roleName);
-        return query.getResultList();
+        if (roleService.findByRoleName(roleName) != null) {
+            return query.getResultList();
+        } else {
+            log.error("user-not-found", new NoUserException());
+            return null;
+        }
+
 
 //        if (roleService.findByRoleName(roleName) != null && findByUsername(roleName) != null) {
 //            Query query = entityManager.createQuery("select u from userEntity u cross join roleEntity r where r.roleName=:roleName", User.class);

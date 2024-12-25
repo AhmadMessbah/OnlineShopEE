@@ -100,7 +100,7 @@ public class PersonService {
         if (userService.findByUsernameAndPassword(username, password) != null) {
             return (Person) query.getSingleResult();
         } else {
-            log.error("user-not-found", new NoPersonException());
+            log.error("person-not-found", new NoPersonException());
             return null;
         }
     }
@@ -111,7 +111,12 @@ public class PersonService {
     public Person findByUsername(String username) {
         Query query = entityManager.createQuery("select u.username from  userEntity u where u.username = :username", Person.class);
         query.setParameter("username", username);
-        return (Person) query.getSingleResult();
+        if (userService.findByUsername(username) != null) {
+            return (Person) query.getSingleResult();
+        } else {
+            log.error("person-not-found", new NoPersonException());
+            return null;
+        }
     }
 
     @Transactional
