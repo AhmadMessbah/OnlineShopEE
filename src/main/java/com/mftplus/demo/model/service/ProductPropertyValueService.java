@@ -44,7 +44,7 @@ public class ProductPropertyValueService implements Service<ProductPropertyValue
     }
     @Transactional
     public ProductPropertyValue findByName(String name) {
-        Query query = entityManager.createQuery("select p from productProEntity p where p.name = : name", Product.class);
+        Query query = entityManager.createQuery("select p from productProEntity p where p.name = : name", ProductPropertyValue.class);
         query.setParameter("name", name);
         return (ProductPropertyValue) query.getSingleResult();
     }

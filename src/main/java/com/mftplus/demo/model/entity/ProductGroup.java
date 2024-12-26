@@ -29,7 +29,7 @@ public class ProductGroup extends Base {
     private Long id;
 
     @Column(name = "name", nullable = false, length = 30)
-    @Pattern(regexp = "^[a-zA-Z]{3,30}$", message = "invalid name!")
+//    @Pattern(regexp = "^[a-zA-Z]{3,30}$", message = "invalid name!")
     private String name;
 
 

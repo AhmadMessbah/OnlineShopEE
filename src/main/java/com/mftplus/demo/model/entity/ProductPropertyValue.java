@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Getter
 @SuperBuilder
+@ToString
 
 
 @Entity(name = "productProEntity")
