@@ -1,6 +1,7 @@
 package com.mftplus.demo.model.service;
 
 import com.mftplus.demo.model.entity.GroupProperty;
+import com.mftplus.demo.model.entity.InventoryProduct;
 import com.mftplus.demo.model.entity.ProductGroup;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
@@ -43,30 +44,34 @@ public class GroupPropertyService implements Service<GroupProperty, Long> {
         return entityManager.find(GroupProperty.class, id);
 
     }
+
     @Transactional
     @Override
     public List<GroupProperty> findAll() {
         Query query = entityManager.createQuery("select g from groupProEntity g", GroupProperty.class);
         return query.getResultList();
     }
+
     @Transactional
     public List<GroupProperty> findByName(String name) {
         Query query = entityManager.createQuery("select g from groupProEntity g where g.name=:name", GroupProperty.class);
-       query.setParameter("name", name);
-        return query.getResultList();
-    }//todo: same function as above method
-    @Transactional
-    public List<GroupProperty> findProductGroupNameByGroupProperty(String name) {
-        Query query = entityManager.createQuery("select g from groupProEntity g where g.productGroup.name=:name", GroupProperty.class);
         query.setParameter("name", name);
         return query.getResultList();
-    }//todo: this service has error please check and should be written in productGroupService class
+    }//todo: same function as above method
+
+    @Transactional
+    public List<GroupProperty> findProductGroupNameByGroupProperty(String name) {
+        Query query = entityManager.createQuery("select bb from groupProEntity  bb where productGroupEntity.name = :name", InventoryProduct.class);
+        query.setParameter("name", name);
+        return query.getResultList();
+    }//todo:  should be written in productGroupService class
+
 //    @Transactional
 //    public List<GroupProperty> findProductGroupParentByGroupProperty(String name) {
 //        Query query = entityManager.createQuery("select g from groupProEntity g where g.productGroup.parent.name=:name", GroupProperty.class);
 //        query.setParameter("name", name);
 //        return query.getResultList();
 //    }
-
-
 }
+
+
