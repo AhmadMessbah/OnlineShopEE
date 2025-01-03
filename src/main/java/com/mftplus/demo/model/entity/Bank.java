@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@ToString
 
 @Entity(name = "bankEntity")
 @Table(name = "bank_tbl")
@@ -26,20 +28,20 @@ public class Bank {
     @JsonProperty("Bank ID")
     private Long id;
 
-    @Column(name = "bank_name", length = 50, nullable = false)
-    @NotNull(message = "Bank name is required!")
-    @Pattern(regexp = "^[A-Za-z\\s]{3,50}$", message = "Invalid bank name!")
+    @Column(name = "bank_name", length = 50 )//nullable = false
+//    @NotNull(message = "Bank name is required!")
+//    @Pattern(regexp = "^[A-Za-z\\s]{3,50}$", message = "Invalid bank name!")
     @JsonProperty("Bank Name")
     private String name;
 
-    @Column(name = "account_number", length = 20, unique = true, nullable = false)
-    @NotNull(message = "Account number is required!")
-    @Pattern(regexp = "^[0-9]{10,20}$", message = "Invalid account number!")
+    @Column(name = "account_number", length = 20, unique = true)//nullable = false
+//    @NotNull(message = "Account number is required!")
+//    @Pattern(regexp = "^[0-9]{10,20}$", message = "Invalid account number!")
     @JsonProperty("Account Number")
     private String accountNumber;
 
-    @Column(name = "branch_code", length = 10, nullable = false)
-    @NotNull(message = "Branch code is required!")
+    @Column(name = "branch_code", length = 10)//nullable = false
+//    @NotNull(message = "Branch code is required!")
     @JsonProperty("Branch Code")
     private Long branchCode;
 

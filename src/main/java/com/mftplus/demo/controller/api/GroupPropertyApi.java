@@ -46,13 +46,13 @@ public class GroupPropertyApi {
         return groupPropertyService.findProductGroupNameByGroupProperty(name);
     }
 
-    @GET
-    @Path("/pGroupParent/{pGroupParent}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @ResponseMaker(authority = "GET_GROUP_PROPERTIES_BY_P_GROUP_PARENT")
-    public Object getProductGroupParentByGroupProperty(@PathParam("pGroupParent") String name) {
-        return groupPropertyService.findProductGroupParentByGroupProperty(name);
-    }
+//    @GET
+//    @Path("/pGroupParent/{pGroupParent}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @ResponseMaker(authority = "GET_GROUP_PROPERTIES_BY_P_GROUP_PARENT")
+//    public Object getProductGroupParentByGroupProperty(@PathParam("pGroupParent") String name) {
+//        return groupPropertyService.findProductGroupParentByGroupProperty(name);
+//    }
 
 
     @POST
